@@ -1,7 +1,10 @@
 import React from "react";
+import { Navbar } from "../../components/Navbar/NavBar";
 
-const Home = () => {
-  return <div>App bar code goes here </div>;
+export const Home = () => {
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 };
-
-export default Home;
