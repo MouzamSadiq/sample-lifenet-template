@@ -1,4 +1,3 @@
-import { Padding } from "@mui/icons-material";
 import {
   Box,
   FormControl,
@@ -19,11 +18,21 @@ const ResearchForm = () => {
   return (
     <>
       <Box>
-        <Typography color="yellow" variant="h4" sx={{ fontWeight: "bold" }}>
+        <Typography
+          p={2}
+          color="#c9d502"
+          variant="h4"
+          sx={{ fontWeight: "bold" }}
+        >
           Research Projects
         </Typography>
         <Box sx={{ border: 1 }} m="1rem" height="500px">
-          <Typography color="yellow" variant="h6" sx={{ fontWeight: "bold" }}>
+          <Typography
+            pl={1}
+            color="#c9d502"
+            variant="h6"
+            sx={{ fontWeight: "bold" }}
+          >
             Pending Recovery Search
           </Typography>
           <Box display="flex" flexDirection="column">
@@ -218,14 +227,9 @@ const ResearchForm = () => {
                 </FormControl>
               </Box>
             </Box>
-            <Box display="flex" flexDirection="column">
-              <Box
-                justifyContent="center"
-                m="1rem"
-                height="120px"
-                sx={{ m: 3, border: 1 }}
-              >
-                <Typography color="yellow" variant="h6">
+            <Box display="flex" flexDirection="column" p={2}>
+              <Box justifyContent="center" p={4} sx={{ border: 1 }}>
+                <Typography pl={1} color="#c9d502" variant="h6">
                   Tissue Procurement Form Details
                 </Typography>
                 <Box display="flex" gap={15} justifyContent="center">
@@ -269,8 +273,8 @@ const ResearchForm = () => {
                   <Box
                     display="flex"
                     flexDirection="column"
-                    width="6%"
-                    sx={{ paddingBottom: 2, paddingRight: 1 }}
+                    width="10%"
+                    // sx={{ paddingBottom: 2, paddingRight: 1 }}
                   >
                     <Typography sx={{ fontWeight: "bold" }}>
                       Time of Death(24hr)
@@ -285,11 +289,7 @@ const ResearchForm = () => {
                 </Box>
               </Box>
             </Box>
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-            >
+            <Box display="flex" pt={1} justifyContent="space-between">
               <Box display="flex" sx={{ paddingLeft: 2, paddingBottom: 2 }}>
                 <FormControlLabel
                   control={<Checkbox defaultChecked />}
