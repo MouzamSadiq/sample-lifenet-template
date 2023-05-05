@@ -8,7 +8,6 @@ import { MobileNavLinks } from "./MobileNavLinks";
 import { Box } from "@mui/material";
 
 const NavbarContainer = styled.div`
-  width: 100%;
   height: 60px;
   box-shadow: 0 1px 3px rgba(15, 15, 15, 0.13);
   display: flex;
@@ -33,19 +32,30 @@ export function Navbar(props: NavbarProps) {
   console.log(isMobile);
 
   return (
-    <Box bgcolor="#488AC7">
-      <NavbarContainer>
-        <Box>
-          <Logo />
+    <Box bgcolor="#488AC7" display="flex" justifyContent="space-between">
+      {/* <NavbarContainer> */}
+      <Box>
+        <Logo />
+      </Box>
+      {!isMobile ? (
+        <Box mr="1rem">
+          <NavLinks />
         </Box>
-        <MiddleSection>
-          {!isMobile ? (
-            <NavLinks />
-          ) : (
-            <Box display="flex">{isMobile && <MobileNavLinks />}</Box>
-          )}
-        </MiddleSection>
-      </NavbarContainer>
+      ) : (
+        <Box>
+          <MobileNavLinks />
+        </Box>
+      )}
+      {/* <Box bgcolor="red"> */}
+      {/* <MiddleSection>
+        {!isMobile ? (
+          <NavLinks />
+        ) : (
+          <Box bgcolor="red">{isMobile && <MobileNavLinks />}</Box>
+        )}
+      </MiddleSection> */}
+      {/* </Box> */}
+      {/* </NavbarContainer> */}
     </Box>
   );
 }
