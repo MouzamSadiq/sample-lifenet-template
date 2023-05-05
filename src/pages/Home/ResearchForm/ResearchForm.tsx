@@ -1,8 +1,8 @@
+import { Padding } from "@mui/icons-material";
 import {
   Box,
   FormControl,
   FormControlLabel,
-  FormLabel,
   InputLabel,
   MenuItem,
   Radio,
@@ -10,6 +10,8 @@ import {
   Select,
   TextField,
   Typography,
+  Checkbox,
+  Button,
 } from "@mui/material";
 import React from "react";
 
@@ -17,65 +19,292 @@ const ResearchForm = () => {
   return (
     <>
       <Box>
-        <Typography color="green">Research Projects</Typography>
-        <Box sx={{ border: 1 }} m="1rem" height="250px">
-          <Typography color="green">Pending Recovery Search</Typography>
-          <Box display="flex" gap={15}>
-            <Box display="flex" flexDirection="column" width="20%">
-              PMI
-              <TextField
-                id="outlined-basic"
-                variant="outlined"
-                InputLabelProps={{ shrink: false }}
-                size="small"
-              />
-            </Box>
-            <Box display="flex" flexDirection="column" width="20%">
-              Age
-              <Box display="flex" gap={5} alignItems="baseline">
+        <Typography color="yellow" variant="h4" sx={{ fontWeight: "bold" }}>
+          Research Projects
+        </Typography>
+        <Box sx={{ border: 1 }} m="1rem" height="500px">
+          <Typography color="yellow" variant="h6" sx={{ fontWeight: "bold" }}>
+            Pending Recovery Search
+          </Typography>
+          <Box display="flex" flexDirection="column">
+            <Box display="flex" gap={15}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                width="20%"
+                sx={{ paddingLeft: 2 }}
+              >
+                <Typography sx={{ fontWeight: "bold" }}> PMI</Typography>
                 <TextField
                   id="outlined-basic"
                   variant="outlined"
                   InputLabelProps={{ shrink: false }}
                   size="small"
                 />
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Years</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    //   value={age}
-                    label="Years"
+              </Box>
+              <Box display="flex" flexDirection="column" width="20%">
+                <Typography sx={{ fontWeight: "bold" }}> Age </Typography>
+                <Box display="flex" gap={5} alignItems="baseline">
+                  <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    InputLabelProps={{ shrink: false }}
                     size="small"
-                    // sx={{ width: "25px" }}
+                  />
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Years</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Years"
+                      size="small"
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Box>
+              <Box display="flex" flexDirection="column" width="20%">
+                <Typography sx={{ fontWeight: "bold" }}> Sex</Typography>
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
+                    <FormControlLabel
+                      value="female"
+                      control={<Radio />}
+                      label="Female"
+                    />
+                    <FormControlLabel
+                      value="male"
+                      control={<Radio />}
+                      label="Male"
+                    />
+                  </RadioGroup>
                 </FormControl>
               </Box>
             </Box>
-            <Box display="flex" flexDirection="column" width="20%">
-              Sex
-              <FormControl>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                </RadioGroup>
-              </FormControl>
+            <Box display="flex" gap={15}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                width="20%"
+                sx={{ paddingLeft: 2 }}
+              >
+                <Typography sx={{ fontWeight: "bold" }}> Donor Type</Typography>
+                <Box display="flex" gap={5} alignItems="baseline">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      --select--
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Years"
+                      size="small"
+                    >
+                      <MenuItem value={10}>ABCD</MenuItem>
+                      <MenuItem value={20}>EFGH</MenuItem>
+                      <MenuItem value={30}>GGHGG</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Box>
+              <Box display="flex" flexDirection="column" width="20%">
+                <Typography sx={{ fontWeight: "bold" }}>
+                  Recovery Team
+                </Typography>
+                <Box display="flex" gap={5} alignItems="baseline">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      --select--
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      //   value={age}
+                      label="Years"
+                      size="small"
+                      // sx={{ width: "25px" }}
+                    >
+                      <MenuItem value={10}>ABCD</MenuItem>
+                      <MenuItem value={20}>EFGH</MenuItem>
+                      <MenuItem value={30}>GGHGG</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Box>
+              <Box display="flex" flexDirection="column">
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label={
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Active projects only
+                    </Typography>
+                  }
+                />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label={
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Research AOC screening
+                    </Typography>
+                  }
+                />
+              </Box>
+            </Box>
+            <Box display="flex" gap={15}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                width="20%"
+                sx={{ paddingLeft: 2 }}
+              >
+                <Typography sx={{ fontWeight: "bold" }}> Race</Typography>
+                <Box display="flex" gap={5} alignItems="baseline">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      --select--
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      //   value={age}
+                      label="Years"
+                      size="small"
+                      // sx={{ width: "25px" }}
+                    >
+                      <MenuItem value={10}>bbbbb</MenuItem>
+                      <MenuItem value={20}>ccccc</MenuItem>
+                      <MenuItem value={30}>ooooo</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Box>
+              <Box display="flex" flexDirection="column" width="20%">
+                <Typography sx={{ fontWeight: "bold" }}> BMI</Typography>
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  InputLabelProps={{ shrink: false }}
+                  size="small"
+                />
+              </Box>
+              <Box display="flex" flexDirection="column" width="20%">
+                <Typography sx={{ fontWeight: "bold" }}>
+                  Was the donor cooled?
+                </Typography>
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                  >
+                    <FormControlLabel
+                      value="yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="no"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="column">
+              <Box
+                justifyContent="center"
+                m="1rem"
+                height="120px"
+                sx={{ m: 3, border: 1 }}
+              >
+                <Typography color="yellow" variant="h6">
+                  Tissue Procurement Form Details
+                </Typography>
+                <Box display="flex" gap={15} justifyContent="center">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    width="20%"
+                    sx={{ paddingLeft: 2 }}
+                  >
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      LNH Donor ID
+                    </Typography>
+                    <TextField
+                      id="outlined-basic"
+                      variant="outlined"
+                      InputLabelProps={{ shrink: false }}
+                      size="small"
+                    />
+                  </Box>
+                  <Box display="flex" flexDirection="column" width="20%">
+                    <Typography sx={{ fontWeight: "bold" }}>UNOS ID</Typography>
+                    <TextField
+                      id="outlined-basic"
+                      variant="outlined"
+                      InputLabelProps={{ shrink: false }}
+                      size="small"
+                    />
+                  </Box>
+                  <Box display="flex" flexDirection="column" width="20%">
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Date of Death
+                    </Typography>
+                    <TextField
+                      id="outlined-basic"
+                      variant="outlined"
+                      InputLabelProps={{ shrink: false }}
+                      size="small"
+                      type="date"
+                    />
+                  </Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    width="6%"
+                    sx={{ paddingBottom: 2, paddingRight: 1 }}
+                  >
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Time of Death(24hr)
+                    </Typography>
+                    <TextField
+                      id="outlined-basic"
+                      variant="outlined"
+                      InputLabelProps={{ shrink: false }}
+                      size="small"
+                    />
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+            >
+              <Box display="flex" sx={{ paddingLeft: 2, paddingBottom: 2 }}>
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label={
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Log TPF as case
+                    </Typography>
+                  }
+                />
+              </Box>
+              <Box display="flex" sx={{ paddingRight: 2, paddingBottom: 2 }}>
+                <Button variant="contained">
+                  <Typography sx={{ fontWeight: "bold" }}>Save</Typography>
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Box>
