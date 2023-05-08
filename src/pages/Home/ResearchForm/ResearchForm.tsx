@@ -12,12 +12,40 @@ import {
   Checkbox,
   Button,
 } from "@mui/material";
+import { useFormik } from "formik";
 import React from "react";
+import { ResearchFormFields } from "./researchformtypes";
 
 const ResearchForm = () => {
+  const formik = useFormik<ResearchFormFields>({
+    initialValues: {
+      pmi: "",
+      age: "",
+      years: "",
+      male: false,
+      female: false,
+      donorType: "",
+      recoverType: "",
+      activeProjectsOnly: false,
+      reswerchAocOnly: false,
+      race: "",
+      bmi: "",
+      wasDonorCooledYes: false,
+      wasDonorCooledNo: false,
+      lnhDonorId: "",
+      unosId: "",
+      dateOfDeath: "",
+      timeOfDeath: "",
+      logTpfAsCaseStudy: false,
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
   return (
-    <>
-      <Box>
+    <Box>
+      <form onSubmit={formik.handleSubmit}>
         <Typography
           p={2}
           color="#c9d502"
@@ -26,7 +54,7 @@ const ResearchForm = () => {
         >
           Research Projects
         </Typography>
-        <Box sx={{ border: 1 }} m="1rem" height="500px">
+        <Box sx={{ border: 1 }} m="1rem" height="550px">
           <Typography
             pl={1}
             color="#c9d502"
@@ -49,6 +77,9 @@ const ResearchForm = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: false }}
                   size="small"
+                  onChange={(event) => {
+                    console.log(event.target.value);
+                  }}
                 />
               </Box>
               <Box display="flex" flexDirection="column" width="20%">
@@ -301,15 +332,15 @@ const ResearchForm = () => {
                 />
               </Box>
               <Box display="flex" sx={{ paddingRight: 2, paddingBottom: 2 }}>
-                <Button variant="contained">
+                <Button variant="contained" type="submit">
                   <Typography sx={{ fontWeight: "bold" }}>Save</Typography>
                 </Button>
               </Box>
             </Box>
           </Box>
         </Box>
-      </Box>
-    </>
+      </form>
+    </Box>
   );
 };
 

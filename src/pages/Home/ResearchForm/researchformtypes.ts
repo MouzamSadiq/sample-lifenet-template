@@ -1,0 +1,20 @@
+export type ResearchFormFields = {
+  pmi: string;
+  age: string;
+  years: string;
+  male: boolean;
+  female: boolean;
+  donorType: string;
+  recoverType: string;
+  activeProjectsOnly: boolean;
+  reswerchAocOnly: boolean;
+  race: string;
+  bmi: string;
+  wasDonorCooledYes: boolean;
+  wasDonorCooledNo: boolean;
+  lnhDonorId: string;
+  unosId: string;
+  dateOfDeath: string;
+  timeOfDeath: string;
+  logTpfAsCaseStudy: boolean;
+};
