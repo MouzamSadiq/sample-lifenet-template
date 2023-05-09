@@ -32,7 +32,12 @@ export function Navbar(props: NavbarProps) {
   console.log(isMobile);
 
   return (
-    <Box bgcolor="#488AC7" display="flex" justifyContent="space-between">
+    <Box
+      bgcolor="#488AC7"
+      display="flex"
+      justifyContent="space-between"
+      width="100% "
+    >
       {/* <NavbarContainer> */}
       <Box>
         <Logo />

@@ -19,7 +19,7 @@ import { ResearchFormFields } from "./researchformtypes";
 const ResearchForm = () => {
   const formik = useFormik<ResearchFormFields>({
     initialValues: {
-      pmi: "",
+      pmi: "mouzam",
       age: "",
       years: "",
       male: false,
@@ -42,7 +42,7 @@ const ResearchForm = () => {
       console.log(values);
     },
   });
-
+  // console.log("dhfhfjf", formik.values);
   return (
     <Box>
       <form onSubmit={formik.handleSubmit}>
@@ -54,7 +54,7 @@ const ResearchForm = () => {
         >
           Research Projects
         </Typography>
-        <Box sx={{ border: 1 }} m="1rem" height="550px">
+        <Box sx={{ border: 1 }} m="1rem" minHeight="550px">
           <Typography
             pl={1}
             color="#c9d502"
@@ -64,12 +64,13 @@ const ResearchForm = () => {
             Pending Recovery Search
           </Typography>
           <Box display="flex" flexDirection="column">
-            <Box display="flex" gap={15}>
+            <Box display="flex" justifyContent="space-between">
               <Box
                 display="flex"
                 flexDirection="column"
-                width="20%"
+                // width="20%"
                 sx={{ paddingLeft: 2 }}
+                bgcolor="red"
               >
                 <Typography sx={{ fontWeight: "bold" }}> PMI</Typography>
                 <TextField
@@ -77,12 +78,16 @@ const ResearchForm = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: false }}
                   size="small"
-                  onChange={(event) => {
-                    console.log(event.target.value);
-                  }}
+                  name="pmi"
+                  onChange={formik.handleChange}
                 />
               </Box>
-              <Box display="flex" flexDirection="column" width="20%">
+              <Box
+                display="flex"
+                flexDirection="column"
+                // width="20%"
+                bgcolor="yellow"
+              >
                 <Typography sx={{ fontWeight: "bold" }}> Age </Typography>
                 <Box display="flex" gap={5} alignItems="baseline">
                   <TextField
@@ -106,7 +111,12 @@ const ResearchForm = () => {
                   </FormControl>
                 </Box>
               </Box>
-              <Box display="flex" flexDirection="column" width="20%">
+              <Box
+                display="flex"
+                flexDirection="column"
+                // width="20%"
+                bgcolor="cyan"
+              >
                 <Typography sx={{ fontWeight: "bold" }}> Sex</Typography>
                 <FormControl>
                   <RadioGroup
