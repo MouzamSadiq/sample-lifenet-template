@@ -38,7 +38,7 @@ const ResearchForm = () => {
       timeOfDeath: "",
       logTpfAsCaseStudy: false,
     },
-    onSubmit: (values) => {
+    onSubmit: (values: any) => {
       console.log(values);
     },
   });
