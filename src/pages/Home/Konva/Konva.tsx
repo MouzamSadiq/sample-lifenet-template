@@ -1,26 +1,20 @@
-import { Box } from "@mui/material";
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Stage, Layer, Rect, Text, Image, Arrow } from "react-konva";
+import { URLImageProps } from "./types";
 
-const Konva = () => {
-  const stageReference = useRef();
-  const draggableRectReference = useRef();
-  const [rects, setRects] = useState([]);
+const KonvaGround = () => {
+  const stageReference = useRef(null);
+  const toolbarArrowReference = useRef(null);
+  const [rects, setRects] = useState([{}]);
 
-  const handleClick = () => {
-    // setColor(Konva.Util.getRandomColor());
-  };
-  // Image Rendering Function
-  const URLImage = ({ src, x, y }) => {
+  // ------------ Image Rendering Function---------------
+  const URLImage = ({ src }: URLImageProps) => {
+    // Calculate the position to center the image
     const stageWidth = window.innerWidth;
     const stageHeight = window.innerHeight;
-
-    // Calculate the position to center the image
     const width = stageWidth / 2.5;
     const height = stageHeight / 8;
-
-    const [image, setImage] = useState();
-
+    const [image, setImage] = useState<HTMLImageElement | undefined>();
     useEffect(() => {
       const img = new window.Image();
       img.src = src;
@@ -36,24 +30,20 @@ const Konva = () => {
     );
   };
 
+  // --------- Toolbar Arrow Drag function-----
   const handleDragEnds = () => {
-    const draggableRect = draggableRectReference.current;
-    console.log(draggableRect.getStage().getPointerPosition().x);
-    console.log(draggableRect.getStage().getPointerPosition().y);
-    const newRect = {
-      x: draggableRect.getStage().getPointerPosition().x,
-      y: draggableRect.getStage().getPointerPosition().y,
+    const draggableArrow = toolbarArrowReference.current;
+    // const stage = stageReference.current;
+    const newArrow = {
+      x: (draggableArrow as any).getStage().getPointerPosition().x,
+      y: (draggableArrow as any).getStage().getPointerPosition().y,
       width: 50,
       height: 50,
-      fill: "red",
+      fill: "black",
       draggable: true,
     };
-    setRects([...rects, newRect]);
-    const stage = stageReference.current;
-    const draggableCircle = stage.findOne(".toolbarArrow");
-    draggableCircle.position({ x: 50, y: 50 });
-    // draggableRect.position({ x: 50, y: 50 });
-    stageReference.current.draw();
+    setRects([...rects, newArrow]);
+    // (stage as any).draw();
   };
 
   const ToolBar = () => {
@@ -67,22 +57,21 @@ const Konva = () => {
           y={55}
         />
         <Rect
-          y={110}
-          x={15}
-          width={77.5}
-          height={355}
+          y={15}
+          x={510}
+          width={555}
+          height={77.5}
           fill="white"
           shadowBlur={5}
           shadowColor="black"
         />
 
         <Arrow
-          name="toolbarArrow"
+          id="toolbarArrow"
           points={[25, 255, 80, 255]}
           fill="black"
           stroke="black"
-          ref={draggableRectReference}
-          onClick={handleClick}
+          ref={toolbarArrowReference}
           draggable={true}
           onDragEnd={handleDragEnds}
         />
@@ -96,24 +85,17 @@ const Konva = () => {
       ref={stageReference}
     >
       <Layer>
-        <URLImage
-          src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryDiagram.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0"
-          x={0}
-          y={0}
-        />
+        <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryDiagram.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
       </Layer>
       <Layer>
-        {rects.map((eachRect) => (
+        {rects.map((eachRect: any) => (
           <Arrow
-            name="toolbarArrow"
+            id="draggedArrowId"
             points={[eachRect.x - 100, eachRect.y, eachRect.x, eachRect.y]}
             fill="black"
             stroke="black"
-            ref={draggableRectReference}
             draggable={eachRect.draggable}
             key={eachRect.x + eachRect.y}
-            // onClick={handleClick}
-            // onDragEnd={}
           />
         ))}
       </Layer>
@@ -124,4 +106,4 @@ const Konva = () => {
   );
 };
 
-export default Konva;
+export default KonvaGround;
