@@ -260,7 +260,7 @@ const KonvaGround: React.FC = () => {
 
   // --------- Toolbar Text Dragfunction-----
   const handleTextDragEnd = () => {
-    const draggableText = draggableTextRef.current;
+    const draggableText = toolbarDraggableTextRef.current;
 
     // const newArrow: ShapeProps = {
     //   x: draggableArrow.getStage().getPointerPosition().x,
