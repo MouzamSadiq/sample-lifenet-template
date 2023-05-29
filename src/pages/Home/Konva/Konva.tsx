@@ -1,33 +1,134 @@
-import { useRef, useState, useEffect } from "react";
-import { Stage, Layer, Rect, Text, Image, Arrow } from "react-konva";
-import { URLImageProps } from "./types";
+import React, { useRef, useEffect, useState } from "react";
+import {
+  Stage,
+  Layer,
+  Arrow,
+  Transformer,
+  Image,
+  Rect,
+  Text,
+} from "react-konva";
 
-const KonvaGround = () => {
-  const stageReference = useRef(null);
-  const toolbarArrowReference = useRef(null);
-  const [rects, setRects] = useState([{}]);
-  const [stageWidth, setStageWidth] = useState(window.innerWidth);
-  const [stageHeight, setStageHeight] = useState(window.innerHeight);
+interface ShapeProps {
+  x: number;
+  y: number;
+  fill: string;
+  draggable: boolean;
+  id: string;
+  points: number[];
+}
+
+const ArrowShape: React.FC<{
+  shapeProps: ShapeProps;
+  isSelected: boolean;
+  onSelect: () => void;
+  onChange: (newAttrs: ShapeProps) => void;
+}> = ({ shapeProps, isSelected, onSelect, onChange }) => {
+  const shapeRef = useRef<any>();
+  const trRef = useRef<any>();
 
   useEffect(() => {
-    const handleResize = () => {
-      setStageWidth(window.innerWidth);
-      setStageHeight(window.innerHeight);
-    };
+    if (isSelected) {
+      // Attach transformer manually when selected
+      trRef.current.nodes([shapeRef.current]);
+      trRef.current.getLayer().batchDraw();
+    }
+  }, [isSelected]);
 
-    window.addEventListener("resize", handleResize);
+  const cursorStyle = isSelected ? "move" : "pointer";
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  return (
+    <>
+      <Arrow
+        onClick={onSelect}
+        onTap={onSelect}
+        ref={shapeRef}
+        {...shapeProps}
+        draggable
+        onDragEnd={(e) => {
+          onChange({
+            ...shapeProps,
+            x: e.target.x(),
+            y: e.target.y(),
+          });
+        }}
+        onTransformEnd={(e) => {
+          const node = shapeRef.current;
+          const scaleX = node.scaleX();
+          const scaleY = node.scaleY();
+          node.scaleX(1);
+          node.scaleY(1);
+          onChange({
+            ...shapeProps,
+            x: node.x(),
+            y: node.y(),
+            points: node.points().map((point: number, i: number) => {
+              // Adjust the points based on the scale
+              if (i % 2 === 0) {
+                return point * scaleX;
+              } else {
+                return point * scaleY;
+              }
+            }),
+          });
+        }}
+        onMouseEnter={() => {
+          shapeRef.current.getStage().container().style.cursor = cursorStyle;
+        }}
+        onMouseLeave={() => {
+          shapeRef.current.getStage().container().style.cursor = "default";
+        }}
+      />
+      {isSelected && (
+        <Transformer
+          ref={trRef}
+          boundBoxFunc={(oldBox: any, newBox: any) => {
+            // Limit resize
+            if (newBox.width < 5 || newBox.height < 5) {
+              return oldBox;
+            }
+            return newBox;
+          }}
+        />
+      )}
+    </>
+  );
+};
+
+const KonvaGround: React.FC = () => {
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setStageWidth(window.innerWidth);
+  //     setStageHeight(window.innerHeight);
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+  const [stageWidth, setStageWidth] = useState(window.innerWidth);
+  const [stageHeight, setStageHeight] = useState(window.innerHeight);
+  const [arrows, setArrows] = useState<ShapeProps[]>([]);
+  const [selectedId, selectShape] = useState<string | null>(null);
+  const toolbarArrowReference = useRef<any>(null);
+
+  const checkDeselect = (e: any) => {
+    // Deselect when clicked on empty area
+    const clickedOnEmpty = e.target === e.target.getStage();
+    if (clickedOnEmpty) {
+      selectShape(null);
+    }
+  };
 
   // ------------ Image Rendering Function---------------
-  const URLImage = ({ src }: URLImageProps) => {
+  const URLImage: React.FC<{ src: string }> = ({ src }) => {
     // Calculate the position to center the image
     const width = (stageWidth - 355) / 2;
     const height = stageHeight / 4.5;
-    const [image, setImage] = useState<HTMLImageElement | undefined>();
+    const [image, setImage] = useState<HTMLImageElement>();
+
     useEffect(() => {
       const img = new window.Image();
       img.src = src;
@@ -37,33 +138,27 @@ const KonvaGround = () => {
     }, [src]);
 
     return (
-      <div>
-        <Image image={image} x={width} y={height} width={355} height={455} />
-      </div>
+      <>
+        <Image
+          onClick={() => {
+            selectShape(null);
+          }}
+          image={image}
+          x={width}
+          y={height}
+          width={355}
+          height={455}
+        />
+      </>
     );
   };
 
-  // --------- Toolbar Arrow Drag function-----
-  const handleDragEnds = () => {
-    const draggableArrow = toolbarArrowReference.current;
-    // const stage = stageReference.current;
-    const newArrow = {
-      x: (draggableArrow as any).getStage().getPointerPosition().x,
-      y: (draggableArrow as any).getStage().getPointerPosition().y,
-      width: 50,
-      height: 50,
-      fill: "black",
-      draggable: true,
-    };
-    setRects([...rects, newArrow]);
-    // (stage as any).draw();
-  };
-
-  const ToolBar = () => {
+  const ToolBar: React.FC = () => {
     const rectWidth = 555;
     const rectHeight = 77.5;
     const rectX = (stageWidth - rectWidth) / 2;
     const rectY = 5;
+
     const handleMouseEnter = () => {
       document.body.style.cursor = "pointer";
     };
@@ -71,6 +166,7 @@ const KonvaGround = () => {
     const handleMouseLeave = () => {
       document.body.style.cursor = "default";
     };
+
     return (
       <>
         <Text
@@ -98,7 +194,6 @@ const KonvaGround = () => {
             rectX + rectWidth / 3,
             rectY + rectHeight / 2,
           ]}
-          // points={[25, 255, 80, 255]}
           fill="black"
           stroke="black"
           ref={toolbarArrowReference}
@@ -111,33 +206,60 @@ const KonvaGround = () => {
     );
   };
 
+  // --------- Toolbar Arrow Drag function-----
+  const handleDragEnds = () => {
+    const draggableArrow = toolbarArrowReference.current;
+
+    const newArrow: ShapeProps = {
+      x: draggableArrow.getStage().getPointerPosition().x,
+      y: draggableArrow.getStage().getPointerPosition().y,
+      fill: "black",
+      draggable: true,
+      id: Math.random().toString(16).slice(2),
+      points: [0, 0, 0, 0],
+    };
+
+    // Reset draggableArrow position
+    draggableArrow.setAttrs({
+      x: 0,
+      y: 0,
+    });
+
+    setArrows([...arrows, newArrow]);
+    selectShape(newArrow.id);
+  };
+
   return (
-    <div>
-      <Stage
-        width={window.innerWidth}
-        height={window.innerHeight}
-        ref={stageReference}
-      >
-        <Layer>
-          <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryDiagram.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
-        </Layer>
-        <Layer>
-          {rects.map((eachRect: any) => (
-            <Arrow
-              id="draggedArrowId"
-              points={[eachRect.x - 100, eachRect.y, eachRect.x, eachRect.y]}
-              fill="black"
-              stroke="black"
-              draggable={eachRect.draggable}
-              key={eachRect.x + eachRect.y}
-            />
-          ))}
-        </Layer>
-        <Layer>
-          <ToolBar />
-        </Layer>
-      </Stage>
-    </div>
+    <Stage
+      width={window.innerWidth}
+      height={window.innerHeight}
+      onMouseDown={checkDeselect}
+      onTouchStart={checkDeselect}
+    >
+      <Layer>
+        <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryDiagram.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
+      </Layer>
+      <Layer>
+        <ToolBar />
+      </Layer>
+      <Layer>
+        {arrows.map((arrow, i) => (
+          <ArrowShape
+            key={i}
+            shapeProps={arrow}
+            isSelected={arrow.id === selectedId}
+            onSelect={() => {
+              selectShape(arrow.id);
+            }}
+            onChange={(newAttrs) => {
+              const updatedArrows = arrows.slice();
+              updatedArrows[i] = newAttrs;
+              setArrows(updatedArrows);
+            }}
+          />
+        ))}
+      </Layer>
+    </Stage>
   );
 };
 
