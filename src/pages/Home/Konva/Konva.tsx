@@ -18,6 +18,22 @@ interface ShapeProps {
   points: number[];
 }
 
+interface TextProps {
+  x: number;
+  y: number;
+  fontSize: string;
+  fontFamily: string;
+  ref: string;
+  name: string;
+  text: string;
+  fill: string;
+  width: number;
+  height: number;
+  rotation: number;
+  textWidth: number;
+  textHeight: number;
+}
+
 const ArrowShape: React.FC<{
   shapeProps: ShapeProps;
   isSelected: boolean;
@@ -111,8 +127,11 @@ const KonvaGround: React.FC = () => {
   const [stageWidth, setStageWidth] = useState(window.innerWidth);
   const [stageHeight, setStageHeight] = useState(window.innerHeight);
   const [arrows, setArrows] = useState<ShapeProps[]>([]);
+  const [texts, setTexts] = useState<TextProps[]>([]);
+
   const [selectedId, selectShape] = useState<string | null>(null);
   const toolbarArrowReference = useRef<any>(null);
+  const toolbarDraggableTextRef = useRef<any>(null);
 
   const checkDeselect = (e: any) => {
     // Deselect when clicked on empty area
@@ -202,6 +221,16 @@ const KonvaGround: React.FC = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />
+        <Text
+          fontSize={40}
+          text="T"
+          fontFamily="Belgrano"
+          x={955}
+          y={5 + 77.5 / 4}
+          draggable
+          ref={toolbarDraggableTextRef}
+          onDragEnd={handleTextDragEnd}
+        />
       </>
     );
   };
@@ -227,6 +256,29 @@ const KonvaGround: React.FC = () => {
 
     setArrows([...arrows, newArrow]);
     selectShape(newArrow.id);
+  };
+
+  // --------- Toolbar Text Dragfunction-----
+  const handleTextDragEnd = () => {
+    const draggableText = draggableTextRef.current;
+
+    // const newArrow: ShapeProps = {
+    //   x: draggableArrow.getStage().getPointerPosition().x,
+    //   y: draggableArrow.getStage().getPointerPosition().y,
+    //   fill: "black",
+    //   draggable: true,
+    //   id: Math.random().toString(16).slice(2),
+    //   points: [0, 0, 0, 0],
+    // };
+
+    // Reset draggableText position
+    draggableText.setAttrs({
+      x: 955,
+      y: (5 + 77.5) / 4,
+    });
+
+    // setArrows([...arrows, newArrow]);
+    // selectShape(newArrow.id);
   };
 
   return (
