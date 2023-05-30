@@ -1,6 +1,8 @@
 import "./App.css";
 import { Home } from "./pages/Home/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ResearchForm from "./pages/Home/ResearchForm/ResearchForm";
+import { Recoveries } from "./pages/Recoveries";
 
 function App() {
   return (
@@ -8,6 +10,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<Home />} />
+          <Route path="/researchform" element={<ResearchForm />} />
+          <Route path="/recoveries" element={<Recoveries />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,4 +1,4 @@
-import lnh from "../../assets/lnh.png";
+import lnh from "../../assets/logo.png";
 
 interface LogoProps {
   // Define the props for Logo component

@@ -64,13 +64,13 @@ const ResearchForm = () => {
             Pending Recovery Search
           </Typography>
           <Box display="flex" flexDirection="column">
-            <Box display="flex" justifyContent="space-between">
+            <Box display="flex" gap={25}>
               <Box
                 display="flex"
                 flexDirection="column"
                 // width="20%"
                 sx={{ paddingLeft: 2 }}
-                bgcolor="red"
+                // bgcolor="red"
               >
                 <Typography sx={{ fontWeight: "bold" }}> PMI</Typography>
                 <TextField
@@ -80,13 +80,14 @@ const ResearchForm = () => {
                   size="small"
                   name="pmi"
                   onChange={formik.handleChange}
+                  style={{ width: "250px" }}
                 />
               </Box>
               <Box
                 display="flex"
                 flexDirection="column"
                 // width="20%"
-                bgcolor="yellow"
+                // bgcolor="yellow"
               >
                 <Typography sx={{ fontWeight: "bold" }}> Age </Typography>
                 <Box display="flex" gap={5} alignItems="baseline">
@@ -115,7 +116,7 @@ const ResearchForm = () => {
                 display="flex"
                 flexDirection="column"
                 // width="20%"
-                bgcolor="cyan"
+                // bgcolor="cyan"
               >
                 <Typography sx={{ fontWeight: "bold" }}> Sex</Typography>
                 <FormControl>

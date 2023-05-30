@@ -33,7 +33,7 @@ export function Navbar(props: NavbarProps) {
 
   return (
     <Box
-      bgcolor="#488AC7"
+      // bgcolor="#488AC7"
       display="flex"
       justifyContent="space-between"
       width="100% "
