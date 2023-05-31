@@ -225,7 +225,8 @@ const KonvaGround: React.FC = () => {
           stroke="black"
           ref={toolbarArrowReference}
           draggable={true}
-          onDragEnd={handleDragEnds}
+          // onDragStart={handleArrowDragEnds}
+          onDragEnd={handleArrowDragEnds}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />
@@ -280,7 +281,7 @@ const KonvaGround: React.FC = () => {
   };
 
   // --------- Toolbar Arrow Drag function-----
-  const handleDragEnds = () => {
+  const handleArrowDragEnds = () => {
     const draggableArrow = toolbarArrowReference.current;
     console.log(
       draggableArrow.getStage().getPointerPosition().x,
@@ -292,7 +293,7 @@ const KonvaGround: React.FC = () => {
       fill: "black",
       draggable: true,
       id: Math.random().toString(16).slice(2),
-      points: [-90, 0, 50, 0],
+      points: [-100, 0, 0, 0],
     };
 
     // Reset draggableArrow position
