@@ -190,17 +190,10 @@ const KonvaGround: React.FC = () => {
 
     return (
       <>
-        <Text
-          fontSize={30}
-          text="Toolbar"
-          fontFamily="Belgrano"
-          x={rectWidth}
-          y={rectHeight / 2}
-        />
         <Rect
           x={rectX}
           y={rectY}
-          width={555}
+          width={700}
           height={rectHeight}
           fill="white"
           shadowBlur={5}
@@ -210,16 +203,16 @@ const KonvaGround: React.FC = () => {
           text="Shape Arrow"
           fontSize={15}
           x={rectX + rectWidth / 6}
-          y={10}
+          y={15}
         />
 
         <Arrow
           id="toolbarArrow"
           points={[
             rectX + rectWidth / 6,
-            rectY + rectHeight / 2,
+            rectY + rectHeight / 1.5,
             rectX + rectWidth / 3,
-            rectY + rectHeight / 2,
+            rectY + rectHeight / 1.5,
           ]}
           fill="black"
           stroke="black"
@@ -230,25 +223,30 @@ const KonvaGround: React.FC = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />
-        <Text text="Text editor" fontSize={15} x={935} y={10} />
+        <Text
+          text="Text editor"
+          fontSize={15}
+          x={rectX + rectWidth / 2.2}
+          y={15}
+        />
         <Text
           fontSize={40}
           text="T"
           fontFamily="Belgrano"
           x={rectX + rectWidth / 2}
-          y={rectY + rectHeight / 3}
+          y={rectY + rectHeight / 2.5}
           draggable
           ref={toolbarDraggableTextRef}
           onDragEnd={handleTextDragEnd}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />
-        <Text text="Shade" fontSize={15} x={1025} y={10} />
+        <Text text="Shade" fontSize={15} x={rectX + rectWidth / 1.4} y={15} />
         <Rect
-          x={rectX + rectWidth - 175}
-          y={rectY + rectHeight / 3}
+          x={rectX + rectWidth / 1.4}
+          y={rectY + rectHeight / 2.5}
           width={40}
-          height={40}
+          height={30}
           fill="transparent"
           stroke="black"
           strokeWidth={1}
@@ -257,16 +255,21 @@ const KonvaGround: React.FC = () => {
           onMouseLeave={handleMouseLeave}
           // draggable
         />
-        <Text text="Custom shape" fontSize={15} x={1125} y={10} />
+        <Text
+          text="Custom shape"
+          fontSize={15}
+          x={rectX + rectWidth / 1.1}
+          y={15}
+        />
         <Arrow
           id="toolbarArrow"
           points={[
-            rectX + rectWidth - 105,
-            rectY + rectHeight - 30,
-            rectX + rectWidth - 40,
-            rectY + rectHeight - 30,
-            rectX + rectWidth - 20,
-            rectY + rectHeight / 3,
+            rectX + rectWidth - 30,
+            rectY + rectHeight - 20,
+            rectX + rectWidth + 30,
+            rectY + rectHeight - 20,
+            rectX + rectWidth + 50,
+            rectY + rectHeight / 2,
           ]}
           fill="black"
           stroke="black"
