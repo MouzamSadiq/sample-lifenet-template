@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
-import lnh from "../../assets/logo.png";
+// import lnh from "../../assets/logo.png";
 import { NavItem } from "../../pages/Home/Home";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -73,11 +73,11 @@ const Menubar = ({ links }: MenuLinkProps) => {
             <Box display="flex" flexDirection="row" gap={0.5}>
               {" "}
               <Box bgcolor="white" sx={{ display: { xs: "flex", md: "flex" } }}>
-                <img
+                {/* <img
                   src={lnh}
                   alt="logo"
                   style={{ height: "50px", width: "50px" }}
-                />
+                /> */}
               </Box>{" "}
               <Box justifyContent="center">
                 <Typography style={{ color: "white", fontSize: "14px" }}>
