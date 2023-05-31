@@ -198,6 +198,7 @@ const KonvaGround: React.FC = () => {
           fill="white"
           shadowBlur={5}
           shadowColor="black"
+          cornerRadius={8}
         />
         <Text
           text="Shape Arrow"
@@ -249,6 +250,7 @@ const KonvaGround: React.FC = () => {
           height={30}
           fill="transparent"
           stroke="black"
+          opacity={0.5}
           strokeWidth={1}
           shadowBlur={5}
           onMouseEnter={handleMouseEnter}
