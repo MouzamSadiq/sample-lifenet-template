@@ -68,6 +68,7 @@ const ArrowShape: React.FC<{
             y: e.target.y(),
           });
         }}
+        stroke="black"
         onTransformEnd={(e) => {
           const node = shapeRef.current;
           const scaleX = node.scaleX();
@@ -185,6 +186,7 @@ const KonvaGround: React.FC = () => {
     const handleMouseLeave = () => {
       document.body.style.cursor = "default";
     };
+    console.log("ReactX", rectX, "ReactY", rectY);
 
     return (
       <>
@@ -192,7 +194,7 @@ const KonvaGround: React.FC = () => {
           fontSize={30}
           text="Toolbar"
           fontFamily="Belgrano"
-          x={rectWidth / 2}
+          x={rectWidth}
           y={rectHeight / 2}
         />
         <Rect
@@ -203,6 +205,12 @@ const KonvaGround: React.FC = () => {
           fill="white"
           shadowBlur={5}
           shadowColor="black"
+        />
+        <Text
+          text="Shape Arrow"
+          fontSize={15}
+          x={rectX + rectWidth / 6}
+          y={10}
         />
 
         <Arrow
@@ -221,15 +229,51 @@ const KonvaGround: React.FC = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />
+        <Text text="Text editor" fontSize={15} x={935} y={10} />
         <Text
           fontSize={40}
           text="T"
           fontFamily="Belgrano"
-          x={955}
-          y={5 + 77.5 / 4}
+          x={rectX + rectWidth / 2}
+          y={rectY + rectHeight / 3}
           draggable
           ref={toolbarDraggableTextRef}
           onDragEnd={handleTextDragEnd}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        />
+        <Text text="Shade" fontSize={15} x={1025} y={10} />
+        <Rect
+          x={rectX + rectWidth - 175}
+          y={rectY + rectHeight / 3}
+          width={40}
+          height={40}
+          fill="transparent"
+          stroke="black"
+          strokeWidth={1}
+          shadowBlur={5}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          // draggable
+        />
+        <Text text="Custom shape" fontSize={15} x={1125} y={10} />
+        <Arrow
+          id="toolbarArrow"
+          points={[
+            rectX + rectWidth - 105,
+            rectY + rectHeight - 30,
+            rectX + rectWidth - 40,
+            rectY + rectHeight - 30,
+            rectX + rectWidth - 20,
+            rectY + rectHeight / 3,
+          ]}
+          fill="black"
+          stroke="black"
+          ref={toolbarArrowReference}
+          // draggable={true}
+          // onDragEnd={handleDragEnds}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         />
       </>
     );
@@ -238,14 +282,17 @@ const KonvaGround: React.FC = () => {
   // --------- Toolbar Arrow Drag function-----
   const handleDragEnds = () => {
     const draggableArrow = toolbarArrowReference.current;
-
+    console.log(
+      draggableArrow.getStage().getPointerPosition().x,
+      draggableArrow.getStage().getPointerPosition().y
+    );
     const newArrow: ShapeProps = {
       x: draggableArrow.getStage().getPointerPosition().x,
       y: draggableArrow.getStage().getPointerPosition().y,
       fill: "black",
       draggable: true,
       id: Math.random().toString(16).slice(2),
-      points: [0, 0, 0, 0],
+      points: [-90, 0, 50, 0],
     };
 
     // Reset draggableArrow position
@@ -274,7 +321,7 @@ const KonvaGround: React.FC = () => {
     // Reset draggableText position
     draggableText.setAttrs({
       x: 955,
-      y: (5 + 77.5) / 4,
+      y: 35,
     });
 
     // setArrows([...arrows, newArrow]);
@@ -289,7 +336,7 @@ const KonvaGround: React.FC = () => {
       onTouchStart={checkDeselect}
     >
       <Layer>
-        <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryDiagram.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
+        <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryImage.gif&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
       </Layer>
       <Layer>
         <ToolBar />
