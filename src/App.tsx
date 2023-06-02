@@ -1,8 +1,8 @@
 import "./App.css";
 import { Home } from "./pages/Home/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ResearchForm from "./pages/Home/ResearchForm/ResearchForm";
-import { Recoveries } from "./pages/Recoveries";
+import ResearchForm from "./pages/ResearchForm/ResearchForm";
+import { Recoveries } from "./pages/Recoveries/Recoveries";
 
 function App() {
   return (

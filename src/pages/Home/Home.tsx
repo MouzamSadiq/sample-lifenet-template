@@ -1,8 +1,6 @@
 import React from "react";
-import { Navbar } from "../../components/Navbar/NavBar";
-import ResearchForm from "./ResearchForm/ResearchForm";
-import Menubar from "../../components/Menubar/Menubar";
 import { Box, Typography } from "@mui/material";
+import { Menubar } from "../../components/Menubar/Menubar";
 
 export type NavItem = {
   title: string;

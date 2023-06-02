@@ -15,6 +15,8 @@ import {
 import { useFormik } from "formik";
 import React from "react";
 import { ResearchFormFields } from "./researchformtypes";
+import { Menubar } from "../../components/Menubar/Menubar";
+import { pages } from "../Home/Home";
 
 const ResearchForm = () => {
   const formik = useFormik<ResearchFormFields>({
@@ -45,6 +47,7 @@ const ResearchForm = () => {
   // console.log("dhfhfjf", formik.values);
   return (
     <Box>
+      <Menubar links={pages} />
       <form onSubmit={formik.handleSubmit}>
         <Typography
           p={2}

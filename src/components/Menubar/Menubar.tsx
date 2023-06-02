@@ -4,27 +4,25 @@ import {
   Container,
   Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemText,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import React, { useState } from "react";
-// import lnh from "../../assets/logo.png";
+import lnh from "../../assets/logo.png";
 import { NavItem } from "../../pages/Home/Home";
 import MenuIcon from "@mui/icons-material/Menu";
+import { theme } from "../../Theme/theme";
 
 export type MenuLinkProps = {
   links: NavItem[];
 };
 
-const Menubar = ({ links }: MenuLinkProps) => {
+export const Menubar = ({ links }: MenuLinkProps) => {
   const appBarStyle = {
     backgroundColor: "#003768",
   };
-  // const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
   const renderMenuOptionsFullSize = () => {
     return links.map((page: NavItem) => {
@@ -33,14 +31,14 @@ const Menubar = ({ links }: MenuLinkProps) => {
           key={page.title}
           to={page.path}
           style={{
-            // color: page.path === pathname ? "red" : "white",
-            // padding: "26px 0 10px 0",
-            // borderBottom:
-            //   page.path === pathname
-            //     ? `9px solid green`
-            //     : "9px solid rgba(0,0,0,0)",
-            // marginRight: "2rem",
-            color: "white",
+            color: page.path === pathname ? "#a2ad00" : "white",
+            padding: "16px 0 5px 0",
+            borderBottom:
+              page.path === pathname
+                ? `3px solid skyblue`
+                : "3px solid rgba(0,0,0,0)",
+            marginRight: "2rem",
+            fontFamily: "Poppins",
             textDecoration: "none",
           }}
         >
@@ -48,7 +46,36 @@ const Menubar = ({ links }: MenuLinkProps) => {
             width="115px"
             height="40px"
             // bgcolor={page.path === pathname ? "yellow" : "#003768"}
+            justifyContent="center"
+            display="flex"
           >
+            <Typography
+              style={{
+                fontWeight: "500",
+                // color: theme.colors.appbarText,
+              }}
+            >
+              {page.title}
+            </Typography>
+          </Box>
+        </NavLink>
+      );
+    });
+  };
+  const renderMenuOptionsDrawer = () => {
+    return links.map((page: NavItem) => {
+      return (
+        <NavLink
+          key={page.title}
+          to={page.path}
+          style={{
+            color: page.path === pathname ? "#a2ad00" : "#003768",
+            fontSize: "25px",
+            fontFamily: "Poppins",
+            textDecoration: "none",
+          }}
+        >
+          <Box>
             <Typography
               style={{
                 fontWeight: "500",
@@ -73,25 +100,23 @@ const Menubar = ({ links }: MenuLinkProps) => {
             <Box display="flex" flexDirection="row" gap={0.5}>
               {" "}
               <Box bgcolor="white" sx={{ display: { xs: "flex", md: "flex" } }}>
-                {/* <img
-                  src={lnh}
-                  alt="logo"
-                  style={{ height: "50px", width: "50px" }}
-                /> */}
+                <img src={lnh} alt="logo" style={{ width: "60px" }} />
               </Box>{" "}
-              <Box justifyContent="center">
-                <Typography style={{ color: "white", fontSize: "14px" }}>
-                  Non-Clinical Recovery Management System
-                </Typography>
-                <Typography
-                  style={{
-                    color: "#a2ad00",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Welcome Mr\Mousam_ps
-                </Typography>
+              <Box sx={theme.center}>
+                <Box>
+                  <Typography style={{ color: "white", fontSize: "16px" }}>
+                    Non-Clinical Recovery Management System
+                  </Typography>
+                  <Typography
+                    style={{
+                      color: "#a2ad00",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Welcome Mr\Mousam_ps
+                  </Typography>
+                </Box>
               </Box>{" "}
             </Box>
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
@@ -113,23 +138,13 @@ const Menubar = ({ links }: MenuLinkProps) => {
               open={isDrawerOpen}
               onClose={() => setIsDrawerOpen(false)}
             >
-              <List sx={{ width: 250 }}>
-                <ListItem>
-                  <ListItemText primary="Home" />
-                </ListItem>
-
-                <ListItem>
-                  <ListItemText primary="About" />
-                </ListItem>
-
-                <ListItem>
-                  <ListItemText primary="Contact" />
-                </ListItem>
-
-                <ListItem>
-                  <ListItemText primary="Services" />
-                </ListItem>
-              </List>
+              <Box
+                sx={{ display: "flex", flexDirection: "column", width: 250 }}
+                padding={2}
+                gap={2}
+              >
+                {renderMenuOptionsDrawer()}
+              </Box>
             </Drawer>
           </Box>
         </Toolbar>
@@ -137,5 +152,3 @@ const Menubar = ({ links }: MenuLinkProps) => {
     </AppBar>
   );
 };
-
-export default Menubar;

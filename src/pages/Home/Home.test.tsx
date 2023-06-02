@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Home, NavItem } from "./Home/Home";
+import { Home, NavItem } from "./Home";
 import { BrowserRouter as Router } from "react-router-dom";
 
 describe("Home", () => {

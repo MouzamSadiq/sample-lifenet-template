@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import Menubar from "../components/Menubar/Menubar";
-import { pages } from "./Home/Home";
+import { pages } from "../Home/Home";
+import { Menubar } from "../../components/Menubar/Menubar";
 
 export const Recoveries = () => {
   return (
