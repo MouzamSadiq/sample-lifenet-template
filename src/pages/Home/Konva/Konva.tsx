@@ -8,6 +8,7 @@ import {
   Rect,
   Text,
 } from "react-konva";
+import { Html } from "react-konva-utils";
 
 interface ShapeProps {
   x: number;
@@ -24,7 +25,7 @@ interface TextProps {
   fontSize: number;
   fontFamily: string;
   name: string;
-  text: string;
+  // text: string;
   fill: string;
   width: number;
   height: number;
@@ -117,9 +118,21 @@ const TextShape: React.FC<{
   isSelected: boolean;
   onSelect: () => void;
   onChange: (newAttrs: any) => void;
-}> = ({ shapeProps, isSelected, onSelect, onChange }) => {
+  onTextChange: (value: string) => void;
+  onTextClick: () => void;
+  customText: string;
+}> = ({
+  shapeProps,
+  isSelected,
+  onSelect,
+  onChange,
+  onTextChange,
+  onTextClick,
+  customText,
+}) => {
   const shapeRef = useRef<any>();
   const trRef = useRef<any>();
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (isSelected) {
@@ -131,41 +144,102 @@ const TextShape: React.FC<{
 
   const cursorStyle = isSelected ? "move" : "pointer";
 
+  function toggleEdit() {
+    setIsEditing(!isEditing);
+    onTextClick();
+    console.log("Toogle Edit >>>>>>");
+  }
+
+  function handleTextChange(e) {
+    onTextChange(e.currentTarget.value);
+  }
+  function handleEscapeKeys(e) {
+    if ((e.keyCode === 13 && !e.shiftKey) || e.keyCode === 27) {
+      toggleEdit();
+    }
+  }
+
+  function getStyle(width: number, height: number) {
+    const isFirefox = navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+    const baseStyle = {
+      width: `${width}px`,
+      height: `${height}px`,
+      border: "none",
+      padding: "0px",
+      margin: "0px",
+      background: "none",
+      outline: "none",
+      // resize: "none",
+      colour: "black",
+      fontSize: "24px",
+      fontFamily: "sans-serif",
+    };
+    if (isFirefox) {
+      return baseStyle;
+    }
+    return {
+      ...baseStyle,
+      margintop: "-4px",
+    };
+  }
+  const style = getStyle(520, 140);
+
   return (
     <>
-      <Text
-        // stroke="black"
-        onClick={onSelect}
-        ref={shapeRef}
-        draggable
-        {...shapeProps}
-        onDragEnd={(e) => {
-          onChange({
-            ...shapeProps,
-            x: e.target.x(),
-            y: e.target.y(),
-          });
-        }}
-        onTransformEnd={(e) => {
-          const node = shapeRef.current;
-          const scaleX = node.scaleX();
-          const scaleY = node.scaleY();
-          node.scaleX(1);
-          node.scaleY(1);
-          onChange({
-            ...shapeProps,
-            x: node.x(),
-            y: node.y(),
-            fontSize: shapeProps.fontSize * Math.max(scaleX, scaleY), // Adjust the font size based on the scale
-          });
-        }}
-        onMouseEnter={() => {
-          shapeRef.current.getStage().container().style.cursor = cursorStyle;
-        }}
-        onMouseLeave={() => {
-          shapeRef.current.getStage().container().style.cursor = "default";
-        }}
-      />
+      {!isEditing ? (
+        <Text
+          text={customText}
+          onDblClick={toggleEdit}
+          onDblTap={toggleEdit}
+          // stroke="black"
+          onChange={onTextChange}
+          onClick={onSelect}
+          ref={shapeRef}
+          draggable
+          {...shapeProps}
+          onDragEnd={(e) => {
+            onChange({
+              ...shapeProps,
+              x: e.target.x(),
+              y: e.target.y(),
+            });
+          }}
+          onTransformEnd={(e) => {
+            const node = shapeRef.current;
+            const scaleX = node.scaleX();
+            const scaleY = node.scaleY();
+            node.scaleX(1);
+            node.scaleY(1);
+            onChange({
+              ...shapeProps,
+              x: node.x(),
+              y: node.y(),
+              fontSize: shapeProps.fontSize * Math.max(scaleX, scaleY), // Adjust the font size based on the scale
+            });
+          }}
+          onMouseEnter={() => {
+            shapeRef.current.getStage().container().style.cursor = cursorStyle;
+          }}
+          onMouseLeave={() => {
+            shapeRef.current.getStage().container().style.cursor = "default";
+          }}
+        />
+      ) : (
+        <Html
+          groupProps={{
+            x: shapeProps.x,
+            y: shapeProps.y,
+          }}
+          divProps={{ style: { opacity: 1 } }}
+        >
+          <textarea
+            value={customText}
+            onChange={handleTextChange}
+            onKeyDown={handleEscapeKeys}
+            style={style}
+          />
+        </Html>
+      )}
       {isSelected && (
         <Transformer
           ref={trRef}
@@ -202,6 +276,9 @@ const KonvaGround: React.FC = () => {
 
   const [texts, setTexts] = useState<TextProps[]>([]);
   const [selectedTextId, selectTextShape] = useState<string | null>(null);
+  const [customText, setcustomText] = useState(
+    "Click to resize. Double click tooo edit."
+  );
 
   const toolbarArrowReference = useRef<any>(null);
   const toolbarDraggableTextRef = useRef<any>(null);
@@ -394,7 +471,7 @@ const KonvaGround: React.FC = () => {
       fontSize: 20,
       fill: "black",
       id: Math.random().toString(16).slice(2),
-      text: "15 cm",
+      // text: customText,
       // width: 150,
       // height: 250,
     };
@@ -426,7 +503,7 @@ const KonvaGround: React.FC = () => {
       <Layer>
         {arrows.map((arrow, i) => (
           <ArrowShape
-            key={i}
+            key={arrow.id}
             shapeProps={arrow}
             isSelected={arrow.id === selectedId}
             onSelect={() => {
@@ -442,7 +519,7 @@ const KonvaGround: React.FC = () => {
         {texts.map((textProps, i) => (
           <>
             <TextShape
-              key={i}
+              key={textProps.id}
               shapeProps={textProps}
               isSelected={textProps.id === selectedTextId}
               onSelect={() => {
@@ -453,6 +530,11 @@ const KonvaGround: React.FC = () => {
                 updatedShape[i] = newAttrs;
                 setTexts(updatedShape);
               }}
+              onTextChange={(value: string) => setcustomText(value)}
+              onTextClick={() => {
+                selectTextShape(textProps.id);
+              }}
+              customText={customText}
             />
             {/* <Text
               key={i}
