@@ -223,7 +223,10 @@ const TextShape: React.FC<{
               y: e.target.y(),
             });
           }}
-          onTransformEnd={(e) => {
+          onTransform={(e) => {
+            const textNode = shapeRef.current;
+            const newWidth = textNode.width() * textNode.scaleX();
+            const newHeight = textNode.height() * textNode.scaleY();
             const node = shapeRef.current;
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();
@@ -231,9 +234,8 @@ const TextShape: React.FC<{
             node.scaleY(1);
             onChange({
               ...shapeProps,
-              x: node.x(),
-              y: node.y(),
-              fontSize: shapeProps.fontSize * Math.max(scaleX, scaleY), // Adjust the font size based on the scale
+              width: newWidth,
+              scaleX: 1,
             });
           }}
           onMouseEnter={() => {
@@ -262,6 +264,9 @@ const TextShape: React.FC<{
       {isSelected && (
         <Transformer
           ref={trRef}
+          rotateEnabled={false}
+          flipEnabled={false}
+          enabledAnchors={["middle-left", "middle-right"]}
           boundBoxFunc={(oldBox: any, newBox: any) => {
             // Limit resize
             if (newBox.width < 5 || newBox.height < 5) {
@@ -446,9 +451,6 @@ const KonvaGround: React.FC = () => {
   const [texts, setTexts] = useState<TextProps[]>([]);
   console.log({ texts });
   const [selectedTextId, selectTextShape] = useState<string | null>(null);
-  const [customText, setcustomText] = useState(
-    "Click to resize. Double click tooo edit."
-  );
 
   const [shades, setShades] = useState<any>([]);
   const [selectedShadeId, setSelectShapeId] = useState<string | null>(null);
@@ -663,7 +665,7 @@ const KonvaGround: React.FC = () => {
       fontSize: 20,
       fill: "black",
       id: Math.random().toString(16).slice(2),
-      customText: "hai  vbmfgjfgjfhj",
+      customText: "Double click",
     };
 
     // Reset draggableText position
