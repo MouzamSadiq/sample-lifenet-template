@@ -201,7 +201,7 @@ const TextShape: React.FC<{
       margintop: "-4px",
     };
   }
-  const style = getStyle(520, 140);
+  const style = getStyle(520, 45);
 
   return (
     <>
@@ -261,7 +261,7 @@ const TextShape: React.FC<{
           />
         </Html>
       )}
-      {isSelected && (
+      {isSelected && !isEditing && (
         <Transformer
           ref={trRef}
           rotateEnabled={false}
@@ -430,6 +430,37 @@ const CustomShape: React.FC<{
   );
 };
 
+// ------------ Image Rendering Function---------------
+export const URLImage: React.FC<{ src: string }> = ({ src }) => {
+  // Calculate the position to center the image
+  const width = (window.innerWidth - 355) / 2;
+  const height = window.innerHeight / 4.5;
+  const [image, setImage] = useState<HTMLImageElement>();
+
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = src;
+    img.onload = () => {
+      setImage(img);
+    };
+  }, [src]);
+
+  return (
+    <>
+      <Image
+        // onClick={() => {
+        //   selectShape(null);
+        // }}
+        image={image}
+        x={width}
+        y={height}
+        width={355}
+        height={455}
+      />
+    </>
+  );
+};
+
 const KonvaGround: React.FC = () => {
   // useEffect(() => {
   //   const handleResize = () => {
@@ -475,36 +506,6 @@ const KonvaGround: React.FC = () => {
     }
   };
 
-  // ------------ Image Rendering Function---------------
-  const URLImage: React.FC<{ src: string }> = ({ src }) => {
-    // Calculate the position to center the image
-    const width = (stageWidth - 355) / 2;
-    const height = stageHeight / 4.5;
-    const [image, setImage] = useState<HTMLImageElement>();
-
-    useEffect(() => {
-      const img = new window.Image();
-      img.src = src;
-      img.onload = () => {
-        setImage(img);
-      };
-    }, [src]);
-
-    return (
-      <>
-        <Image
-          onClick={() => {
-            selectShape(null);
-          }}
-          image={image}
-          x={width}
-          y={height}
-          width={355}
-          height={455}
-        />
-      </>
-    );
-  };
   const rectWidth = 555;
   const rectHeight = 77.5;
   const rectX = (stageWidth - rectWidth) / 2;
@@ -666,6 +667,7 @@ const KonvaGround: React.FC = () => {
       fill: "black",
       id: Math.random().toString(16).slice(2),
       customText: "Double click",
+      isEditing: true,
     };
 
     // Reset draggableText position
@@ -700,7 +702,7 @@ const KonvaGround: React.FC = () => {
     });
 
     setShades([...shades, newShade]);
-    // selectShape(newArrow.id);
+    setSelectShapeId(newShade.id);
   };
 
   const handleCustomShapeDragEnd = () => {
@@ -721,7 +723,8 @@ const KonvaGround: React.FC = () => {
     });
 
     setCustomShapes([...customShapes, newCustomShape]);
-    // selectShape(newArrow.id);
+
+    setSelectedCustomShapeId(newCustomShape.id);
   };
 
   const handleTextChange = (textId: string, newText: string) => {
