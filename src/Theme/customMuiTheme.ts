@@ -5,7 +5,7 @@ import { theme } from "./theme";
 export const customMuiTheme = createTheme({
   palette: {
     primary: {
-      main: theme.colors.primary,
+      main: "#2984B9",
     },
     secondary: {
       main: green[500],
@@ -22,38 +22,34 @@ export const customMuiTheme = createTheme({
   },
 
   typography: {
-    fontFamily: '"Public Sans",sans-serif',
+    fontFamily: `"Poppins",  sans-serif`,
     allVariants: {
       color: theme.colors.text,
     },
 
     h1: {
-      fontWeight: 600,
-      fontSize: "22px",
-      color: "#293e51",
-      alignContent: "start",
+      fontSize: "32px",
+      fontWeight: 500,
     },
     h2: {
       fontSize: "25px",
       fontWeight: "bold",
-      color: "white",
-      fontFamily: `"Poppins"`,
+      fontFamily: "Arial",
+      color: "#27445C",
     },
     h3: {
-      fontSize: "10px",
-      fontFamily: `"Poppins"`,
+      fontSize: "20px",
+      color: "#27285C",
+      fontWeight: "bold",
     },
 
     h4: {
+      fontSize: "20px",
+      color: "#656565",
       fontWeight: "bold",
-      fontFamily: "Poppins",
-      fontSize: "15px",
-      color: "black",
     },
     h5: {
-      fontFamily: "Poppins",
       fontSize: "14px",
-      color: "gray",
     },
     h6: {
       fontSize: "18px",
@@ -62,19 +58,17 @@ export const customMuiTheme = createTheme({
     },
 
     body1: {
-      // fontWeight: "bold",
-      fontSize: "20px",
-      fontFamily: "Poppins",
-      color: "#293e51",
+      fontWeight: 400,
+      fontSize: "16px",
     },
     body2: {
       fontWeight: 500,
       fontSize: "16px",
     },
     caption: {
-      fontWeight: 700,
-      fontSize: "16px",
-      color: "#4E4F55",
+      fontWeight: 500,
+      fontSize: "14px",
+      color: "white",
     },
   },
 
@@ -85,14 +79,12 @@ export const customMuiTheme = createTheme({
         // Name of the slot
         root: {
           // Some CSS
-          minWidth: 0,
-          borderRadius: 0,
           fontSize: "1rem",
           fontWeight: "500",
           borderWidth: "2px",
           textTransform: "none",
           "&:hover": {
-            borderWidth: "1px",
+            borderWidth: "2px",
           },
         },
       },

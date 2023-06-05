@@ -9,7 +9,7 @@ export type Theme = {
     textLight: string;
     textLightGray: string;
     errorTitle: string;
-    backgroundGray: string;
+    background: string;
     ideaCardBg: string;
     fcfcfc: string;
     appBg: string;
@@ -80,13 +80,14 @@ export type Theme = {
 
 export const theme: Theme = {
   colors: {
-    textLightGray: "#BBBBBB",
+    textLightGray: "#f7f7fa",
     textLight: "#eee",
     errorTitle: "#ff0000",
-    backgroundGray: "#F9F9F9",
+    background: "#27445C",
     // primary: "#3d5a79",
     primary: "#293e51",
-    activeBg: "#E6F7FF",
+    // activeBg: "#B58B00",
+    activeBg: "#a2ad00",
     activeText: "#2681D6",
     text: "#333333",
     border: "#eee",

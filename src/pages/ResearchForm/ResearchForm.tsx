@@ -67,7 +67,7 @@ const ResearchForm = () => {
             Pending Recovery Search
           </Typography>
           <Box display="flex" flexDirection="column">
-            <Box display="flex" gap={25}>
+            <Box display="flex" gap={20}>
               <Box
                 display="flex"
                 flexDirection="column"

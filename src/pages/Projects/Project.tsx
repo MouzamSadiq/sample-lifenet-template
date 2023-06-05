@@ -5,10 +5,10 @@ import Header from "../../components/Header/Header";
 import { customMuiTheme } from "../../Theme/customMuiTheme";
 import NavBar from "../../components/NavBar/NavBar";
 import { theme } from "../../Theme/theme";
-import { Actions } from "./components/Actions";
 import { Biotech, HomeWorkOutlined } from "@mui/icons-material";
+import { Actions } from "../Recoveries/components/Actions";
 
-export const Recoveries = () => {
+export const Projects = () => {
   return (
     <Box
       sx={{
@@ -41,7 +41,7 @@ export const Recoveries = () => {
             <Box>
               <Box display="flex" alignItems="left" padding={1}>
                 <Typography style={customMuiTheme.typography.h4}>
-                  Recoveries
+                  Projects
                 </Typography>
               </Box>
             </Box>
@@ -63,7 +63,51 @@ export const Recoveries = () => {
                   flexDirection: "column",
                 }}
                 gap={3}
-              ></Box>
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                  gap={2}
+                >
+                  <Actions
+                    name="Total Projects"
+                    icon={
+                      <Biotech
+                        style={{
+                          height: "100px",
+                          width: "70px",
+                          color: theme.colors.activeBg,
+                        }}
+                      />
+                    }
+                    count={10}
+                  />
+                  <Actions
+                    name="Projects Inprogres"
+                    icon={
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <CircularProgress
+                          style={{
+                            height: "100px",
+                            width: "100px",
+                            color: "blue",
+                          }}
+                          variant="determinate"
+                          value={10}
+                        />
+                        <Typography position="absolute">10%</Typography>
+                      </Box>
+                    }
+                    count={10}
+                  />
+                </Box>
+              </Box>
             </Box>
           </Box>
         </Box>
