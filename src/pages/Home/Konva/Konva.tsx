@@ -41,6 +41,7 @@ interface TextProps {
   textWidth: number;
   textHeight: number;
   id: string;
+  customText: string;
 }
 
 interface ShadeToolProps {
@@ -189,7 +190,7 @@ const TextShape: React.FC<{
       outline: "none",
       // resize: "none",
       colour: "black",
-      fontSize: "24px",
+      fontSize: "20px",
       fontFamily: "sans-serif",
     };
     if (isFirefox) {
@@ -443,6 +444,7 @@ const KonvaGround: React.FC = () => {
   const [selectedId, selectShape] = useState<string | null>(null);
 
   const [texts, setTexts] = useState<TextProps[]>([]);
+  console.log({ texts });
   const [selectedTextId, selectTextShape] = useState<string | null>(null);
   const [customText, setcustomText] = useState(
     "Click to resize. Double click tooo edit."
@@ -661,9 +663,7 @@ const KonvaGround: React.FC = () => {
       fontSize: 20,
       fill: "black",
       id: Math.random().toString(16).slice(2),
-      // text: customText,
-      // width: 150,
-      // height: 250,
+      customText: "hai  vbmfgjfgjfhj",
     };
 
     // Reset draggableText position
@@ -671,9 +671,7 @@ const KonvaGround: React.FC = () => {
       x: 340,
       y: 350,
     });
-
     setTexts([...texts, newText]);
-    // selectShape(newArrow.id);
   };
 
   // --------- Toolbar Text Dragfunction-----
@@ -705,20 +703,6 @@ const KonvaGround: React.FC = () => {
 
   const handleCustomShapeDragEnd = () => {
     const draggableCustomShape = toolbarCustomShapeRef.current;
-
-    //   const newArrow: ShapeProps = {
-
-    //   };
-
-    //   // Reset draggableArrow position
-    //   draggableArrow.setAttrs({
-    //     x: 0,
-    //     y: 0,
-    //   });
-
-    //   setArrows([...arrows, newArrow]);
-    //   selectShape(newArrow.id);
-    // };
     const newCustomShape: any = {
       x: draggableCustomShape.getStage().getPointerPosition().x,
       y: draggableCustomShape.getStage().getPointerPosition().y,
@@ -736,6 +720,19 @@ const KonvaGround: React.FC = () => {
 
     setCustomShapes([...customShapes, newCustomShape]);
     // selectShape(newArrow.id);
+  };
+
+  const handleTextChange = (textId: string, newText: string) => {
+    const updatedTexts = texts.map((text) => {
+      if (text.id === textId) {
+        return {
+          ...text,
+          customText: newText,
+        };
+      }
+      return text;
+    });
+    setTexts(updatedTexts);
   };
 
   return (
@@ -782,11 +779,13 @@ const KonvaGround: React.FC = () => {
                 updatedShape[i] = newAttrs;
                 setTexts(updatedShape);
               }}
-              onTextChange={(value: string) => setcustomText(value)}
+              onTextChange={(value: string) => {
+                handleTextChange(textProps.id, value);
+              }}
               onTextClick={() => {
                 selectTextShape(textProps.id);
               }}
-              customText={customText}
+              customText={textProps.customText}
             />
           </>
         ))}
