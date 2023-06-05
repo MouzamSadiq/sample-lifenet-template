@@ -18,6 +18,14 @@ interface ShapeProps {
   id: string;
   points: number[];
 }
+interface CustomShapeProps {
+  x: number;
+  y: number;
+  fill: string;
+  draggable: boolean;
+  id: string;
+  points: number[];
+}
 
 interface TextProps {
   x: number;
@@ -33,6 +41,16 @@ interface TextProps {
   textWidth: number;
   textHeight: number;
   id: string;
+}
+
+interface ShadeToolProps {
+  x: number;
+  y: number;
+  fill: string;
+  draggable?: boolean;
+  id: string;
+  width: number;
+  height: number;
 }
 
 const ArrowShape: React.FC<{
@@ -150,10 +168,10 @@ const TextShape: React.FC<{
     console.log("Toogle Edit >>>>>>");
   }
 
-  function handleTextChange(e) {
+  function handleTextChange(e: any) {
     onTextChange(e.currentTarget.value);
   }
-  function handleEscapeKeys(e) {
+  function handleEscapeKeys(e: any) {
     if ((e.keyCode === 13 && !e.shiftKey) || e.keyCode === 27) {
       toggleEdit();
     }
@@ -256,6 +274,156 @@ const TextShape: React.FC<{
   );
 };
 
+const ShadingShape: React.FC<{
+  shapeProps: ShadeToolProps;
+  isSelected: boolean;
+  onSelect: () => void;
+  onChange: (newAttrs: ShadeToolProps) => void;
+}> = ({ shapeProps, isSelected, onSelect, onChange }) => {
+  const shapeRef = useRef<any>();
+  const trRef = useRef<any>();
+
+  useEffect(() => {
+    if (isSelected) {
+      // Attach transformer manually when selected
+      trRef.current.nodes([shapeRef.current]);
+      trRef.current.getLayer().batchDraw();
+    }
+  }, [isSelected]);
+
+  const cursorStyle = isSelected ? "move" : "pointer";
+
+  return (
+    <>
+      <Rect
+        onClick={onSelect}
+        onTap={onSelect}
+        ref={shapeRef}
+        {...shapeProps}
+        draggable
+        onDragEnd={(e) => {
+          onChange({
+            ...shapeProps,
+            x: e.target.x(),
+            y: e.target.y(),
+          });
+        }}
+        // stroke="black"
+        onTransformEnd={(e) => {
+          const node = shapeRef.current;
+          const scaleX = node.scaleX();
+          const scaleY = node.scaleY();
+          node.scaleX(1);
+          node.scaleY(1);
+          onChange({
+            ...shapeProps,
+            x: node.x(),
+            y: node.y(),
+            width: node.width() * scaleX,
+            height: node.height() * scaleY,
+          });
+        }}
+        onMouseEnter={() => {
+          shapeRef.current.getStage().container().style.cursor = cursorStyle;
+        }}
+        onMouseLeave={() => {
+          shapeRef.current.getStage().container().style.cursor = "default";
+        }}
+      />
+      {isSelected && (
+        <Transformer
+          ref={trRef}
+          boundBoxFunc={(oldBox: any, newBox: any) => {
+            // Limit resize
+            if (newBox.width < 5 || newBox.height < 5) {
+              return oldBox;
+            }
+            return newBox;
+          }}
+        />
+      )}
+    </>
+  );
+};
+
+const CustomShape: React.FC<{
+  shapeProps: CustomShapeProps;
+  isSelected: boolean;
+  onSelect: () => void;
+  onChange: (newAttrs: CustomShapeProps) => void;
+}> = ({ shapeProps, isSelected, onSelect, onChange }) => {
+  const shapeRef = useRef<any>();
+  const trRef = useRef<any>();
+
+  useEffect(() => {
+    if (isSelected) {
+      // Attach transformer manually when selected
+      trRef.current.nodes([shapeRef.current]);
+      trRef.current.getLayer().batchDraw();
+    }
+  }, [isSelected]);
+
+  const cursorStyle = isSelected ? "move" : "pointer";
+
+  return (
+    <>
+      <Arrow
+        onClick={onSelect}
+        onTap={onSelect}
+        ref={shapeRef}
+        {...shapeProps}
+        draggable
+        onDragEnd={(e) => {
+          onChange({
+            ...shapeProps,
+            x: e.target.x(),
+            y: e.target.y(),
+          });
+        }}
+        stroke="black"
+        onTransformEnd={(e) => {
+          const node = shapeRef.current;
+          const scaleX = node.scaleX();
+          const scaleY = node.scaleY();
+          node.scaleX(1);
+          node.scaleY(1);
+          onChange({
+            ...shapeProps,
+            x: node.x(),
+            y: node.y(),
+            points: node.points().map((point: number, i: number) => {
+              // Adjust the points based on the scale
+              if (i % 2 === 0) {
+                return point * scaleX;
+              } else {
+                return point * scaleY;
+              }
+            }),
+          });
+        }}
+        onMouseEnter={() => {
+          shapeRef.current.getStage().container().style.cursor = cursorStyle;
+        }}
+        onMouseLeave={() => {
+          shapeRef.current.getStage().container().style.cursor = "default";
+        }}
+      />
+      {isSelected && (
+        <Transformer
+          ref={trRef}
+          boundBoxFunc={(oldBox: any, newBox: any) => {
+            // Limit resize
+            if (newBox.width < 5 || newBox.height < 5) {
+              return oldBox;
+            }
+            return newBox;
+          }}
+        />
+      )}
+    </>
+  );
+};
+
 const KonvaGround: React.FC = () => {
   // useEffect(() => {
   //   const handleResize = () => {
@@ -280,8 +448,17 @@ const KonvaGround: React.FC = () => {
     "Click to resize. Double click tooo edit."
   );
 
+  const [shades, setShades] = useState<any>([]);
+  const [selectedShadeId, setSelectShapeId] = useState<string | null>(null);
+
+  const [customShapes, setCustomShapes] = useState<any>([]);
+  const [selectedCustomShapeId, setSelectedCustomShapeId] = useState<
+    string | null
+  >(null);
   const toolbarArrowReference = useRef<any>(null);
   const toolbarDraggableTextRef = useRef<any>(null);
+  const toolbarShadeRef = useRef<any>(null);
+  const toolbarCustomShapeRef = useRef<any>(null);
 
   const checkDeselect = (e: any) => {
     // Deselect when clicked on empty area
@@ -289,6 +466,8 @@ const KonvaGround: React.FC = () => {
     if (clickedOnEmpty) {
       selectShape(null);
       selectTextShape(null);
+      setSelectShapeId(null);
+      setSelectedCustomShapeId(null);
     }
   };
 
@@ -322,13 +501,12 @@ const KonvaGround: React.FC = () => {
       </>
     );
   };
+  const rectWidth = 555;
+  const rectHeight = 77.5;
+  const rectX = (stageWidth - rectWidth) / 2;
+  const rectY = 5;
 
   const ToolBar: React.FC = () => {
-    const rectWidth = 555;
-    const rectHeight = 77.5;
-    const rectX = (stageWidth - rectWidth) / 2;
-    const rectY = 5;
-
     const handleMouseEnter = () => {
       document.body.style.cursor = "pointer";
     };
@@ -336,7 +514,15 @@ const KonvaGround: React.FC = () => {
     const handleMouseLeave = () => {
       document.body.style.cursor = "default";
     };
-    console.log("ReactX", rectX, "ReactY", rectY);
+    console.log(
+      "ReactX",
+      rectX + rectWidth - 30,
+      rectY + rectHeight - 20,
+      rectX + rectWidth + 30,
+      rectY + rectHeight - 20,
+      rectX + rectWidth + 50,
+      rectY + rectHeight / 2
+    );
 
     return (
       <>
@@ -403,9 +589,11 @@ const KonvaGround: React.FC = () => {
           opacity={0.5}
           strokeWidth={1}
           shadowBlur={5}
+          draggable
+          ref={toolbarShadeRef}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          // draggable
+          onDragEnd={handleShadeDragEnd}
         />
         <Text
           text="Custom shape"
@@ -414,7 +602,7 @@ const KonvaGround: React.FC = () => {
           y={15}
         />
         <Arrow
-          id="toolbarArrow"
+          id="customArrowShape"
           points={[
             rectX + rectWidth - 30,
             rectY + rectHeight - 20,
@@ -425,7 +613,9 @@ const KonvaGround: React.FC = () => {
           ]}
           fill="black"
           stroke="black"
-          ref={toolbarArrowReference}
+          draggable
+          ref={toolbarCustomShapeRef}
+          onDragEnd={handleCustomShapeDragEnd}
           // draggable={true}
           // onDragEnd={handleDragEnds}
           onMouseEnter={handleMouseEnter}
@@ -486,6 +676,68 @@ const KonvaGround: React.FC = () => {
     // selectShape(newArrow.id);
   };
 
+  // --------- Toolbar Text Dragfunction-----
+  const handleShadeDragEnd = () => {
+    const draggableShade = toolbarShadeRef.current;
+
+    const newShade: any = {
+      x: draggableShade.getStage().getPointerPosition().x - 12,
+      y: draggableShade.getStage().getPointerPosition().y,
+      width: 40,
+      height: 30,
+      fill: "black",
+      stroke: "black",
+      opacity: 0.2,
+      strokeWidth: 1,
+      shadowBlur: 5,
+      id: Math.random().toString(16).slice(2),
+    };
+
+    // Reset draggableText position
+    draggableShade.setAttrs({
+      x: 0,
+      y: 0,
+    });
+
+    setShades([...shades, newShade]);
+    // selectShape(newArrow.id);
+  };
+
+  const handleCustomShapeDragEnd = () => {
+    const draggableCustomShape = toolbarCustomShapeRef.current;
+
+    //   const newArrow: ShapeProps = {
+
+    //   };
+
+    //   // Reset draggableArrow position
+    //   draggableArrow.setAttrs({
+    //     x: 0,
+    //     y: 0,
+    //   });
+
+    //   setArrows([...arrows, newArrow]);
+    //   selectShape(newArrow.id);
+    // };
+    const newCustomShape: any = {
+      x: draggableCustomShape.getStage().getPointerPosition().x,
+      y: draggableCustomShape.getStage().getPointerPosition().y,
+      fill: "black",
+      draggable: true,
+      id: Math.random().toString(16).slice(2),
+      points: [-60, 0, 0, 0, 20, -22],
+    };
+
+    // Reset draggableText position
+    draggableCustomShape.setAttrs({
+      x: 0,
+      y: 0,
+    });
+
+    setCustomShapes([...customShapes, newCustomShape]);
+    // selectShape(newArrow.id);
+  };
+
   return (
     <Stage
       width={window.innerWidth}
@@ -536,25 +788,54 @@ const KonvaGround: React.FC = () => {
               }}
               customText={customText}
             />
-            {/* <Text
-              key={i}
-              x={textProps.x}
-              y={textProps.y}
-              id={textProps.id}
-              // width={100}
-              // height={250}
-              text={textProps.text}
-              // shapeProps={arrow}
-              // isSelected={arrow.id === selectedId}
-              // onSelect={() => {
-              //   selectShape(arrow.id);
-              // }}
-              // onChange={(newAttrs) => {
-              //   const updatedArrows = arrows.slice();
-              //   updatedArrows[i] = newAttrs;
-              //   setArrows(updatedArrows);
-              // }}
+          </>
+        ))}
+        {shades.map((textProps: any, i: number) => (
+          <>
+            <ShadingShape
+              key={textProps.id}
+              shapeProps={textProps}
+              isSelected={textProps.id === selectedShadeId}
+              onSelect={() => {
+                setSelectShapeId(textProps.id);
+              }}
+              onChange={(newAttrs) => {
+                const updatedShape = shades.slice();
+                updatedShape[i] = newAttrs;
+                setShades(updatedShape);
+              }}
+            />
+            {/* <Rect
+              x={20}
+              y={20}
+              width={30}
+              height={40}
+              fill="black"
+              shadowColor="black"
+              shadowOffsetY={10}
+              shadowOffsetX={0}
+              shadowBlur={30}
+              shadowOpacity={0.6}
+              draggable
+              // perfectDrawEnabled={true}
             /> */}
+          </>
+        ))}
+        {customShapes.map((customShapeProps: any, i: number) => (
+          <>
+            <CustomShape
+              key={customShapeProps.id}
+              shapeProps={customShapeProps}
+              isSelected={customShapeProps.id === selectedCustomShapeId}
+              onSelect={() => {
+                setSelectedCustomShapeId(customShapeProps.id);
+              }}
+              onChange={(newAttrs) => {
+                const updatedShape = shades.slice();
+                updatedShape[i] = newAttrs;
+                setCustomShapes(updatedShape);
+              }}
+            />
           </>
         ))}
       </Layer>
