@@ -8,18 +8,10 @@ import {
   Image,
   Rect,
   Text,
-  Group,
 } from "react-konva";
 import { Html } from "react-konva-utils";
+import { ArrowShapeProps } from "./types";
 
-interface ShapeProps {
-  x: number;
-  y: number;
-  fill: string;
-  draggable: boolean;
-  id: string;
-  points: number[];
-}
 interface CustomShapeProps {
   x: number;
   y: number;
@@ -59,10 +51,10 @@ interface ShadeToolProps {
 }
 
 const ArrowShape: React.FC<{
-  shapeProps: ShapeProps;
+  shapeProps: ArrowShapeProps;
   isSelected: boolean;
   onSelect: () => void;
-  onChange: (newAttrs: ShapeProps) => void;
+  onChange: (newAttrs: ArrowShapeProps) => void;
 }> = ({ shapeProps, isSelected, onSelect, onChange }) => {
   const shapeRef = useRef<any>();
   const trRef = useRef<any>();
@@ -214,11 +206,11 @@ const TextShape: React.FC<{
       {!isEditing ? (
         <Text
           text={customText}
-          onDblClick={toggleEdit}
+          onDblClick={!isFromTemplate ? toggleEdit : undefined}
           onDblTap={toggleEdit}
           // stroke="black"
           onChange={onTextChange}
-          onClick={onSelect}
+          onClick={!isFromTemplate ? onSelect : undefined}
           ref={shapeRef}
           // draggable
           {...shapeProps}
@@ -549,7 +541,7 @@ const KonvaGround: React.FC = () => {
   };
 
   const [loadTemplate, setLoadTemplate] = useState<boolean>(false);
-  const [arrows, setArrows] = useState<ShapeProps[]>([]);
+  const [arrows, setArrows] = useState<ArrowShapeProps[]>([]);
   const [selectedId, selectShape] = useState<string | null>(null);
 
   const [texts, setTexts] = useState<TextProps[]>([]);
@@ -712,7 +704,7 @@ const KonvaGround: React.FC = () => {
       draggableArrow.getStage().getPointerPosition().x,
       draggableArrow.getStage().getPointerPosition().y
     );
-    const newArrow: ShapeProps = {
+    const newArrow: ArrowShapeProps = {
       x: draggableArrow.getStage().getPointerPosition().x,
       y: draggableArrow.getStage().getPointerPosition().y,
       fill: "black",

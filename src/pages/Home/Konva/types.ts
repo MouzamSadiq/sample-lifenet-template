@@ -10,3 +10,12 @@ export type DraggedArrowProps = {
   fill: string;
   draggable: boolean;
 };
+
+export interface ArrowShapeProps {
+  x: number;
+  y: number;
+  fill: string;
+  draggable: boolean;
+  id: string;
+  points: number[];
+}
