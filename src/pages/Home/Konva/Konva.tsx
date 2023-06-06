@@ -44,6 +44,8 @@ interface TextProps {
   textHeight: number;
   id: string;
   customText: string;
+  draggable: boolean;
+  isFromTemplate: boolean;
 }
 
 interface ShadeToolProps {
@@ -82,7 +84,7 @@ const ArrowShape: React.FC<{
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        draggable
+        // draggable
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,
@@ -142,6 +144,7 @@ const TextShape: React.FC<{
   onTextChange: (value: string) => void;
   onTextClick: () => void;
   customText: string;
+  isFromTemplate: boolean;
 }> = ({
   shapeProps,
   isSelected,
@@ -150,6 +153,7 @@ const TextShape: React.FC<{
   onTextChange,
   onTextClick,
   customText,
+  isFromTemplate,
 }) => {
   const shapeRef = useRef<any>();
   const trRef = useRef<any>();
@@ -216,7 +220,7 @@ const TextShape: React.FC<{
           onChange={onTextChange}
           onClick={onSelect}
           ref={shapeRef}
-          draggable
+          // draggable
           {...shapeProps}
           onDragEnd={(e) => {
             onChange({
@@ -476,14 +480,50 @@ const KonvaGround: React.FC = () => {
   //     window.removeEventListener("resize", handleResize);
   //   };
   // }, []);
+
   const [stageWidth, setStageWidth] = useState(window.innerWidth);
   const [stageHeight, setStageHeight] = useState(window.innerHeight);
-  const [arrows, setArrows] = useState<ShapeProps[]>([]);
+  const array1 = {
+    x: 1004.0023112302707,
+    y: 327.0000000000004,
+    fill: "black",
+    draggable: false,
+    id: Math.random().toString(16).slice(2),
+    points: [121, 0, 0, 0],
+  };
+
+  const dummyTextTemplate = [
+    {
+      x: 1037.0023112302706,
+      y: 337.0000000000004,
+      fontSize: 20,
+      fill: "black",
+      id: Math.random().toString(16).slice(2),
+      customText: "Left Renal",
+      isEditing: true,
+      draggable: false,
+      isFromTemplate: true,
+    },
+    {
+      x: 1096.0023112302706,
+      y: 307.0000000000004,
+      fontSize: 20,
+      fill: "black",
+      id: Math.random().toString(16).slice(2),
+      customText: "cm",
+      isEditing: true,
+      draggable: false,
+      isFromTemplate: true,
+    },
+  ];
+
+  const [loadTemplate, setLoadTemplate] = useState<boolean>(false);
+  const [arrows, setArrows] = useState<ShapeProps[]>([array1]);
   const [selectedId, selectShape] = useState<string | null>(null);
 
-  const [texts, setTexts] = useState<TextProps[]>([]);
+  const [texts, setTexts] = useState<TextProps[]>(dummyTextTemplate);
   const [selectedTextId, selectTextShape] = useState<string | null>(null);
-
+  console.log({ texts });
   const [shades, setShades] = useState<any>([]);
   const [selectedShadeId, setSelectShapeId] = useState<string | null>(null);
 
@@ -495,6 +535,16 @@ const KonvaGround: React.FC = () => {
   const toolbarDraggableTextRef = useRef<any>(null);
   const toolbarShadeRef = useRef<any>(null);
   const toolbarCustomShapeRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (loadTemplate) {
+      setArrows([array1]);
+      setTexts(dummyTextTemplate);
+    } else {
+      setArrows([]);
+      setTexts([]);
+    }
+  }, [loadTemplate]);
 
   const checkDeselect = (e: any) => {
     // Deselect when clicked on empty area
@@ -659,6 +709,7 @@ const KonvaGround: React.FC = () => {
       id: Math.random().toString(16).slice(2),
       customText: "Double click",
       isEditing: true,
+      draggable: true,
     };
 
     // Reset draggableText position
@@ -733,7 +784,6 @@ const KonvaGround: React.FC = () => {
   const params = new URLSearchParams(window.location.search);
   const annotate = params.get("annotate");
 
-  console.log(!!annotate);
   return (
     <Stage
       width={window.innerWidth}
@@ -767,6 +817,7 @@ const KonvaGround: React.FC = () => {
               }}
               onClick={() => {
                 console.log("Button Clcicked ");
+                setLoadTemplate(true);
               }}
             >
               Load Template
@@ -811,6 +862,7 @@ const KonvaGround: React.FC = () => {
                 selectTextShape(textProps.id);
               }}
               customText={textProps.customText}
+              isFromTemplate={textProps.isFromTemplate}
             />
           </>
         ))}
