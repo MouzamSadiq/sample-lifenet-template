@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useRef, useEffect, useState } from "react";
 import {
   Stage,
@@ -7,6 +8,7 @@ import {
   Image,
   Rect,
   Text,
+  Group,
 } from "react-konva";
 import { Html } from "react-konva-utils";
 
@@ -480,7 +482,6 @@ const KonvaGround: React.FC = () => {
   const [selectedId, selectShape] = useState<string | null>(null);
 
   const [texts, setTexts] = useState<TextProps[]>([]);
-  console.log({ texts });
   const [selectedTextId, selectTextShape] = useState<string | null>(null);
 
   const [shades, setShades] = useState<any>([]);
@@ -510,7 +511,6 @@ const KonvaGround: React.FC = () => {
   const rectHeight = 77.5;
   const rectX = (stageWidth - rectWidth) / 2;
   const rectY = 5;
-
   const ToolBar: React.FC = () => {
     const handleMouseEnter = () => {
       document.body.style.cursor = "pointer";
@@ -519,15 +519,6 @@ const KonvaGround: React.FC = () => {
     const handleMouseLeave = () => {
       document.body.style.cursor = "default";
     };
-    console.log(
-      "ReactX",
-      rectX + rectWidth - 30,
-      rectY + rectHeight - 20,
-      rectX + rectWidth + 30,
-      rectY + rectHeight - 20,
-      rectX + rectWidth + 50,
-      rectY + rectHeight / 2
-    );
 
     return (
       <>
@@ -739,7 +730,10 @@ const KonvaGround: React.FC = () => {
     });
     setTexts(updatedTexts);
   };
+  const params = new URLSearchParams(window.location.search);
+  const annotate = params.get("annotate");
 
+  console.log(!!annotate);
   return (
     <Stage
       width={window.innerWidth}
@@ -753,6 +747,30 @@ const KonvaGround: React.FC = () => {
       </Layer>
       <Layer>
         <ToolBar />
+      </Layer>
+      <Layer>
+        <Html
+          groupProps={{
+            x: stageWidth / 4,
+            y: stageHeight / 25,
+          }}
+          divProps={{ style: { opacity: 1 } }}
+        >
+          <Button
+            variant="outlined"
+            sx={{
+              color: "black",
+              borderColor: "black",
+              borderRadius: "8px",
+              boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
+            }}
+            onClick={() => {
+              console.log("Button Clcicked ");
+            }}
+          >
+            Load Template
+          </Button>
+        </Html>
       </Layer>
       <Layer>
         {arrows.map((arrow, i) => (
@@ -809,20 +827,6 @@ const KonvaGround: React.FC = () => {
                 setShades(updatedShape);
               }}
             />
-            {/* <Rect
-              x={20}
-              y={20}
-              width={30}
-              height={40}
-              fill="black"
-              shadowColor="black"
-              shadowOffsetY={10}
-              shadowOffsetX={0}
-              shadowBlur={30}
-              shadowOpacity={0.6}
-              draggable
-              // perfectDrawEnabled={true}
-            /> */}
           </>
         ))}
         {customShapes.map((customShapeProps: any, i: number) => (
