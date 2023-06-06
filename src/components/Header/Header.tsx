@@ -48,8 +48,17 @@ export default function Header() {
               display: "flex",
             }}
             mr={2}
+            // bgcolor="green"
           >
-            <Box pr={4} pt={0}>
+            <Box
+              pr={4}
+              pt={0}
+              sx={{
+                flexGrow: 0,
+                display: { xs: "none", md: "flex" },
+                flexDirection: "column",
+              }}
+            >
               <Typography
                 align="left"
                 color={theme.colors.text}
@@ -74,7 +83,7 @@ export default function Header() {
                 Role :Admin
               </Typography>
             </Box>
-            (
+
             <Button
               style={{
                 background: "none",
@@ -85,7 +94,6 @@ export default function Header() {
                 textTransform: "none",
                 textUnderlineOffset: "3px",
 
-                cursor: "pointer",
                 color: theme.colors.activeBg,
               }}
               onClick={handleLogout}
@@ -101,7 +109,6 @@ export default function Header() {
                 }}
               />
             </Button>
-            )
           </Box>
         </Box>
       </AppBar>
