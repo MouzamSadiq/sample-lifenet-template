@@ -384,7 +384,7 @@ const CustomShape: React.FC<{
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        draggable
+        // draggable
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,
@@ -515,19 +515,51 @@ const KonvaGround: React.FC = () => {
       draggable: false,
       isFromTemplate: true,
     },
+    {
+      x: 778,
+      y: 364,
+      fontSize: 20,
+      fill: "black",
+      id: Math.random().toString(16).slice(2),
+      customText: "Right Renal",
+      isEditing: true,
+      draggable: false,
+      isFromTemplate: true,
+    },
+    {
+      x: 856,
+      y: 336,
+      fontSize: 20,
+      fill: "black",
+      id: Math.random().toString(16).slice(2),
+      customText: "cm",
+      isEditing: true,
+      draggable: false,
+      isFromTemplate: true,
+    },
   ];
 
+  const customArrowTemplate = {
+    x: 886.0023112302707,
+    y: 358.0000000000004,
+    fill: "black",
+    draggable: false,
+    id: Math.random().toString(16).slice(2),
+    points: [-112, 0, 0, 0, 37.6, -22],
+  };
+
   const [loadTemplate, setLoadTemplate] = useState<boolean>(false);
-  const [arrows, setArrows] = useState<ShapeProps[]>([array1]);
+  const [arrows, setArrows] = useState<ShapeProps[]>([]);
   const [selectedId, selectShape] = useState<string | null>(null);
 
-  const [texts, setTexts] = useState<TextProps[]>(dummyTextTemplate);
+  const [texts, setTexts] = useState<TextProps[]>([]);
   const [selectedTextId, selectTextShape] = useState<string | null>(null);
   console.log({ texts });
   const [shades, setShades] = useState<any>([]);
   const [selectedShadeId, setSelectShapeId] = useState<string | null>(null);
 
   const [customShapes, setCustomShapes] = useState<any>([]);
+  // console.log({ customShapes });
   const [selectedCustomShapeId, setSelectedCustomShapeId] = useState<
     string | null
   >(null);
@@ -540,9 +572,11 @@ const KonvaGround: React.FC = () => {
     if (loadTemplate) {
       setArrows([array1]);
       setTexts(dummyTextTemplate);
+      setCustomShapes([customArrowTemplate]);
     } else {
       setArrows([]);
       setTexts([]);
+      setCustomShapes([]);
     }
   }, [loadTemplate]);
 
@@ -707,7 +741,7 @@ const KonvaGround: React.FC = () => {
       fontSize: 20,
       fill: "black",
       id: Math.random().toString(16).slice(2),
-      customText: "Double click",
+      customText: "Text",
       isEditing: true,
       draggable: true,
     };
@@ -820,7 +854,7 @@ const KonvaGround: React.FC = () => {
                 setLoadTemplate(true);
               }}
             >
-              Load Template
+              {!loadTemplate ? "Load Templates" : "save"}
             </Button>
           </Html>
         </Layer>
