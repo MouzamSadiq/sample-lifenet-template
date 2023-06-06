@@ -748,30 +748,32 @@ const KonvaGround: React.FC = () => {
       <Layer>
         <ToolBar />
       </Layer>
-      <Layer>
-        <Html
-          groupProps={{
-            x: stageWidth / 4,
-            y: stageHeight / 25,
-          }}
-          divProps={{ style: { opacity: 1 } }}
-        >
-          <Button
-            variant="outlined"
-            sx={{
-              color: "black",
-              borderColor: "black",
-              borderRadius: "8px",
-              boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
+      {!!annotate && (
+        <Layer>
+          <Html
+            groupProps={{
+              x: stageWidth / 4,
+              y: stageHeight / 25,
             }}
-            onClick={() => {
-              console.log("Button Clcicked ");
-            }}
+            divProps={{ style: { opacity: 1 } }}
           >
-            Load Template
-          </Button>
-        </Html>
-      </Layer>
+            <Button
+              variant="outlined"
+              sx={{
+                color: "black",
+                borderColor: "black",
+                borderRadius: "8px",
+                boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
+              }}
+              onClick={() => {
+                console.log("Button Clcicked ");
+              }}
+            >
+              Load Template
+            </Button>
+          </Html>
+        </Layer>
+      )}
       <Layer>
         {arrows.map((arrow, i) => (
           <ArrowShape
