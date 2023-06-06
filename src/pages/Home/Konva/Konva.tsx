@@ -919,7 +919,7 @@ const KonvaGround: React.FC = () => {
                 setSelectedCustomShapeId(customShapeProps.id);
               }}
               onChange={(newAttrs) => {
-                const updatedShape = shades.slice();
+                const updatedShape = customShapes.slice();
                 updatedShape[i] = newAttrs;
                 setCustomShapes(updatedShape);
               }}
