@@ -24,20 +24,19 @@ export interface TextShapeProps {
   x: number;
   y: number;
   fontSize: number;
-  fontFamily: string;
-  name: string;
   // text: string;
   fill: string;
-  width: number;
-  height: number;
-  rotation: number;
-  textWidth: number;
-  textHeight: number;
+  // width: number;
+  // height: number;
+  // rotation: number;
+  // textWidth: number;
+  // textHeight: number;
   id: string;
   customText: string;
   draggable: boolean;
   isFromTemplate: boolean;
-  scaleX: number;
+  scaleX?: number | undefined;
+  isEditing: boolean;
 }
 
 export interface ShadingToolProps {

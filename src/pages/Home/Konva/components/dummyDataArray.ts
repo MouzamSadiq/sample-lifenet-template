@@ -1,0 +1,65 @@
+export const initialArrowShapes = {
+  x: 599.711798589766,
+  y: 294.7459634015073,
+  fill: "black",
+  draggable: true,
+  id: Math.random().toString(16).slice(2),
+  points: [131, 0, 0, 0],
+};
+
+export const initialTextTemplate = [
+  {
+    x: 1037.0023112302706,
+    y: 337.0000000000004,
+    fontSize: 20,
+    fill: "black",
+    id: Math.random().toString(16).slice(2),
+    customText: "Left Renal",
+    isEditing: true,
+    draggable: false,
+    isFromTemplate: true,
+    scaleX: 1,
+  },
+  {
+    x: 1096.0023112302706,
+    y: 307.0000000000004,
+    fontSize: 20,
+    fill: "black",
+    id: Math.random().toString(16).slice(2),
+    customText: "cm",
+    isEditing: true,
+    draggable: false,
+    isFromTemplate: true,
+  },
+  {
+    x: 778,
+    y: 364,
+    fontSize: 20,
+    fill: "black",
+    id: Math.random().toString(16).slice(2),
+    customText: "Right Renal",
+    isEditing: true,
+    draggable: false,
+    isFromTemplate: true,
+  },
+  {
+    x: 856,
+    y: 336,
+    fontSize: 20,
+    fill: "black",
+    id: Math.random().toString(16).slice(2),
+    customText: "cm",
+    isEditing: true,
+    draggable: false,
+    isFromTemplate: true,
+  },
+];
+
+export const initialCustomArrowTemplate = {
+  x: 886.0023112302707,
+  y: 358.0000000000004,
+  fill: "black",
+  draggable: false,
+  id: Math.random().toString(16).slice(2),
+  points: [-112, 0, 0, 0, 37.6, -22],
+};
