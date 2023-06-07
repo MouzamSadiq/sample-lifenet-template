@@ -37,6 +37,7 @@ export interface TextShapeProps {
   customText: string;
   draggable: boolean;
   isFromTemplate: boolean;
+  scaleX: number;
 }
 
 export interface ShadingToolProps {
