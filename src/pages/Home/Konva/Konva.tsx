@@ -47,8 +47,8 @@ const KonvaGround: React.FC = () => {
   const [shades, setShades] = useState<ShadingToolProps[]>([]);
   const [customShapes, setCustomShapes] = useState<CustomArrowProps[]>([]);
   console.log({ arrows });
-  // console.log({ texts });
-  // console.log({ customShapes });
+  console.log({ texts });
+  console.log({ customShapes });
 
   const [selectedArrowId, selectArrowShape] = useState<string | null>(null);
   const [selectedTextId, selectTextShape] = useState<string | null>(null);
@@ -73,6 +73,21 @@ const KonvaGround: React.FC = () => {
       setCustomShapes([]);
     }
   }, [loadTemplate]);
+
+  // useEffect(() => {
+  //   if (stageWidth < 1920) {
+  //     setArrows([
+  //       {
+  //         x: 1599.711798589766,
+  //         y: 394.7459634015073,
+  //         fill: "black",
+  //         draggable: true,
+  //         id: Math.random().toString(16).slice(2),
+  //         points: [131, 0, 0, 0],
+  //       },
+  //     ]);
+  //   }
+  // }, [stageWidth]);
 
   const checkDeselect = (e: any) => {
     const clickedOnEmpty = e.target === e.target.getStage();
@@ -217,136 +232,138 @@ const KonvaGround: React.FC = () => {
   adjustCoordinates(1003.0023112302707, 357.0000000000004);
 
   return (
-    <Stage
-      width={window.innerWidth}
-      height={window.innerHeight}
-      onMouseDown={checkDeselect}
-      onTouchStart={checkDeselect}
-    >
-      {/* <KonvaEditableText /> */}
-      <Layer>
-        <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryImage.gif&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
-      </Layer>
-      <Layer>
-        <Toolbar
-          toolbarArrowReference={toolbarArrowReference}
-          toolbarTextRef={toolbarDraggableTextRef}
-          toolbarShadeRef={toolbarShadeRef}
-          toolbarCustomArrowRef={toolbarCustomShapeRef}
-          handleArrowDragEnds={handleArrowDragEnds}
-          handleTextDragEnd={handleTextDragEnd}
-          handleShadeDragEnd={handleShadeDragEnd}
-          handleCustomShapeDragEnd={handleCustomShapeDragEnd}
-          toolbarX={toolbarX}
-          toolbarY={toolbarY}
-          toolbarHeight={toolbarHeight}
-          toolbarWidth={toolbarWidth}
-        />
-      </Layer>
-      {!!annotate && (
+    <div style={{ width: "100%", height: "100%", overflow: "auto" }}>
+      <Stage
+        width={window.innerWidth}
+        height={window.innerHeight}
+        onMouseDown={checkDeselect}
+        onTouchStart={checkDeselect}
+      >
+        {/* <KonvaEditableText /> */}
         <Layer>
-          <Html
-            groupProps={{
-              x: stageWidth / 10,
-              y: stageHeight / 25,
-            }}
-            divProps={{ style: { opacity: 1 } }}
-          >
-            <Button
-              variant="outlined"
-              sx={{
-                color: "black",
-                borderColor: "black",
-                borderRadius: "8px",
-                boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
-                minWidth: "144px",
-              }}
-              onClick={() => {
-                setLoadTemplate(true);
-              }}
-            >
-              {!loadTemplate ? "Load Templates" : "save"}
-            </Button>
-          </Html>
+          <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryImage.gif&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
         </Layer>
-      )}
-      <Layer>
-        {arrows.map((arrow, i) => (
-          <ArrowShape
-            key={arrow.id}
-            shapeProps={arrow}
-            isSelected={arrow.id === selectedArrowId}
-            onSelect={() => {
-              selectArrowShape(arrow.id);
-            }}
-            onChange={(newAttrs) => {
-              const updatedArrows = arrows.slice();
-              updatedArrows[i] = newAttrs;
-              setArrows(updatedArrows);
-            }}
+        <Layer>
+          <Toolbar
+            toolbarArrowReference={toolbarArrowReference}
+            toolbarTextRef={toolbarDraggableTextRef}
+            toolbarShadeRef={toolbarShadeRef}
+            toolbarCustomArrowRef={toolbarCustomShapeRef}
+            handleArrowDragEnds={handleArrowDragEnds}
+            handleTextDragEnd={handleTextDragEnd}
+            handleShadeDragEnd={handleShadeDragEnd}
+            handleCustomShapeDragEnd={handleCustomShapeDragEnd}
+            toolbarX={toolbarX}
+            toolbarY={toolbarY}
+            toolbarHeight={toolbarHeight}
+            toolbarWidth={toolbarWidth}
           />
-        ))}
-        {texts.map((textProps, i) => (
-          <>
-            <TextShape
-              key={textProps.id}
-              shapeProps={textProps}
-              isSelected={textProps.id === selectedTextId}
+        </Layer>
+        {!!annotate && (
+          <Layer>
+            <Html
+              groupProps={{
+                x: stageWidth / 10,
+                y: stageHeight / 25,
+              }}
+              divProps={{ style: { opacity: 1 } }}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "black",
+                  borderColor: "black",
+                  borderRadius: "8px",
+                  boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
+                  minWidth: "144px",
+                }}
+                onClick={() => {
+                  setLoadTemplate(true);
+                }}
+              >
+                {!loadTemplate ? "Load Templates" : "save"}
+              </Button>
+            </Html>
+          </Layer>
+        )}
+        <Layer>
+          {arrows.map((arrow, i) => (
+            <ArrowShape
+              key={arrow.id}
+              shapeProps={arrow}
+              isSelected={arrow.id === selectedArrowId}
               onSelect={() => {
-                selectTextShape(textProps.id);
+                selectArrowShape(arrow.id);
               }}
               onChange={(newAttrs) => {
-                const updatedShape = texts.slice();
-                updatedShape[i] = newAttrs;
-                setTexts(updatedShape);
-              }}
-              onTextChange={(value: string) => {
-                handleTextChange(textProps.id, value);
-              }}
-              onTextClick={() => {
-                selectTextShape(textProps.id);
-              }}
-              customText={textProps.customText}
-              isFromTemplate={textProps.isFromTemplate}
-            />
-          </>
-        ))}
-        {shades.map((shadeProps: any, i: number) => (
-          <>
-            <ShadingShape
-              key={shadeProps.id}
-              shapeProps={shadeProps}
-              isSelected={shadeProps.id === selectedShadeId}
-              onSelect={() => {
-                setSelectShadeId(shadeProps.id);
-              }}
-              onChange={(newAttrs) => {
-                const updatedShape = shades.slice();
-                updatedShape[i] = newAttrs;
-                setShades(updatedShape);
+                const updatedArrows = arrows.slice();
+                updatedArrows[i] = newAttrs;
+                setArrows(updatedArrows);
               }}
             />
-          </>
-        ))}
-        {customShapes.map((customShapeProps: any, i: number) => (
-          <>
-            <CustomArrowShape
-              key={customShapeProps.id}
-              shapeProps={customShapeProps}
-              isSelected={customShapeProps.id === selectedCustomShapeId}
-              onSelect={() => {
-                setSelectedCustomShapeId(customShapeProps.id);
-              }}
-              onChange={(newAttrs) => {
-                const updatedShape = customShapes.slice();
-                updatedShape[i] = newAttrs;
-                setCustomShapes(updatedShape);
-              }}
-            />
-          </>
-        ))}
-      </Layer>
-    </Stage>
+          ))}
+          {texts.map((textProps, i) => (
+            <>
+              <TextShape
+                key={textProps.id}
+                shapeProps={textProps}
+                isSelected={textProps.id === selectedTextId}
+                onSelect={() => {
+                  selectTextShape(textProps.id);
+                }}
+                onChange={(newAttrs) => {
+                  const updatedShape = texts.slice();
+                  updatedShape[i] = newAttrs;
+                  setTexts(updatedShape);
+                }}
+                onTextChange={(value: string) => {
+                  handleTextChange(textProps.id, value);
+                }}
+                onTextClick={() => {
+                  selectTextShape(textProps.id);
+                }}
+                customText={textProps.customText}
+                isFromTemplate={textProps.isFromTemplate}
+              />
+            </>
+          ))}
+          {shades.map((shadeProps: any, i: number) => (
+            <>
+              <ShadingShape
+                key={shadeProps.id}
+                shapeProps={shadeProps}
+                isSelected={shadeProps.id === selectedShadeId}
+                onSelect={() => {
+                  setSelectShadeId(shadeProps.id);
+                }}
+                onChange={(newAttrs) => {
+                  const updatedShape = shades.slice();
+                  updatedShape[i] = newAttrs;
+                  setShades(updatedShape);
+                }}
+              />
+            </>
+          ))}
+          {customShapes.map((customShapeProps: any, i: number) => (
+            <>
+              <CustomArrowShape
+                key={customShapeProps.id}
+                shapeProps={customShapeProps}
+                isSelected={customShapeProps.id === selectedCustomShapeId}
+                onSelect={() => {
+                  setSelectedCustomShapeId(customShapeProps.id);
+                }}
+                onChange={(newAttrs) => {
+                  const updatedShape = customShapes.slice();
+                  updatedShape[i] = newAttrs;
+                  setCustomShapes(updatedShape);
+                }}
+              />
+            </>
+          ))}
+        </Layer>
+      </Stage>
+    </div>
   );
 };
 
