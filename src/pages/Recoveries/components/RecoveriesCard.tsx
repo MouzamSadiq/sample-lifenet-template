@@ -16,10 +16,11 @@ export const RecoveryCard: React.FC = () => {
       sx={{
         display: "flex",
         flexDirection: "row",
+        flexWrap: "wrap",
         gap: "25px",
       }}
     >
-      <Card sx={{ width: "22%", height: "240px" }}>
+      <Card sx={{ width: "22em", height: "240px" }}>
         <CardContent>
           <Actions
             name="Recoveries"
@@ -36,7 +37,7 @@ export const RecoveryCard: React.FC = () => {
           />
         </CardContent>
       </Card>
-      <Card sx={{ width: "22%", height: "240px" }}>
+      <Card sx={{ width: "22em", height: "240px" }}>
         <CardContent>
           <Actions
             name="Not Recovered"
@@ -53,7 +54,7 @@ export const RecoveryCard: React.FC = () => {
           />
         </CardContent>
       </Card>
-      <Card sx={{ width: "22%", height: "240px" }}>
+      <Card sx={{ width: "22em", height: "240px" }}>
         <CardContent>
           <Actions
             name="Active cases"
