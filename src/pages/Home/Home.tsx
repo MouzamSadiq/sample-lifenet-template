@@ -1,44 +1,56 @@
 import React from "react";
 import { Box, Divider, Typography } from "@mui/material";
-import { Menubar } from "../../components/Menubar/Menubar";
-import { theme } from "../../Theme/theme";
-import Header from "../../components/Header/Header";
-import NavBar from "../../components/NavBar/NavBar";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { customMuiTheme } from "../../Theme/customMuiTheme";
+import {
+  Home as HomeIcon,
+  Notifications,
+  Settings,
+  Biotech,
+  Menu,
+} from "@mui/icons-material";
 
 export type NavItem = {
   title: string;
   path: string;
   fallbackTitle: string;
+  icon: any;
 };
 
 export const pages: Array<NavItem> = [
   // Temporally deactivating Dashboard view .
 
   {
-    title: "HOME",
+    title: "Home",
     path: "/home",
     fallbackTitle: "Dashboard",
+    icon: <HomeIcon />,
   },
   {
-    title: "RESEARCH",
-    path: "/researchform",
+    title: "Projects",
+    path: "/Project",
     fallbackTitle: "Projects",
+    icon: <Menu />,
   },
   {
-    title: "RECOVERIES",
+    title: "Recoveries",
     path: "/recoveries",
     fallbackTitle: "Recoveries",
+    icon: <AccountTreeIcon />,
+  },
+  {
+    title: "Notification",
+    path: "/Notification",
+    fallbackTitle: "Notification",
+    icon: <Notifications />,
+  },
+  {
+    title: "Additional Service",
+    path: "/Service",
+    fallbackTitle: "Additional Service",
+    icon: <Settings />,
   },
   // { title: "analytics", path: "/analytics", fallbackTitle: "Analytics" },
-];
-export const linksArray: string[] = [
-  "HOME",
-  "PROJECTS",
-  "RECOVERIES",
-  "RESEARCH",
-  "ADMIN",
-  "LOOKUPS",
 ];
 
 export const Home: React.FC = () => {
@@ -49,26 +61,22 @@ export const Home: React.FC = () => {
         flexDirection: "column",
       }}
     >
-      <Box>
+      {/* <Box>
         <Header />
-      </Box>
+      </Box> */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
         }}
       >
-        <NavBar />
+        {/* <NavBar links={pages} /> */}
 
         <Box
-          ml="250px"
-          height="100%"
+          sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "230px" } }}
+          height="50%"
           width="100%"
-          bgcolor={theme.colors.textLightGray}
           paddingLeft={5}
-          paddingTop={15}
-          paddingBottom={5}
-          paddingRight={5}
         >
           <Box>
             <Box>
@@ -84,7 +92,7 @@ export const Home: React.FC = () => {
                 display: "flex",
                 flexDirection: "column",
                 width: "100%",
-                height: "130vh",
+                // height: "130vh",
               }}
               gap={5}
             ></Box>

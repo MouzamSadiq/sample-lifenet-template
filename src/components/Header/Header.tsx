@@ -1,44 +1,72 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Typography, Box, IconButton, Button } from "@mui/material";
-
+import { Typography, Box, IconButton, Button, Drawer } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { ExitToApp, Logout, Padding } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/lnh.png";
 import { theme } from "../../Theme/theme";
+import { NavItem, pages } from "../../pages/Home/Home";
+import { MenuLinkProps } from "../Menubar/Menubar";
 
-export default function Header() {
+export const Header = ({ links }: MenuLinkProps) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.clear();
   };
-
+  const { pathname } = useLocation();
+  const navLinksStyle = ({ isActive }: any) => ({
+    textDecoration: "none",
+    color: isActive ? theme.colors.activeBg : "white",
+    display: "inline-flex",
+    gap: "8px",
+  });
+  const renderMenuOptionsDrawer = () => {
+    return links.map((page: NavItem) => {
+      return (
+        <NavLink
+          key={page.title}
+          to={page.path}
+          style={{
+            color: page.path === pathname ? theme.colors.activeBg : "white",
+            fontSize: "25px",
+            fontFamily: "Poppins",
+            textDecoration: "none",
+          }}
+        >
+          <Box>
+            <Typography
+              style={{
+                fontWeight: "500",
+              }}
+              sx={{ display: "flex", flexDirection: "row" }}
+              gap="3px"
+            >
+              {page.icon} {page.title}
+            </Typography>
+          </Box>
+        </NavLink>
+      );
+    });
+  };
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   return (
-    <Box>
+    <Box mb={10}>
       <AppBar sx={{ height: "70px", bgcolor: "white" }}>
         <Box
           sx={{
             display: "-webkit-flex",
             flexDirection: "row",
+
             justifyContent: "space-between",
           }}
         >
           <Box
             sx={{ alignContent: "left", alignItems: "left", display: "flex" }}
-            ml={3}
+            ml={2}
             mt={1}
           >
             <img src={logo} alt="logo" height="50px" />
-            <Box
-              sx={{
-                alignContent: "center",
-                alignItems: "center",
-                display: "flex",
-              }}
-              ml={2}
-            >
-              <Typography>CV Tracker</Typography>
-            </Box>
           </Box>
 
           <Box
@@ -61,7 +89,7 @@ export default function Header() {
             >
               <Typography
                 align="left"
-                color={theme.colors.text}
+                color={theme.colors.greenText}
                 style={{
                   fontSize: "15px",
                   margin: "0",
@@ -73,7 +101,7 @@ export default function Header() {
 
               <Typography
                 align="left"
-                color={theme.colors.text}
+                color={theme.colors.greenText}
                 style={{
                   fontSize: "15px",
                   margin: "0",
@@ -83,35 +111,77 @@ export default function Header() {
                 Role :Admin
               </Typography>
             </Box>
-
-            <Button
-              style={{
-                background: "none",
-                border: "none",
-                padding: 1,
-                fontFamily: "inherit",
-                textDecoration: "underline",
-                textTransform: "none",
-                textUnderlineOffset: "3px",
-
-                color: theme.colors.activeBg,
-              }}
-              onClick={handleLogout}
-            >
-              <Typography style={{ color: theme.colors.activeBg }}>
-                Logout{" "}
-              </Typography>
-              <ExitToApp
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Button
                 style={{
-                  padding: "3px",
-                  height: "18px",
-                  color: theme.colors.activeBg,
+                  background: "none",
+                  border: "none",
+                  padding: 1,
+                  fontFamily: "inherit",
+                  textDecoration: "underline",
+                  textTransform: "none",
+                  textUnderlineOffset: "3px",
+
+                  color: theme.colors.logoBlue,
                 }}
-              />
-            </Button>
+                onClick={handleLogout}
+                sx={{
+                  flexGrow: 0,
+                  display: { xs: "none", md: "none", lg: "flex" },
+                }}
+              >
+                {" "}
+                <Typography style={{ color: theme.colors.logoBlue }}>
+                  Logout{" "}
+                </Typography>
+                <ExitToApp
+                  style={{
+                    padding: "3px",
+                    height: "18px",
+                    color: theme.colors.logoBlue,
+                  }}
+                />
+              </Button>
+              <Box
+                sx={{
+                  display: { xs: "flex", md: "flex", lg: "none" },
+                }}
+              >
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={() => setIsDrawerOpen(true)}
+                  style={{ color: "navy" }}
+                >
+                  <MenuIcon />
+                </IconButton>
+
+                <Drawer
+                  anchor="right"
+                  open={isDrawerOpen}
+                  onClose={() => setIsDrawerOpen(false)}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: 250,
+                      height: "100%",
+                    }}
+                    paddingTop={5}
+                    paddingLeft={2}
+                    gap={2}
+                    bgcolor={theme.colors.primary}
+                  >
+                    {renderMenuOptionsDrawer()}
+                  </Box>
+                </Drawer>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </AppBar>
     </Box>
   );
-}
+};

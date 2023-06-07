@@ -1,12 +1,12 @@
 import { Box, CircularProgress, Divider, Typography } from "@mui/material";
 import { pages } from "../Home/Home";
 import { Menubar } from "../../components/Menubar/Menubar";
-import Header from "../../components/Header/Header";
 import { customMuiTheme } from "../../Theme/customMuiTheme";
-import NavBar from "../../components/NavBar/NavBar";
+import { NavBar } from "../../components/NavBar/NavBar";
 import { theme } from "../../Theme/theme";
 import { Biotech, HomeWorkOutlined } from "@mui/icons-material";
-import { Actions } from "../Recoveries/components/Actions";
+import { Actions } from "../../components/Actions";
+import { ProjectCard } from "./components/ProjectCard";
 
 export const Projects = () => {
   return (
@@ -16,7 +16,7 @@ export const Projects = () => {
         flexDirection: "column",
       }}
     >
-      <Box>
+      {/* <Box>
         <Header />
       </Box>
       <Box
@@ -25,88 +25,87 @@ export const Projects = () => {
           flexDirection: "row",
         }}
       >
-        <NavBar />
+        <NavBar links={pages} /> */}
 
-        <Box
-          ml="250px"
-          height="100%"
-          width="100%"
-          bgcolor={theme.colors.textLightGray}
-          paddingLeft={5}
-          paddingTop={15}
-          paddingBottom={5}
-          paddingRight={5}
-        >
+      <Box
+        sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "230px" } }}
+        // bgcolor={theme.colors.textLightGray}
+        paddingLeft={5}
+        // paddingTop={15}
+        // paddingBottom={5}
+        // paddingRight={5}
+      >
+        <Box>
           <Box>
-            <Box>
-              <Box display="flex" alignItems="left" padding={1}>
-                <Typography style={customMuiTheme.typography.h4}>
-                  Projects
-                </Typography>
-              </Box>
+            <Box display="flex" alignItems="left" padding={1}>
+              <Typography style={customMuiTheme.typography.h4}>
+                Projects
+              </Typography>
             </Box>
-            <Divider />
+          </Box>
+          <Divider />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              height: "100%",
+            }}
+            gap={5}
+            paddingTop={5}
+          >
+            {" "}
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                width: "100%",
-                height: "130vh",
               }}
-              gap={5}
-              paddingTop={5}
+              gap={3}
             >
-              {" "}
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
                 }}
-                gap={3}
+                gap={2}
               >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                  gap={2}
-                >
-                  <Actions
-                    name="Total Projects"
-                    icon={
-                      <Biotech
+                <ProjectCard />
+                {/* <Actions
+                  name="Total Projects"
+                  icon={
+                    <Biotech
+                      style={{
+                        height: "100px",
+                        width: "70px",
+                        color: theme.colors.activeBg,
+                      }}
+                    />
+                  }
+                  count={10}
+                />
+                <Actions
+                  name="Projects Inprogres"
+                  icon={
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <CircularProgress
                         style={{
                           height: "100px",
-                          width: "70px",
+                          width: "100px",
                           color: theme.colors.activeBg,
                         }}
+                        variant="determinate"
+                        value={70}
                       />
-                    }
-                    count={10}
-                  />
-                  <Actions
-                    name="Projects Inprogres"
-                    icon={
-                      <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <CircularProgress
-                          style={{
-                            height: "100px",
-                            width: "100px",
-                            color: "blue",
-                          }}
-                          variant="determinate"
-                          value={10}
-                        />
-                        <Typography position="absolute">10%</Typography>
-                      </Box>
-                    }
-                    count={10}
-                  />
-                </Box>
+                      <Typography position="absolute">70%</Typography>
+                    </Box>
+                  }
+                  count={100}
+                /> */}
               </Box>
             </Box>
           </Box>

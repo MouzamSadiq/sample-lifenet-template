@@ -1,27 +1,20 @@
 import * as React from "react";
 import Toolbar from "@mui/material/Toolbar";
-import { Box } from "@mui/material";
+import { Box, Drawer, IconButton, Typography } from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
-
+import MenuIcon from "@mui/icons-material/Menu";
 import {
-  Business,
   Home,
-  LaptopChromebook,
-  ListAlt,
   Notifications,
-  Person,
-  SpeakerNotesOutlined,
-  GroupsOutlined,
-  FormatListBulletedRounded,
   Settings,
-  HomeWorkOutlined,
   Biotech,
-  FormatListNumbered,
   Menu,
 } from "@mui/icons-material";
 import { theme } from "../../Theme/theme";
+import { NavItem } from "../../pages/Home/Home";
+import { MenuLinkProps } from "../Menubar/Menubar";
 
-export default function ButtonAppBar() {
+export const NavBar = ({ links }: MenuLinkProps) => {
   const { pathname } = useLocation();
   const navLinksStyle = ({ isActive }: any) => ({
     textDecoration: "none",
@@ -29,105 +22,72 @@ export default function ButtonAppBar() {
     display: "inline-flex",
     gap: "8px",
   });
-  const selectPlanStyle = ({ isActive }: any) => {
-    const isActiveLinks = [
-      "/payment-confirm",
-      "/select-plan",
-      "/payment-success",
-    ].includes(pathname);
-    return {
-      textDecoration: "none",
-      color: isActiveLinks || isActive ? theme.colors.activeBg : "white",
-      display: "inline-flex",
-      gap: "8px",
-    };
-  };
-  const myPropertyStyle = ({ isActive }: any) => {
-    const isActiveLinks = [
-      "/property-details",
-      "/edit-property",
-      "/cma-report",
-      "/view-documents",
-      "/view-detailes",
-    ].includes(pathname);
-    return {
-      textDecoration: "none",
-      color: isActiveLinks || isActive ? theme.colors.activeBg : "white",
-      display: "inline-flex",
-      gap: "8px",
-    };
-  };
-  const publicPropertyStyle = ({ isActive }: any) => {
-    const isActiveLinks = ["/public-property-details"].includes(pathname);
-    return {
-      textDecoration: "none",
-      color: isActiveLinks || isActive ? theme.colors.activeBg : "white",
-      display: "inline-flex",
-      gap: "8px",
-    };
-  };
-  const myTaskStyle = ({ isActive }: any) => {
-    const isActiveLinks = ["/approval"].includes(pathname);
-    return {
-      textDecoration: "none",
-      color: isActiveLinks || isActive ? theme.colors.activeBg : "white",
-      display: "inline-flex",
-      gap: "8px",
-    };
-  };
-
-  return (
-    <Box
-      mt={8.7}
-      p="16px 4px 4px 4px"
-      boxSizing="border-box"
-      overflow="auto"
-      height="100%"
-      flexGrow={1}
-      width="250px"
-      sx={{ bgcolor: theme.colors.background }}
-      position="fixed"
-      z-index="1"
-      top="0"
-      left="0"
-      overflow-x="hidden"
-    >
-      <Toolbar>
-        <Box
-          gap={3}
-          display="flex"
-          flexGrow={1}
-          flexDirection="column"
-          alignItems=" flex-start"
-          mt={5}
+  const renderMenuOptionsDrawer = () => {
+    return links.map((page: NavItem) => {
+      return (
+        <NavLink
+          key={page.title}
+          to={page.path}
+          style={{
+            color: page.path === pathname ? theme.colors.activeBg : "white",
+            fontSize: "25px",
+            fontFamily: "Poppins",
+            textDecoration: "none",
+            display: "inline-flex",
+          }}
         >
-          <>
-            <NavLink to="/*" style={navLinksStyle}>
-              <Home />
-              Home
-            </NavLink>
-            <NavLink to="/Project" style={navLinksStyle}>
-              <Menu />
-              Project
-            </NavLink>
+          <Box>
+            <Typography
+              style={{
+                fontWeight: "500",
+                // color: theme.colors.appbarText,
+              }}
+              sx={{ display: "flex", flexDirection: "row" }}
+              gap="3px"
+            >
+              {page.icon} {page.title}
+            </Typography>
+          </Box>
+        </NavLink>
+      );
+    });
+  };
 
-            <NavLink to="/recoveries" style={navLinksStyle}>
-              <Biotech />
-              Recoveries
-            </NavLink>
-
-            <NavLink to="/notifications-form" style={navLinksStyle}>
-              <Notifications />
-              Notifications
-            </NavLink>
-
-            <NavLink to="/additional-service" style={navLinksStyle}>
-              <Settings />
-              Additional Services
-            </NavLink>
-          </>
-        </Box>
-      </Toolbar>
-    </Box>
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  return (
+    <>
+      <Box
+        mt={8.7}
+        p="16px 4px 4px 4px"
+        boxSizing="border-box"
+        overflow="auto"
+        height="100%"
+        flexGrow={1}
+        width="250px"
+        position="fixed"
+        z-index="1"
+        top="0"
+        left="0"
+        // display="inline"
+        overflow-x="hidden"
+        sx={{
+          bgcolor: theme.colors.primary,
+          display: { xs: "none", md: "none", lg: "inline" },
+        }}
+      >
+        <Toolbar>
+          <Box
+            gap={3}
+            display="flex"
+            flexGrow={1}
+            flexDirection="column"
+            alignItems=" flex-start"
+            mt={5}
+          >
+            {renderMenuOptionsDrawer()}
+          </Box>
+        </Toolbar>
+      </Box>
+    </>
   );
-}
+};

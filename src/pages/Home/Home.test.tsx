@@ -16,16 +16,19 @@ describe("Home", () => {
         title: "HOME",
         path: "/home",
         fallbackTitle: "Dashboard",
+        icon: "",
       },
       {
         title: "PROJECTS",
         path: "/researchform",
         fallbackTitle: "Projects",
+        icon: "",
       },
       {
         title: "RECOVERIES",
         path: "/Recoveries",
         fallbackTitle: "Recoveries",
+        icon: "",
       },
     ];
 

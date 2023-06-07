@@ -8,16 +8,19 @@ const links: MenuLinkProps["links"] = [
     title: "HOME",
     path: "/home",
     fallbackTitle: "Dashboard",
+    icon: "",
   },
   {
     title: "PROJECTS",
     path: "/researchform",
     fallbackTitle: "Projects",
+    icon: "",
   },
   {
     title: "RECOVERIES",
     path: "/recoveries",
     fallbackTitle: "Recoveries",
+    icon: "",
   },
 ];
 

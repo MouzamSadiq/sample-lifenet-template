@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-import { customMuiTheme } from "../../../Theme/customMuiTheme";
-import { theme } from "../../../Theme/theme";
+import { customMuiTheme } from "../Theme/customMuiTheme";
+import { theme } from "../Theme/theme";
 
 export type DocProps = {
   name: string;

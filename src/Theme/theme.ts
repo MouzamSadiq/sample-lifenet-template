@@ -16,6 +16,8 @@ export type Theme = {
     cardBg: string;
     iconColor: string;
     error: string;
+    logoBlue: string;
+    greenText: string;
   };
   center: {
     display: string;
@@ -98,6 +100,8 @@ export const theme: Theme = {
     cardBg: "#efefef",
     iconColor: "#6667",
     error: "#E47474",
+    logoBlue: "#1A237E",
+    greenText: "#a2ad00",
   },
   center: {
     display: "inline-flex",
