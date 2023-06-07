@@ -48,6 +48,10 @@ export interface ShadingToolProps {
   id: string;
   width: number;
   height: number;
+  stroke: string;
+  opacity: number;
+  strokeWidth: number;
+  shadowBlur: number;
 }
 export interface CustomArrowProps {
   x: number;
