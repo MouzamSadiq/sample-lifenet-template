@@ -28,7 +28,7 @@ export const Projects = () => {
         <NavBar links={pages} /> */}
 
       <Box
-        sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "230px" } }}
+        sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "0" } }}
         // bgcolor={theme.colors.textLightGray}
         paddingLeft={5}
         // paddingTop={15}

@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header links={pages} />
-        <NavBar links={pages} />
+        {/* <NavBar links={pages} /> */}
 
         <Routes>
           <Route path="*" element={<Home />} />

@@ -73,7 +73,7 @@ export const Home: React.FC = () => {
         {/* <NavBar links={pages} /> */}
 
         <Box
-          sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "230px" } }}
+          sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "0px" } }}
           height="50%"
           width="100%"
           paddingLeft={5}

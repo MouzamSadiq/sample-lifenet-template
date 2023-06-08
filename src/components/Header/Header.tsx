@@ -1,13 +1,28 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Typography, Box, IconButton, Button, Drawer } from "@mui/material";
+import {
+  Typography,
+  Box,
+  IconButton,
+  Button,
+  Drawer,
+  Toolbar,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { ExitToApp, Logout, Padding } from "@mui/icons-material";
+import {
+  ArrowCircleRight,
+  ExitToApp,
+  KeyboardDoubleArrowLeft,
+  KeyboardDoubleArrowRight,
+  Logout,
+  Padding,
+} from "@mui/icons-material";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/lnh.png";
 import { theme } from "../../Theme/theme";
 import { NavItem, pages } from "../../pages/Home/Home";
 import { MenuLinkProps } from "../Menubar/Menubar";
+import { NavBar } from "../NavBar/NavBar";
 
 export const Header = ({ links }: MenuLinkProps) => {
   const navigate = useNavigate();
@@ -21,6 +36,7 @@ export const Header = ({ links }: MenuLinkProps) => {
     display: "inline-flex",
     gap: "8px",
   });
+  const drawerWidth = 240;
   const renderMenuOptionsDrawer = () => {
     return links.map((page: NavItem) => {
       return (
@@ -50,6 +66,7 @@ export const Header = ({ links }: MenuLinkProps) => {
     });
   };
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [isLeftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
   return (
     <Box mb={10}>
       <AppBar sx={{ height: "70px", bgcolor: "white" }}>
@@ -65,7 +82,53 @@ export const Header = ({ links }: MenuLinkProps) => {
             sx={{ alignContent: "left", alignItems: "left", display: "flex" }}
             ml={2}
             mt={1}
+            gap={2}
           >
+            <Box
+              sx={{
+                display: { xs: "none", md: "none", lg: "flex" },
+              }}
+            >
+              {isLeftDrawerOpen ? (
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menubar1"
+                  onClick={() => setLeftDrawerOpen(false)}
+                  style={{ color: "navy" }}
+                >
+                  <KeyboardDoubleArrowLeft />
+                </IconButton>
+              ) : (
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menubar2"
+                  onClick={() => setLeftDrawerOpen(true)}
+                  style={{ color: "navy" }}
+                >
+                  <MenuIcon />
+                </IconButton>
+              )}
+              <Drawer
+                anchor="left"
+                open={isLeftDrawerOpen}
+                onClose={() => setLeftDrawerOpen(false)}
+                elevation={0}
+                sx={{
+                  width: "0px",
+                  flexShrink: 0,
+                  "& .MuiDrawer-paper": {
+                    width: "0px",
+                  },
+                }}
+                variant="persistent"
+                id="drawer1"
+              >
+                <NavBar links={pages} />
+              </Drawer>
+            </Box>
+
             <img src={logo} alt="logo" height="50px" />
           </Box>
 
@@ -159,8 +222,9 @@ export const Header = ({ links }: MenuLinkProps) => {
 
                 <Drawer
                   anchor="right"
-                  open={isDrawerOpen}
                   onClose={() => setIsDrawerOpen(false)}
+                  id="drawer2"
+                  open={isDrawerOpen}
                 >
                   <Box
                     sx={{

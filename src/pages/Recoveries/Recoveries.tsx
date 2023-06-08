@@ -10,21 +10,7 @@ export const Recoveries = () => {
         flexDirection: "column",
       }}
     >
-      {/* <Box>
-        <Header />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <NavBar links={pages} /> */}
-
-      <Box
-        sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "230px" } }}
-        paddingLeft={5}
-      >
+      <Box sx={{ flexGrow: 0, ml: { xs: "0", md: "0" } }} paddingLeft={5}>
         <Box>
           <Box>
             <Box display="flex" alignItems="left" padding={1}>

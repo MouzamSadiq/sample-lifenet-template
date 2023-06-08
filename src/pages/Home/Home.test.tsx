@@ -2,39 +2,21 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Home, NavItem } from "./Home";
 import { BrowserRouter as Router } from "react-router-dom";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
+import { customMuiTheme } from "../../Theme/customMuiTheme";
+import {
+  Home as HomeIcon,
+  Notifications,
+  Settings,
+  Biotech,
+  Menu,
+} from "@mui/icons-material";
 
 describe("Home", () => {
-  it("displays the correct links in the Menubar component", () => {
-    render(
-      <Router>
-        <Home />
-      </Router>
-    );
+  test("renders welcome text", () => {
+    render(<Home />);
 
-    const pages: Array<NavItem> = [
-      {
-        title: "HOME",
-        path: "/home",
-        fallbackTitle: "Dashboard",
-        icon: "",
-      },
-      {
-        title: "PROJECTS",
-        path: "/researchform",
-        fallbackTitle: "Projects",
-        icon: "",
-      },
-      {
-        title: "RECOVERIES",
-        path: "/Recoveries",
-        fallbackTitle: "Recoveries",
-        icon: "",
-      },
-    ];
-
-    pages.forEach((page) => {
-      const linkElement = screen.getByText(page.title);
-      expect(linkElement).toBeInTheDocument();
-    });
+    const welcomeText = screen.getByText("welcome...");
+    expect(welcomeText).toBeInTheDocument();
   });
 });
