@@ -8,7 +8,7 @@ import { Header } from "./components/Header/Header";
 import React from "react";
 
 function App() {
-  const [isLeftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
+  const [isLeftDrawerOpen, setLeftDrawerOpen] = React.useState(true);
   return (
     <div className="App">
       <BrowserRouter>
