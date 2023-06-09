@@ -112,7 +112,8 @@ export const TextShape: React.FC<{
             });
           }}
           onMouseEnter={() => {
-            shapeRef.current.getStage().container().style.cursor = cursorStyle;
+            shapeRef.current.getStage().container().style.cursor =
+              !isFromTemplate ? cursorStyle : "default";
           }}
           onMouseLeave={() => {
             shapeRef.current.getStage().container().style.cursor = "default";

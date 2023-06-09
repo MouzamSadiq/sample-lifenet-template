@@ -1,19 +1,23 @@
-import { Arrow, Transformer } from "react-konva";
 import React, { useRef, useEffect } from "react";
+import { Arrow, Transformer } from "react-konva";
 import { ArrowShapeProps } from "../../types";
+import { Html } from "react-konva-utils";
+import { Button } from "@mui/material";
 
 export const ArrowShape: React.FC<{
   shapeProps: ArrowShapeProps;
   isSelected: boolean;
   onSelect: () => void;
   onChange: (newAttrs: ArrowShapeProps) => void;
-}> = ({ shapeProps, isSelected, onSelect, onChange }) => {
+  onDelete: () => void; // New prop for deleting the arrow
+}> = ({ shapeProps, isSelected, onSelect, onChange, onDelete }) => {
   const shapeRef = useRef<any>();
   const trRef = useRef<any>();
 
+  console.log("ShapeRefArorow", shapeRef.current);
+
   useEffect(() => {
     if (isSelected) {
-      // Attach transformer manually when selected
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
@@ -28,7 +32,6 @@ export const ArrowShape: React.FC<{
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        // draggable
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,
@@ -48,7 +51,6 @@ export const ArrowShape: React.FC<{
             x: node.x(),
             y: node.y(),
             points: node.points().map((point: number, i: number) => {
-              // Adjust the points based on the scale
               if (i % 2 === 0) {
                 return point * scaleX;
               } else {
@@ -65,16 +67,43 @@ export const ArrowShape: React.FC<{
         }}
       />
       {isSelected && (
-        <Transformer
-          ref={trRef}
-          boundBoxFunc={(oldBox: any, newBox: any) => {
-            // Limit resize
-            if (newBox.width < 5 || newBox.height < 5) {
-              return oldBox;
-            }
-            return newBox;
-          }}
-        />
+        <>
+          <Transformer
+            ref={trRef}
+            boundBoxFunc={(oldBox: any, newBox: any) => {
+              if (newBox.width < 5 || newBox.height < 5) {
+                return oldBox;
+              }
+              return newBox;
+            }}
+          />
+          <Html
+            groupProps={{
+              x: (window.innerWidth - 555) / 3,
+              y: 35,
+            }}
+          >
+            <Button
+              variant="outlined"
+              sx={{
+                color: "black",
+                backgroundColor: "#BCBDBE",
+                // opacity: 1,
+                borderColor: "black",
+                borderRadius: "8px",
+                boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
+                "&:hover": {
+                  backgroundColor: "#BCBDBE",
+                  opacity: 0.9,
+                },
+              }}
+              onClick={onDelete}
+              // style={{ position: "absolute", top: "-10px", right: "-10px" }}
+            >
+              Delete
+            </Button>
+          </Html>
+        </>
       )}
     </>
   );

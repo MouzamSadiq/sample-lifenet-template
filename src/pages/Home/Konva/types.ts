@@ -26,7 +26,7 @@ export interface TextShapeProps {
   fontSize: number;
   // text: string;
   fill: string;
-  // width: number;
+  width: number;
   // height: number;
   // rotation: number;
   // textWidth: number;

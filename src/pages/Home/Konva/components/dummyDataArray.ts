@@ -1,11 +1,13 @@
-export const initialArrowShapes = {
-  x: 1002.711798589766,
-  y: 398.0000000000004,
-  fill: "black",
-  draggable: false,
-  id: Math.random().toString(16).slice(2),
-  points: [131, 0, 0, 0],
-};
+export const initialArrowShapes = [
+  {
+    x: 1002.711798589766,
+    y: 398.0000000000004,
+    fill: "black",
+    draggable: false,
+    id: Math.random().toString(16).slice(2),
+    points: [131, 0, 0, 0],
+  },
+];
 
 export const initialTextTemplate = [
   {
@@ -55,13 +57,15 @@ export const initialTextTemplate = [
   },
 ];
 
-export const initialCustomArrowTemplate = {
-  x: 889.0023112302707,
-  y: 425.0000000000004,
-  fill: "black",
-  draggable: false,
-  id: Math.random().toString(16).slice(2),
-  points: [-112, 0, 0, 0, 37.6, -22],
-};
+export const initialCustomArrowTemplate = [
+  {
+    x: 889.0023112302707,
+    y: 425.0000000000004,
+    fill: "black",
+    draggable: false,
+    id: Math.random().toString(16).slice(2),
+    points: [-112, 0, 0, 0, 37.6, -22],
+  },
+];
 
 // 890.0023112302707

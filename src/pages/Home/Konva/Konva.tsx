@@ -46,9 +46,9 @@ const KonvaGround: React.FC = () => {
   const [texts, setTexts] = useState<TextShapeProps[]>([]);
   const [shades, setShades] = useState<ShadingToolProps[]>([]);
   const [customShapes, setCustomShapes] = useState<CustomArrowProps[]>([]);
-  console.log({ arrows });
-  console.log({ texts });
-  console.log({ customShapes });
+  // console.log({ arrows });
+  // console.log({ texts });
+  // console.log({ customShapes });
 
   const [selectedArrowId, selectArrowShape] = useState<string | null>(null);
   const [selectedTextId, selectTextShape] = useState<string | null>(null);
@@ -64,30 +64,15 @@ const KonvaGround: React.FC = () => {
 
   useEffect(() => {
     if (loadTemplate) {
-      setArrows([initialArrowShapes]);
+      setArrows(initialArrowShapes);
       setTexts(initialTextTemplate);
-      setCustomShapes([initialCustomArrowTemplate]);
+      setCustomShapes(initialCustomArrowTemplate);
     } else {
       setArrows([]);
       setTexts([]);
       setCustomShapes([]);
     }
-  }, [loadTemplate]);
-
-  // useEffect(() => {
-  //   if (stageWidth < 1920) {
-  //     setArrows([
-  //       {
-  //         x: 1599.711798589766,
-  //         y: 394.7459634015073,
-  //         fill: "black",
-  //         draggable: true,
-  //         id: Math.random().toString(16).slice(2),
-  //         points: [131, 0, 0, 0],
-  //       },
-  //     ]);
-  //   }
-  // }, [stageWidth]);
+  }, [loadTemplate, stageWidth]);
 
   const checkDeselect = (e: any) => {
     const clickedOnEmpty = e.target === e.target.getStage();
@@ -208,28 +193,70 @@ const KonvaGround: React.FC = () => {
     setTexts(updatedTexts);
   };
 
-  // This is too keep points responisive
+  // This is too keep points responsive
 
-  const adjustCoordinates = (x: number, y: number) => {
+  const adjustCoordinates = () => {
     const initialScreenWidth = 1920;
     const initialScreenHeight = 929;
 
-    const currentScreenWidth = window.innerWidth;
-    const currentScreenHeight = window.innerHeight;
+    const newScreenX = initialScreenWidth / stageWidth;
+    const newScreenY = initialScreenHeight / stageHeight;
 
-    const newScreenX = initialScreenWidth / currentScreenWidth;
-    const newScreenY = initialScreenHeight / currentScreenHeight;
+    const adjustedArrows = initialArrowShapes.map((arrow) => {
+      const adjustedX = arrow.x / newScreenX;
+      const adjustedY = arrow.y / newScreenY;
 
-    const adjustedX = x / newScreenX;
-    const adjustedY = y / newScreenY;
+      return {
+        ...arrow,
+        x: adjustedX,
+        y: adjustedY,
+      };
+    });
 
-    // setArrows([array1]);
+    const adjustedTexts = initialTextTemplate.map((text) => {
+      const adjustedX = text.x / newScreenX;
+      const adjustedY = text.y / newScreenY;
 
-    console.log("Calculated x and y:", adjustedX, adjustedY);
-    return { x: adjustedX, y: adjustedY };
+      return {
+        ...text,
+        x: adjustedX,
+        y: adjustedY,
+      };
+    });
+
+    const adjustedCustomArrow = initialCustomArrowTemplate.map((shape) => {
+      const adjustedX = shape.x / newScreenX;
+      const adjustedY = shape.y / newScreenY;
+
+      return {
+        ...shape,
+        x: adjustedX,
+        y: adjustedY,
+      };
+    });
+    setTexts(adjustedTexts);
+    setCustomShapes(adjustedCustomArrow);
+    setArrows(adjustedArrows);
+
+    return null;
   };
 
-  adjustCoordinates(1003.0023112302707, 357.0000000000004);
+  useEffect(() => {
+    if (stageWidth < 1920 && loadTemplate) {
+      adjustCoordinates();
+    }
+  }, [stageWidth, stageHeight]);
+
+  //Basic Delete Functionalities
+  const deleteArrowShape = () => {
+    if (selectedArrowId) {
+      const updatedArrows = arrows.filter(
+        (arrow) => arrow.id !== selectedArrowId
+      );
+      setArrows(updatedArrows);
+      selectArrowShape(null);
+    }
+  };
 
   return (
     <div style={{ width: "100%", height: "100%", overflow: "auto" }}>
@@ -241,7 +268,7 @@ const KonvaGround: React.FC = () => {
       >
         {/* <KonvaEditableText /> */}
         <Layer>
-          <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryImage.gif&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
+          <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryImage.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
         </Layer>
         <Layer>
           <Toolbar
@@ -259,7 +286,7 @@ const KonvaGround: React.FC = () => {
             toolbarWidth={toolbarWidth}
           />
         </Layer>
-        {!!annotate && (
+        {!!annotate && stageWidth > 1115 && (
           <Layer>
             <Html
               groupProps={{
@@ -300,6 +327,7 @@ const KonvaGround: React.FC = () => {
                 updatedArrows[i] = newAttrs;
                 setArrows(updatedArrows);
               }}
+              onDelete={deleteArrowShape}
             />
           ))}
           {texts.map((textProps, i) => (
