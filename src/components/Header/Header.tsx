@@ -95,8 +95,9 @@ export const Header = ({ links, isopen, setIsopen }: MenuLinkProps) => {
                   aria-label="menubar1"
                   onClick={() => setIsopen()}
                   style={{ color: "navy" }}
+                  size="large"
                 >
-                  <MenuOpen />
+                  <MenuIcon />
                 </IconButton>
               ) : (
                 <IconButton
@@ -105,8 +106,9 @@ export const Header = ({ links, isopen, setIsopen }: MenuLinkProps) => {
                   aria-label="menubar2"
                   onClick={() => setIsopen()}
                   style={{ color: "navy" }}
+                  size="large"
                 >
-                  <MenuIcon />
+                  <MenuOpen />
                 </IconButton>
               )}
               <Drawer
