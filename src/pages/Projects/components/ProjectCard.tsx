@@ -6,8 +6,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Actions } from "../../../components/Actions";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import ArticleIcon from "@mui/icons-material/Article";
 import { theme } from "../../../Theme/theme";
 import { Biotech, VolunteerActivism } from "@mui/icons-material";
 
@@ -21,7 +19,7 @@ export const ProjectCard: React.FC = () => {
       }}
       gap="12px"
     >
-      <Card sx={{ width: "22em", height: "240px" }}>
+      <Card sx={{ width: "22em", height: "240px" }} data-testid="project-card">
         <Actions
           name="Total Projects"
           icon={
@@ -36,7 +34,7 @@ export const ProjectCard: React.FC = () => {
           count={100}
         />
       </Card>
-      <Card sx={{ width: "22em", height: "240px" }}>
+      <Card sx={{ width: "22em", height: "240px" }} data-testid="project-card">
         <Actions
           name="Projects Inprogres"
           icon={
@@ -63,7 +61,7 @@ export const ProjectCard: React.FC = () => {
           count={20}
         />
       </Card>
-      <Card sx={{ width: "22em", height: "240px" }}>
+      <Card sx={{ width: "22em", height: "240px" }} data-testid="project-card">
         <Actions
           name="Critical Projects"
           icon={
@@ -91,7 +89,7 @@ export const ProjectCard: React.FC = () => {
           count={8}
         />
       </Card>
-      <Card sx={{ width: "22em", height: "240px" }}>
+      <Card sx={{ width: "22em", height: "240px" }} data-testid="project-card">
         <Actions
           name="Pending Research Project"
           icon={
@@ -112,7 +110,7 @@ export const ProjectCard: React.FC = () => {
         />
       </Card>
 
-      <Card sx={{ width: "22em", height: "240px" }}>
+      <Card sx={{ width: "22em", height: "240px" }} data-testid="project-card">
         <Actions
           name="Donors"
           icon={

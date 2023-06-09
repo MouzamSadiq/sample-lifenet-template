@@ -10,25 +10,24 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
-  ArrowCircleRight,
   ExitToApp,
   KeyboardDoubleArrowLeft,
-  KeyboardDoubleArrowRight,
-  Logout,
-  Padding,
+  MenuOpen,
 } from "@mui/icons-material";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/lnh.png";
 import { theme } from "../../Theme/theme";
 import { NavItem, pages } from "../../pages/Home/Home";
-import { MenuLinkProps } from "../Menubar/Menubar";
 import { NavBar } from "../NavBar/NavBar";
 
-export const Header = ({ links }: MenuLinkProps) => {
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.clear();
-  };
+export type MenuLinkProps = {
+  links: NavItem[];
+  isopen: boolean;
+  setIsopen: () => void;
+};
+
+export const Header = ({ links, isopen, setIsopen }: MenuLinkProps) => {
+  const handleLogout = () => {};
   const { pathname } = useLocation();
   const navLinksStyle = ({ isActive }: any) => ({
     textDecoration: "none",
@@ -36,7 +35,7 @@ export const Header = ({ links }: MenuLinkProps) => {
     display: "inline-flex",
     gap: "8px",
   });
-  const drawerWidth = 240;
+
   const renderMenuOptionsDrawer = () => {
     return links.map((page: NavItem) => {
       return (
@@ -66,7 +65,7 @@ export const Header = ({ links }: MenuLinkProps) => {
     });
   };
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const [isLeftDrawerOpen, setLeftDrawerOpen] = React.useState(false);
+
   return (
     <Box mb={10}>
       <AppBar sx={{ height: "70px", bgcolor: "white" }}>
@@ -89,22 +88,22 @@ export const Header = ({ links }: MenuLinkProps) => {
                 display: { xs: "none", md: "none", lg: "flex" },
               }}
             >
-              {isLeftDrawerOpen ? (
+              {isopen ? (
                 <IconButton
                   edge="start"
                   color="inherit"
                   aria-label="menubar1"
-                  onClick={() => setLeftDrawerOpen(false)}
+                  onClick={() => setIsopen()}
                   style={{ color: "navy" }}
                 >
-                  <KeyboardDoubleArrowLeft />
+                  <MenuOpen />
                 </IconButton>
               ) : (
                 <IconButton
                   edge="start"
                   color="inherit"
                   aria-label="menubar2"
-                  onClick={() => setLeftDrawerOpen(true)}
+                  onClick={() => setIsopen()}
                   style={{ color: "navy" }}
                 >
                   <MenuIcon />
@@ -112,8 +111,8 @@ export const Header = ({ links }: MenuLinkProps) => {
               )}
               <Drawer
                 anchor="left"
-                open={isLeftDrawerOpen}
-                onClose={() => setLeftDrawerOpen(false)}
+                open={isopen}
+                onClose={() => setIsopen()}
                 elevation={0}
                 sx={{
                   width: "0px",
@@ -123,7 +122,7 @@ export const Header = ({ links }: MenuLinkProps) => {
                   },
                 }}
                 variant="persistent"
-                id="drawer1"
+                aria-label="drawerLeft"
               >
                 <NavBar links={pages} />
               </Drawer>
@@ -223,7 +222,6 @@ export const Header = ({ links }: MenuLinkProps) => {
                 <Drawer
                   anchor="right"
                   onClose={() => setIsDrawerOpen(false)}
-                  id="drawer2"
                   open={isDrawerOpen}
                 >
                   <Box

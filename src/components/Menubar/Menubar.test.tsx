@@ -25,16 +25,6 @@ const links: MenuLinkProps["links"] = [
 ];
 
 describe("Menubar", () => {
-  // test("renders the logo", () => {
-  //   render(
-  //     <BrowserRouter>
-  //       <Menubar links={links} />
-  //     </BrowserRouter>
-  //   );
-  //   const logoElement = screen.queryByAltText("logo");
-  //   expect(logoElement).toBeInTheDocument();
-  // });
-
   test("renders the menu options in full size", () => {
     render(
       <BrowserRouter>

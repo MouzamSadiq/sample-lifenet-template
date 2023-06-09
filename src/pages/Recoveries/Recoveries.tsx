@@ -2,7 +2,10 @@ import { Box, CircularProgress, Divider, Typography } from "@mui/material";
 import { customMuiTheme } from "../../Theme/customMuiTheme";
 import { RecoveryCard } from "./components/RecoveriesCard";
 
-export const Recoveries = () => {
+export type DocProps = {
+  isLeftDrawerOpen: boolean;
+};
+export const Recoveries: React.FC<DocProps> = ({ isLeftDrawerOpen }) => {
   return (
     <Box
       sx={{
@@ -10,7 +13,13 @@ export const Recoveries = () => {
         flexDirection: "column",
       }}
     >
-      <Box sx={{ flexGrow: 0, ml: { xs: "0", md: "0" } }} paddingLeft={5}>
+      <Box
+        sx={{
+          flexGrow: 0,
+          ml: { xs: "0", md: "0", lg: isLeftDrawerOpen ? "230px" : "0px" },
+        }}
+        paddingLeft={5}
+      >
         <Box>
           <Box>
             <Box display="flex" alignItems="left" padding={1}>

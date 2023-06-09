@@ -8,7 +8,10 @@ import { Biotech, HomeWorkOutlined } from "@mui/icons-material";
 import { Actions } from "../../components/Actions";
 import { ProjectCard } from "./components/ProjectCard";
 
-export const Projects = () => {
+export type DocProps = {
+  isLeftDrawerOpen: boolean;
+};
+export const Projects: React.FC<DocProps> = ({ isLeftDrawerOpen }) => {
   return (
     <Box
       sx={{
@@ -16,19 +19,11 @@ export const Projects = () => {
         flexDirection: "column",
       }}
     >
-      {/* <Box>
-        <Header />
-      </Box>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
+          flexGrow: 0,
+          ml: { xs: "0", md: "0", lg: isLeftDrawerOpen ? "230px" : "0" },
         }}
-      >
-        <NavBar links={pages} /> */}
-
-      <Box
-        sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "0" } }}
         // bgcolor={theme.colors.textLightGray}
         paddingLeft={5}
         // paddingTop={15}
@@ -71,41 +66,6 @@ export const Projects = () => {
                 gap={2}
               >
                 <ProjectCard />
-                {/* <Actions
-                  name="Total Projects"
-                  icon={
-                    <Biotech
-                      style={{
-                        height: "100px",
-                        width: "70px",
-                        color: theme.colors.activeBg,
-                      }}
-                    />
-                  }
-                  count={10}
-                />
-                <Actions
-                  name="Projects Inprogres"
-                  icon={
-                    <Box
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <CircularProgress
-                        style={{
-                          height: "100px",
-                          width: "100px",
-                          color: theme.colors.activeBg,
-                        }}
-                        variant="determinate"
-                        value={70}
-                      />
-                      <Typography position="absolute">70%</Typography>
-                    </Box>
-                  }
-                  count={100}
-                /> */}
               </Box>
             </Box>
           </Box>

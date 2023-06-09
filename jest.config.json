@@ -2,8 +2,13 @@
     "testEnvironment": "jsdom",
     "transform": {
         "^.+\\.tsx?$": "ts-jest"
+        
     },
+    "moduleNameMapper": {
+    "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>//src//assets//lnh.js"
+  },
     "setupFilesAfterEnv": [
         "@testing-library/jest-dom/extend-expect"
     ]
+
 }

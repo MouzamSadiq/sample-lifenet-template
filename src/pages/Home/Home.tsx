@@ -52,8 +52,10 @@ export const pages: Array<NavItem> = [
   },
   // { title: "analytics", path: "/analytics", fallbackTitle: "Analytics" },
 ];
-
-export const Home: React.FC = () => {
+export type DocProps = {
+  isLeftDrawerOpen: boolean;
+};
+export const Home: React.FC<DocProps> = ({ isLeftDrawerOpen }) => {
   return (
     <Box
       sx={{
@@ -73,10 +75,13 @@ export const Home: React.FC = () => {
         {/* <NavBar links={pages} /> */}
 
         <Box
-          sx={{ flexGrow: 0, ml: { xs: "0", md: "0", lg: "0px" } }}
+          sx={{
+            flexGrow: 0,
+            ml: { xs: "0", md: "0", lg: isLeftDrawerOpen ? "230px" : "0px" },
+          }}
           height="50%"
           width="100%"
-          paddingLeft={5}
+          paddingLeft={3}
         >
           <Box>
             <Box>
