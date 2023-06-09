@@ -48,6 +48,7 @@ export const Header = ({ links, isopen, setIsopen }: MenuLinkProps) => {
             fontFamily: "Poppins",
             textDecoration: "none",
           }}
+          onClick={() => setIsDrawerOpen(false)}
         >
           <Box>
             <Typography
