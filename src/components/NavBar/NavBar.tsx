@@ -7,7 +7,7 @@ import { NavItem } from "../../pages/Home/Home";
 import { MenuLinkProps } from "../Menubar/Menubar";
 
 export const NavBar = ({ links }: MenuLinkProps) => {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   const renderMenuOptionsDrawer = () => {
     return links.map((page: NavItem) => {
       return (
@@ -15,7 +15,7 @@ export const NavBar = ({ links }: MenuLinkProps) => {
           key={page.title}
           to={page.path}
           style={{
-            color: page.path === pathname ? theme.colors.activeBg : "white",
+            // color: page.path === pathname ? theme.colors.activeBg : "white",
             fontSize: "25px",
             fontFamily: "Poppins",
             textDecoration: "none",
@@ -41,40 +41,38 @@ export const NavBar = ({ links }: MenuLinkProps) => {
 
   return (
     <>
-     
-        <Box
-          mt={8.7}
-          p="16px 4px 4px 4px"
-          boxSizing="border-box"
-          overflow="auto"
-          height="100%"
-          flexGrow={1}
-          width="250px"
-          position="fixed"
-          z-index="1"
-          top="0"
-          left="0"
-          // display="inline"
-          overflow-x="hidden"
-          sx={{
-            bgcolor: theme.colors.primary,
-            display: { xs: "none", md: "none", lg: "inline" },
-          }}
-        >
-          <Toolbar>
-            <Box
-              gap={3}
-              display="flex"
-              flexGrow={1}
-              flexDirection="column"
-              alignItems=" flex-start"
-              mt={5}
-            >
-              {renderMenuOptionsDrawer()}
-            </Box>
-          </Toolbar>
-        </Box>
-     
+      <Box
+        mt={8.7}
+        p="16px 4px 4px 4px"
+        boxSizing="border-box"
+        overflow="auto"
+        height="100%"
+        flexGrow={1}
+        width="250px"
+        position="fixed"
+        z-index="1"
+        top="0"
+        left="0"
+        // display="inline"
+        overflow-x="hidden"
+        sx={{
+          bgcolor: theme.colors.primary,
+          display: { xs: "none", md: "none", lg: "inline" },
+        }}
+      >
+        <Toolbar>
+          <Box
+            gap={3}
+            display="flex"
+            flexGrow={1}
+            flexDirection="column"
+            alignItems=" flex-start"
+            mt={5}
+          >
+            {renderMenuOptionsDrawer()}
+          </Box>
+        </Toolbar>
+      </Box>
     </>
   );
 };
