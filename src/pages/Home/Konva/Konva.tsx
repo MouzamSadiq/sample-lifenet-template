@@ -313,6 +313,31 @@ const KonvaGround: React.FC = () => {
             </Html>
           </Layer>
         )}
+        {!!annotate && stageWidth > 1115 && (
+          <Layer>
+            <Html
+              groupProps={{
+                x: (stageWidth / 2) * 1.7,
+                y: stageHeight / 25,
+              }}
+              divProps={{ style: { opacity: 1 } }}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "black",
+                  borderColor: "black",
+                  borderRadius: "8px",
+                  boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
+                  minWidth: "144px",
+                }}
+                onClick={() => {}}
+              >
+                Export to PDF
+              </Button>
+            </Html>
+          </Layer>
+        )}
         <Layer>
           {arrows.map((arrow, i) => (
             <ArrowShape
