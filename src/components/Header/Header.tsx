@@ -28,7 +28,7 @@ export type MenuLinkProps = {
 
 export const Header = ({ links, isopen, setIsopen }: MenuLinkProps) => {
   const handleLogout = () => {};
-  // const { pathname } = useLocation();
+  const { pathname } = useLocation();
   const navLinksStyle = ({ isActive }: any) => ({
     textDecoration: "none",
     color: isActive ? theme.colors.activeBg : "white",
@@ -43,7 +43,7 @@ export const Header = ({ links, isopen, setIsopen }: MenuLinkProps) => {
           key={page.title}
           to={page.path}
           style={{
-            // color: page.path === pathname ? theme.colors.activeBg : "white",
+            color: page.path === pathname ? theme.colors.activeBg : "white",
             fontSize: "25px",
             fontFamily: "Poppins",
             textDecoration: "none",

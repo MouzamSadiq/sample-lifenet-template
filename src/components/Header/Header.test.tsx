@@ -34,16 +34,23 @@ describe("Header", () => {
       },
     ];
 
-    const [isLeftDrawerOpen, setLeftDrawerOpen] = React.useState(true);
-    render(
-      <Header
-        links={links}
-        isopen={isLeftDrawerOpen}
-        setIsopen={() => {
-          setLeftDrawerOpen(!isLeftDrawerOpen);
-        }}
-      />
-    );
+    const HeaderWrapper = () => {
+      const [isLeftDrawerOpen, setLeftDrawerOpen] = React.useState(true);
+
+      const setIsLeftDrawerOpen = () => {
+        setLeftDrawerOpen(!isLeftDrawerOpen);
+      };
+
+      return (
+        <Header
+          links={links}
+          isopen={isLeftDrawerOpen}
+          setIsopen={setIsLeftDrawerOpen}
+        />
+      );
+    };
+
+    render(<HeaderWrapper />);
 
     const userName = screen.getByText(/User Name : Jared Blouse/i);
     const role = screen.getByText(/Role : Admin/i);

@@ -7,7 +7,7 @@ import { NavItem } from "../../pages/Home/Home";
 import { MenuLinkProps } from "../Menubar/Menubar";
 
 export const NavBar = ({ links }: MenuLinkProps) => {
-  // const { pathname } = useLocation();
+  const { pathname } = useLocation();
   const renderMenuOptionsDrawer = () => {
     return links.map((page: NavItem) => {
       return (
@@ -15,7 +15,7 @@ export const NavBar = ({ links }: MenuLinkProps) => {
           key={page.title}
           to={page.path}
           style={{
-            // color: page.path === pathname ? theme.colors.activeBg : "white",
+            color: page.path === pathname ? theme.colors.activeBg : "white",
             fontSize: "25px",
             fontFamily: "Poppins",
             textDecoration: "none",

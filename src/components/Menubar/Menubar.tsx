@@ -45,7 +45,7 @@ export const Menubar = ({ links }: MenuLinkProps) => {
           <Box
             width="115px"
             height="40px"
-            // bgcolor={page.path === pathname ? "yellow" : "#003768"}
+            bgcolor={page.path === pathname ? "yellow" : "#003768"}
             justifyContent="center"
             display="flex"
           >

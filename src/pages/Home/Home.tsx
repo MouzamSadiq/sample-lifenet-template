@@ -9,6 +9,8 @@ import {
   Biotech,
   Menu,
 } from "@mui/icons-material";
+import CustomizedSteppers from "../Stepper/Stepper";
+import VerticalStepper from "../Stepper/StepperModal";
 
 export type NavItem = {
   title: string;
@@ -100,7 +102,10 @@ export const Home: React.FC<DocProps> = ({ isLeftDrawerOpen }) => {
                 // height: "130vh",
               }}
               gap={5}
-            ></Box>
+              padding={5}
+            >
+              <VerticalStepper />
+            </Box>
           </Box>
         </Box>
       </Box>
