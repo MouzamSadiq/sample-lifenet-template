@@ -5,7 +5,7 @@ import KonvaGround from "./pages/Home/Konva/Konva";
 function App() {
   return (
     <div className="App">
-      <KonvaGround />
+      <Home />
     </div>
   );
 }

@@ -7,9 +7,10 @@ export const URLImage: React.FC<{ src: string }> = ({ src }) => {
   const imageY = (window.innerHeight - 377.5) / 2; // 377.5 is from imageHeight -  toolbar bar height
 
   const [image, setImage] = useState<HTMLImageElement>();
-  console.log("Image X and Y>><<<<<<", imageX, imageY);
+  // console.log("Image X and Y>><<<<<<", imageX, imageY);
   useEffect(() => {
     const img = new window.Image();
+    img.crossOrigin = "Anonymous";
     img.src = src;
     img.onload = () => {
       setImage(img);

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React, { useRef, useEffect, useState } from "react";
-import { Stage, Layer } from "react-konva";
+import { Stage, Layer, Group, Rect, Arrow, Text } from "react-konva";
 import { Html } from "react-konva-utils";
 import {
   ArrowShapeProps,
@@ -19,6 +19,7 @@ import { ShadingShape } from "./components/draggedToolShapes/ShadingShape";
 import { CustomArrowShape } from "./components/draggedToolShapes/CustomArrowShape";
 import { URLImage } from "./components/URLImage";
 import Toolbar from "../../../components/Toolbar";
+import { jsPDF } from "jspdf";
 
 const KonvaGround: React.FC = () => {
   useEffect(() => {
@@ -38,7 +39,7 @@ const KonvaGround: React.FC = () => {
   const annotate = params.get("annotate");
   const [stageWidth, setStageWidth] = useState(window.innerWidth);
   const [stageHeight, setStageHeight] = useState(window.innerHeight);
-  console.log("Screeennn inners????????", stageWidth, stageHeight);
+  // console.log("Screeennn inners????????", stageWidth, stageHeight);
 
   // UseStates for Shapes on CV image
   const [loadTemplate, setLoadTemplate] = useState<boolean>(false);
@@ -61,6 +62,8 @@ const KonvaGround: React.FC = () => {
   const toolbarDraggableTextRef = useRef<any>(null);
   const toolbarShadeRef = useRef<any>(null);
   const toolbarCustomShapeRef = useRef<any>(null);
+
+  const stageRef = useRef<any>(null);
 
   useEffect(() => {
     if (loadTemplate) {
@@ -242,7 +245,7 @@ const KonvaGround: React.FC = () => {
   };
 
   useEffect(() => {
-    if (stageWidth < 1920 && loadTemplate) {
+    if (loadTemplate) {
       adjustCoordinates();
     }
   }, [stageWidth, stageHeight]);
@@ -258,33 +261,63 @@ const KonvaGround: React.FC = () => {
     }
   };
 
+  //Basic PDF Export functonality
+  const handleExportToPDF = () => {
+    const stage = stageRef.current;
+    const pdf = new jsPDF();
+
+    const layerToHide = stage.find("#layerToHide")[0];
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+    layerToHide.hide();
+
+    const dataURL = stage.toDataURL({ pixelRatio: 1 });
+
+    layerToHide.show();
+
+    const imageWidth = pdfWidth;
+    const imageHeight = 200;
+
+    const xPos = (pdfWidth - imageWidth) / 2;
+    const yPos = (pdfHeight - imageHeight) / 2;
+
+    pdf.addImage(dataURL, xPos, yPos, imageWidth, pdfHeight / 2);
+
+    pdf.save("exported_cv_image.pdf");
+  };
+
   return (
-    <div style={{ width: "100%", height: "100%", overflow: "auto" }}>
+    <>
       <Stage
+        // width={2000}
+        // height={1000}
         width={window.innerWidth}
         height={window.innerHeight}
         onMouseDown={checkDeselect}
         onTouchStart={checkDeselect}
+        ref={stageRef}
       >
         {/* <KonvaEditableText /> */}
-        <Layer>
-          <URLImage src="https://lifenethealth.visualstudio.com/8f99a695-9545-4cb5-a249-dbfe0d365a3f/_apis/git/repositories/92dd74a8-03df-4361-aaa0-32fe4091992f/items?path=/ProcessingLogs/ProcessingLogs_iOS/ProcessingLogs_Aortoilliac/Resources/AortoIliacArteryImage.png&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=octetStream&api-version=5.0" />
-        </Layer>
-        <Layer>
-          <Toolbar
-            toolbarArrowReference={toolbarArrowReference}
-            toolbarTextRef={toolbarDraggableTextRef}
-            toolbarShadeRef={toolbarShadeRef}
-            toolbarCustomArrowRef={toolbarCustomShapeRef}
-            handleArrowDragEnds={handleArrowDragEnds}
-            handleTextDragEnd={handleTextDragEnd}
-            handleShadeDragEnd={handleShadeDragEnd}
-            handleCustomShapeDragEnd={handleCustomShapeDragEnd}
-            toolbarX={toolbarX}
-            toolbarY={toolbarY}
-            toolbarHeight={toolbarHeight}
-            toolbarWidth={toolbarWidth}
-          />
+
+        <Layer id={"layerToHide"}>
+          <Group draggable>
+            <Toolbar
+              toolbarArrowReference={toolbarArrowReference}
+              toolbarTextRef={toolbarDraggableTextRef}
+              toolbarShadeRef={toolbarShadeRef}
+              toolbarCustomArrowRef={toolbarCustomShapeRef}
+              handleArrowDragEnds={handleArrowDragEnds}
+              handleTextDragEnd={handleTextDragEnd}
+              handleShadeDragEnd={handleShadeDragEnd}
+              handleCustomShapeDragEnd={handleCustomShapeDragEnd}
+              toolbarX={toolbarX}
+              toolbarY={toolbarY}
+              toolbarHeight={toolbarHeight}
+              toolbarWidth={toolbarWidth}
+            />
+          </Group>
         </Layer>
         {!!annotate && stageWidth > 1115 && (
           <Layer>
@@ -313,32 +346,78 @@ const KonvaGround: React.FC = () => {
             </Html>
           </Layer>
         )}
-        {!!annotate && stageWidth > 1115 && (
-          <Layer>
-            <Html
-              groupProps={{
-                x: (stageWidth / 2) * 1.7,
-                y: stageHeight / 25,
-              }}
-              divProps={{ style: { opacity: 1 } }}
-            >
-              <Button
-                variant="outlined"
-                sx={{
-                  color: "black",
-                  borderColor: "black",
-                  borderRadius: "8px",
-                  boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
-                  minWidth: "144px",
-                }}
-                onClick={() => {}}
-              >
-                Export to PDF
-              </Button>
-            </Html>
-          </Layer>
-        )}
+
         <Layer>
+          <Html
+            groupProps={{
+              x: (stageWidth / 2) * 1.7,
+              y: stageHeight / 25,
+            }}
+            divProps={{ style: { opacity: 1 } }}
+          >
+            <Button
+              variant="outlined"
+              sx={{
+                color: "black",
+                borderColor: "black",
+                borderRadius: "8px",
+                boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
+                minWidth: "144px",
+              }}
+              onClick={() => {
+                handleExportToPDF();
+              }}
+            >
+              Export to PDF
+            </Button>
+          </Html>
+        </Layer>
+
+        <Layer>
+          <Html
+            groupProps={{
+              x: 0,
+              y: 0,
+            }}
+            divProps={{ style: { opacity: 1 } }}
+          >
+            <Text
+              x={0}
+              y={15}
+              text="Label_1"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
+              align="center"
+            />
+          </Html>
+        </Layer>
+
+        <Layer draggable>
+          <URLImage src="/row_1.png" />
+
+          <Group draggable x={300} y={400} id={"ParentLayer"}>
+            {/* <Rect width={200} height={100} fill="lightgreen" /> */}
+            <Text
+              // x={120}
+              y={-25}
+              text="unit"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
+            />
+            <Arrow points={[0, 0, 150, 0]} fill="black" stroke="black" />
+            <Text
+              x={0}
+              y={15}
+              text="Label_1"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
+              align="center"
+            />
+          </Group>
+
           {arrows.map((arrow, i) => (
             <ArrowShape
               key={arrow.id}
@@ -416,7 +495,7 @@ const KonvaGround: React.FC = () => {
           ))}
         </Layer>
       </Stage>
-    </div>
+    </>
   );
 };
 
