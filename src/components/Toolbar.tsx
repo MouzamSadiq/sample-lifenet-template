@@ -1,5 +1,5 @@
 import React, { RefObject } from "react";
-import { Arrow, Rect, Text } from "react-konva";
+import { Arrow, Rect, Stage, Text } from "react-konva";
 
 interface ToolBarProps {
   toolbarArrowReference: any;
@@ -43,9 +43,9 @@ const Toolbar: React.FC<ToolBarProps> = (props) => {
   return (
     <>
       <Rect
-        x={toolbarX}
-        y={toolbarY}
-        width={700}
+        x={25}
+        y={0}
+        width={500}
         height={toolbarHeight}
         fill="white"
         shadowBlur={5}

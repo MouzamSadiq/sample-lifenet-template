@@ -68,4 +68,87 @@ export const initialCustomArrowTemplate = [
   },
 ];
 
-// 890.0023112302707
+// New grouped Annotation array structure .
+
+const annotationArray_1 = [
+  {
+    id: 1,
+    x: "500",
+    y: "200",
+    isDraggable: false,
+    items: [
+      {
+        texts: {
+          label: "Label_1",
+          value: "Value_1",
+          unit: "Unit",
+        },
+        arrowShapes: {
+          points: [10, 10, 20, 20],
+          isTransformable: true,
+        },
+      },
+    ],
+  },
+];
+
+const data = [
+  {
+    id: 1,
+    x: "500",
+    y: "200",
+    type: "annotation",
+    isEditable: true,
+    isDragable: false,
+    properties: [
+      {
+        label: "Label_1",
+        value: "Value_1",
+        unit: "Unit",
+      },
+    ],
+  },
+  {
+    id: 2,
+    x: "800",
+    y: "400",
+    type: "annotation",
+    isEditable: true,
+    isDragable: false,
+    properties: [
+      {
+        label: "Label_2",
+        value: "Value_2",
+        unit: "Unit",
+      },
+    ],
+  },
+  {
+    id: 18,
+    x: "10",
+    y: "80",
+    type: "documents",
+    isEditable: true,
+    isDragable: false,
+    properties: [
+      {
+        header_label: "Label",
+        description: "Texts",
+      },
+    ],
+  },
+];
+
+const templateData_1 = {
+  id: 1,
+  x: "500",
+  y: "200",
+  isDraggable: false,
+  items: [
+    {
+      label: "Label_1",
+      value: "Value_1",
+      unit: "Unit",
+    },
+  ],
+};

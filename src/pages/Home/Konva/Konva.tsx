@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
-import React, { useRef, useEffect, useState } from "react";
+import { Box, Button } from "@mui/material";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { Stage, Layer, Group, Rect, Arrow, Text } from "react-konva";
 import { Html } from "react-konva-utils";
 import {
@@ -20,6 +20,7 @@ import { CustomArrowShape } from "./components/draggedToolShapes/CustomArrowShap
 import { URLImage } from "./components/URLImage";
 import Toolbar from "../../../components/Toolbar";
 import { jsPDF } from "jspdf";
+import { CoPresentOutlined } from "@mui/icons-material";
 
 const KonvaGround: React.FC = () => {
   useEffect(() => {
@@ -65,6 +66,8 @@ const KonvaGround: React.FC = () => {
 
   const stageRef = useRef<any>(null);
 
+  const headerRef = useRef<any>(null);
+  console.log(headerRef.current);
   useEffect(() => {
     if (loadTemplate) {
       setArrows(initialArrowShapes);
@@ -262,9 +265,17 @@ const KonvaGround: React.FC = () => {
   };
 
   //Basic PDF Export functonality
-  const handleExportToPDF = () => {
+  const createPDF = async () => {
+    const pdf = new jsPDF("portrait", "pt", "a4");
+    const data = await document.querySelector("#button");
+    console.log(data);
+    pdf.html(data).then(() => {
+      console.log("dhdhdh");
+    });
+  };
+  const handleExportToPDF = async () => {
     const stage = stageRef.current;
-    const pdf = new jsPDF();
+    const pdf = new jsPDF("portrait", "pt", "a4");
 
     const layerToHide = stage.find("#layerToHide")[0];
 
@@ -282,22 +293,60 @@ const KonvaGround: React.FC = () => {
 
     const xPos = (pdfWidth - imageWidth) / 2;
     const yPos = (pdfHeight - imageHeight) / 2;
+    const data = await document.querySelector("#pdf");
 
-    pdf.addImage(dataURL, xPos, yPos, imageWidth, pdfHeight / 2);
+    pdf.html(data).then(() => {
+      pdf.addImage(dataURL, 85, 200);
+      pdf.save("cvdfghdfh.pdf");
+    });
+    // pdf.addImage(dataURL, 0, 0).then(() => {
+    //   pdf.html(data).save("cvdfghdfh.pdf");
+    // });
 
-    pdf.save("exported_cv_image.pdf");
+    // pdf.save("exported_cv_image.pdf");
   };
 
+  const handleZoom = useCallback(
+    (direction: number = 1) => {
+      if (!stageRef.current) return;
+      const scaleBy = 1.05;
+      const stage = stageRef.current;
+      // const pointer = stage?.getPointerPosition();
+      if (stage) {
+        const oldScale = stage.scaleX();
+        if (oldScale < 0.5 && direction < 0) return;
+        if (oldScale > 2 && direction > 0) return;
+
+        const newScale =
+          direction > 0 ? oldScale * scaleBy : oldScale / scaleBy;
+
+        const scaleVal = { x: newScale, y: newScale };
+        stage.scale(scaleVal);
+      }
+    },
+    [stageRef]
+  );
   return (
     <>
       <Stage
         // width={2000}
         // height={1000}
-        width={window.innerWidth}
-        height={window.innerHeight}
+        width={800}
+        height={842}
         onMouseDown={checkDeselect}
         onTouchStart={checkDeselect}
         ref={stageRef}
+        onWheel={(e) => {
+          // stop default scrolling
+          e.evt.preventDefault();
+          let direction = e.evt.deltaY > 0 ? 1 : -1;
+          // when we zoom on trackpad, e.evt.ctrlKey is true
+          // in that case lets revert direction
+          if (e.evt.ctrlKey) {
+            direction = -direction;
+          }
+          handleZoom(direction);
+        }}
       >
         {/* <KonvaEditableText /> */}
 
@@ -348,32 +397,28 @@ const KonvaGround: React.FC = () => {
         )}
 
         <Layer>
-          <Html
-            groupProps={{
-              x: (stageWidth / 2) * 1.7,
-              y: stageHeight / 25,
-            }}
-            divProps={{ style: { opacity: 1 } }}
-          >
-            <Button
-              variant="outlined"
-              sx={{
-                color: "black",
-                borderColor: "black",
-                borderRadius: "8px",
-                boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
-                minWidth: "144px",
-              }}
-              onClick={() => {
-                handleExportToPDF();
-              }}
-            >
-              Export to PDF
-            </Button>
+          <Html divProps={{ id: "button" }}>
+            <Box ref={headerRef}>
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "black",
+                  borderColor: "black",
+                  borderRadius: "8px",
+                  boxShadow: "0 8px 4px rgba(0, 0, 0, 0.2)",
+                  minWidth: "144px",
+                }}
+                onClick={() => {
+                  handleExportToPDF();
+                }}
+              >
+                Export to PDF
+              </Button>
+            </Box>
           </Html>
         </Layer>
 
-        <Layer>
+        <Layer id="exportElement">
           <Html
             groupProps={{
               x: 0,
