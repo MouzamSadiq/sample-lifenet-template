@@ -1,6 +1,15 @@
 import { Box, Button } from "@mui/material";
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { Stage, Layer, Group, Rect, Arrow, Text } from "react-konva";
+import {
+  Stage,
+  Layer,
+  Group,
+  Rect,
+  Arrow,
+  Text,
+  RegularPolygon,
+  Line,
+} from "react-konva";
 import { Html } from "react-konva-utils";
 import {
   ArrowShapeProps,
@@ -326,6 +335,15 @@ const KonvaGround: React.FC = () => {
     },
     [stageRef]
   );
+  const x = 50;
+  const y = 100;
+  const width = 150;
+  const headLength = 30;
+  const head1X = x + width + headLength;
+  const head1Y = y - 50;
+  const head2X = 230;
+  const head2Y = 150;
+
   return (
     <>
       <Stage
@@ -446,20 +464,135 @@ const KonvaGround: React.FC = () => {
             <Text
               // x={120}
               y={-25}
-              text="unit"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-            />
-            <Arrow points={[0, 0, 150, 0]} fill="black" stroke="black" />
-            <Text
-              x={0}
-              y={15}
               text="Label_1"
               fontSize={16}
               fontFamily="Arial"
               fill="black"
+            />
+
+            <Arrow points={[15, 0, 150, 0]} fill="black" stroke="black" />
+            <Text
+              x={0}
+              y={15}
+              text="Value"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
               align="center"
+            />
+            <Text
+              x={50}
+              y={15}
+              text="Unit"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
+              align="center"
+            />
+          </Group>
+          <Group draggable x={100} y={400} id={"ParentLayer"} scaleX={-1}>
+            {/* <Rect width={200} height={100} fill="lightgreen" /> */}
+            <Text
+              x={25}
+              y={-25}
+              text="Label_1"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
+              scaleX={-1}
+            />
+
+            <Arrow points={[15, 0, 150, 0]} fill="black" stroke="black" />
+            <Text
+              x={0}
+              y={15}
+              text="Unit"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
+              align="center"
+              scaleX={-1}
+            />
+            <Text
+              x={50}
+              y={15}
+              text="Value"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
+              align="center"
+              scaleX={-1}
+            />
+          </Group>
+          <Group draggable x={200} y={200} id={"toolbar-component-1"}>
+            {/* Arrow body (line) */}
+            <Line
+              points={[120, y, x + width, 100]}
+              stroke="black"
+              strokeWidth={2}
+            />
+
+            {/* <Text
+              x={50 + 1} // Offset the x-coordinate slightly
+              y={80 + 1} // Offset the y-coordinate slightly
+              text="label"
+              fontSize={20}
+              fontFamily="Arial"
+              fill="black"
+            /> */}
+
+            {/* Arrowhead 1 */}
+            <Line
+              points={[x + width, y, head1X, head1Y]}
+              stroke="black"
+              strokeWidth={2}
+            />
+            <RegularPolygon
+              sides={3}
+              radius={10}
+              fill="black"
+              x={head1X}
+              y={head1Y}
+              rotation={30} // Adjust the rotation to control the arrowhead direction
+            />
+
+            {/* Arrowhead 2 */}
+            <Line
+              points={[x + width, y, head2X, head2Y]}
+              stroke="black"
+              strokeWidth={2}
+            />
+            <RegularPolygon
+              sides={3}
+              radius={10}
+              fill="black"
+              x={head2X}
+              y={head2Y}
+              rotation={30} // Adjust the rotation to control the arrowhead direction
+            />
+            <Text
+              x={50}
+              y={80}
+              text="Label_2"
+              fontSize={20}
+              fontFamily="Arial"
+              fill="black"
+            />
+            <Text
+              x={50}
+              y={110}
+              text="Value"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
+            />
+            <Text
+              x={100}
+              y={110}
+              text="unit"
+              fontSize={16}
+              fontFamily="Arial"
+              fill="black"
             />
           </Group>
 
