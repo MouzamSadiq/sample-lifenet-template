@@ -28,33 +28,33 @@ export const customMuiTheme = createTheme({
     },
 
     h1: {
-      fontSize: "32px",
-      fontWeight: 500,
+      fontSize: "16px",
+      fontWeight: "bold",
+      color: "#a2ad00",
     },
     h2: {
-      fontSize: "25px",
+      fontSize: "16px",
+      color: "#27285C",
       fontWeight: "bold",
-      fontFamily: "Arial",
-      color: "#27445C",
     },
     h3: {
-      fontSize: "20px",
+      fontSize: "16px",
       color: "#27285C",
       fontWeight: "bold",
     },
 
     h4: {
-      fontSize: "20px",
-      color: "#656565",
-      fontWeight: "bold",
+      fontSize: "14px",
+      color: "#27445C",
+      // fontWeight: "bold",
     },
     h5: {
       fontSize: "14px",
     },
     h6: {
-      fontSize: "18px",
+      fontSize: "15px",
       fontWeight: "bold",
-      color: "white",
+      color: "#a2ad00",
     },
 
     body1: {

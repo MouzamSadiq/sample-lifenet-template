@@ -9,7 +9,6 @@ import {
   Biotech,
   Menu,
 } from "@mui/icons-material";
-import CustomizedSteppers from "../Stepper/Stepper";
 import VerticalStepper from "../Stepper/StepperModal";
 
 export type NavItem = {
@@ -65,47 +64,32 @@ export const Home: React.FC<DocProps> = ({ isLeftDrawerOpen }) => {
         flexDirection: "column",
       }}
     >
-      {/* <Box>
-        <Header />
-      </Box> */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
         }}
       >
-        {/* <NavBar links={pages} /> */}
-
         <Box
           sx={{
             flexGrow: 0,
-            ml: { xs: "0", md: "0", lg: isLeftDrawerOpen ? "230px" : "0px" },
+            ml: { xs: "0", md: "0", lg: isLeftDrawerOpen ? "245px" : "0px" },
           }}
           height="50%"
           width="100%"
-          paddingLeft={3}
+          // paddingLeft={3}
         >
-          <Box>
-            <Box>
-              <Box display="flex" alignItems="left" padding={1}>
-                <Typography style={customMuiTheme.typography.h4}>
-                  welcome...
-                </Typography>
-              </Box>
-            </Box>
-            <Divider />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                // height: "130vh",
-              }}
-              gap={5}
-              padding={5}
-            >
-              <VerticalStepper />
-            </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              // height: "130vh",
+            }}
+            pl="10px"
+            gap={"5px"}
+          >
+            <VerticalStepper />
           </Box>
         </Box>
       </Box>

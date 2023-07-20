@@ -68,7 +68,7 @@ export const Header = ({ links, isopen, setIsopen }: MenuLinkProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
   return (
-    <Box mb={10}>
+    <Box mb={9}>
       <AppBar sx={{ height: "70px", bgcolor: "white" }}>
         <Box
           sx={{

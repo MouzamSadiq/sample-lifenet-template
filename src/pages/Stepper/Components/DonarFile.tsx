@@ -1,25 +1,21 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-import { customMuiTheme } from "../Theme/customMuiTheme";
-import { theme } from "../Theme/theme";
+import { customMuiTheme } from "../../../Theme/customMuiTheme";
+import { Folder } from "@mui/icons-material";
+import { theme } from "../../../Theme/theme";
 
 export type DocProps = {
   name: string;
-  icon: any;
+  //   icon: any;
   count: number;
   color: string;
 };
 
-export const SmallActions: React.FC<DocProps> = ({
-  name,
-  icon,
-  count,
-  color,
-}) => (
+export const FileAction: React.FC<DocProps> = ({ name, count, color }) => (
   <Box>
     <Box
-      width="200px"
-      height="80px"
+      width="100px"
+      height="70px"
       sx={{
         display: "-webkit-flex",
         flexDirection: "row",
@@ -37,16 +33,13 @@ export const SmallActions: React.FC<DocProps> = ({
           justifyContent: "space-between",
         }}
       >
-        <Typography style={customMuiTheme.typography.h6}>{name}</Typography>
-
+        {" "}
+        <Typography style={customMuiTheme.typography.h5}>{name}</Typography>
         <Typography style={customMuiTheme.typography.h3}>{count}</Typography>
       </Box>
-      <Typography
-        style={{
-          color: theme.colors.background,
-        }}
-      >
-        {icon}
+      <Typography>
+        {" "}
+        <Folder style={{ color: theme.colors.background }} />
       </Typography>
     </Box>
   </Box>

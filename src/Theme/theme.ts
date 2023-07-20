@@ -75,7 +75,7 @@ export type Theme = {
   };
   boldstyle: {};
   datestyle: {};
-  ideaCardIcons: { [key: string]: string | number };
+  CardIcons: {};
   cancelstyle: {};
   showButton: {};
 };
@@ -152,9 +152,10 @@ export const theme: Theme = {
     fontWeight: "",
     color: "#eee",
   },
-  ideaCardIcons: {
-    fontSize: "20px",
-    color: "#666",
+  CardIcons: {
+    color: "#27445C",
+    width: "50px",
+    height: "40px",
   },
   labelstyle: {
     fontSize: "13px",
