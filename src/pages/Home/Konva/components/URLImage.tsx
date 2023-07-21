@@ -24,8 +24,8 @@ export const URLImage: React.FC<{ src: string }> = ({ src }) => {
         //   selectShape(null);
         // }}
         image={image}
-        x={0}
-        y={0}
+        x={135}
+        y={116}
         width={405}
         height={505}
       />

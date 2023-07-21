@@ -1,6 +1,7 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Typography, Box, TextField } from "@mui/material";
+import { Typography, Box, TextField, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const TemplateForm = () => {
   return (
@@ -30,6 +31,10 @@ export const TemplateForm = () => {
             />
           </Box>
         </Box>
+
+        <Button component={Link} to="/" variant="contained">
+          Show Schematic{" "}
+        </Button>
       </Box>
     </Box>
   );

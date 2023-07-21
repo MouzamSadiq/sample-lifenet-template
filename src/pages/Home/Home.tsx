@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import KonvaGround from "./Konva/Konva";
 import { Box, Typography, Button } from "@mui/material";
 import jsPDF from "jspdf";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const containerRef = useRef<any>(null);
@@ -16,11 +17,16 @@ const Home = () => {
 
   return (
     <>
-      <Box onClick={createPDF}>hai</Box>
+      {/* <Box onClick={createPDF}>hai</Box>
       <Box id="pdf" mb={15}>
         <p>TO: John Citizen</p>
         <p>123 Random Street</p>
         <p>Oak Creek, Colorado (CO), 80467</p>
+      </Box> */}
+      <Box>
+        <Button component={Link} to="/tab-3" variant="contained">
+          Show save
+        </Button>
       </Box>
       <div className="App" ref={containerRef}>
         <KonvaGround />

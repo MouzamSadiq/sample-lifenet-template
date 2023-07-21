@@ -459,7 +459,7 @@ const KonvaGround: React.FC = () => {
         <Layer draggable>
           <URLImage src="/row_1.png" />
 
-          <Group draggable x={300} y={400} id={"ParentLayer"}>
+          <Group draggable x={155} y={179} id={"ParentLayer"}>
             {/* <Rect width={200} height={100} fill="lightgreen" /> */}
             <Text
               // x={120}
@@ -490,7 +490,7 @@ const KonvaGround: React.FC = () => {
               align="center"
             />
           </Group>
-          <Group draggable x={100} y={400} id={"ParentLayer"} scaleX={-1}>
+          <Group draggable x={512} y={175} id={"ParentLayer2"} scaleX={-1}>
             {/* <Rect width={200} height={100} fill="lightgreen" /> */}
             <Text
               x={25}
@@ -524,7 +524,7 @@ const KonvaGround: React.FC = () => {
               scaleX={-1}
             />
           </Group>
-          <Group draggable x={200} y={200} id={"toolbar-component-1"}>
+          <Group draggable x={79} y={262} id={"toolbar-component-1"}>
             {/* Arrow body (line) */}
             <Line
               points={[120, y, x + width, 100]}
@@ -532,16 +532,6 @@ const KonvaGround: React.FC = () => {
               strokeWidth={2}
             />
 
-            {/* <Text
-              x={50 + 1} // Offset the x-coordinate slightly
-              y={80 + 1} // Offset the y-coordinate slightly
-              text="label"
-              fontSize={20}
-              fontFamily="Arial"
-              fill="black"
-            /> */}
-
-            {/* Arrowhead 1 */}
             <Line
               points={[x + width, y, head1X, head1Y]}
               stroke="black"

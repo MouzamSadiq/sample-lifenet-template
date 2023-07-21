@@ -76,7 +76,7 @@ const annotationArray_1 = [
     x: "500",
     y: "200",
     isDraggable: false,
-    items: [
+    properties: [
       {
         texts: {
           label: "Label_1",
