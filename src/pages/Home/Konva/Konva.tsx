@@ -133,7 +133,7 @@ const KonvaGround: React.FC = () => {
     const newText: any = {
       x: draggableText.getStage().getPointerPosition().x,
       y: draggableText.getStage().getPointerPosition().y,
-      fontSize: 20,
+      fontSize: 16,
       fill: "black",
       id: Math.random().toString(16).slice(2),
       customText: "Text",
@@ -368,8 +368,8 @@ const KonvaGround: React.FC = () => {
       >
         {/* <KonvaEditableText /> */}
 
-        <Layer id={"layerToHide"}>
-          <Group draggable>
+        <Layer id={"layerToHide"} x={56} y={7}>
+          <>
             <Toolbar
               toolbarArrowReference={toolbarArrowReference}
               toolbarTextRef={toolbarDraggableTextRef}
@@ -384,7 +384,7 @@ const KonvaGround: React.FC = () => {
               toolbarHeight={toolbarHeight}
               toolbarWidth={toolbarWidth}
             />
-          </Group>
+          </>
         </Layer>
         {!!annotate && stageWidth > 1115 && (
           <Layer>
@@ -414,7 +414,7 @@ const KonvaGround: React.FC = () => {
           </Layer>
         )}
 
-        <Layer>
+        {/* <Layer>
           <Html divProps={{ id: "button" }}>
             <Box ref={headerRef}>
               <Button
@@ -434,7 +434,7 @@ const KonvaGround: React.FC = () => {
               </Button>
             </Box>
           </Html>
-        </Layer>
+        </Layer> */}
 
         <Layer id="exportElement">
           <Html
@@ -457,7 +457,7 @@ const KonvaGround: React.FC = () => {
         </Layer>
 
         <Layer draggable>
-          <URLImage src="/row_1.png" />
+          <URLImage src="/Aortic_Valve_Conduit_Observations.png" />
 
           <Group draggable x={155} y={179} id={"ParentLayer"}>
             {/* <Rect width={200} height={100} fill="lightgreen" /> */}
@@ -470,7 +470,7 @@ const KonvaGround: React.FC = () => {
               fill="black"
             />
 
-            <Arrow points={[15, 0, 150, 0]} fill="black" stroke="black" />
+            <Arrow points={[15, 0, 150]} fill="black" stroke="black" />
             <Text
               x={0}
               y={15}
@@ -495,7 +495,7 @@ const KonvaGround: React.FC = () => {
             <Text
               x={25}
               y={-25}
-              text="Label_1"
+              text="Label_2"
               fontSize={16}
               fontFamily="Arial"
               fill="black"
@@ -563,7 +563,7 @@ const KonvaGround: React.FC = () => {
             <Text
               x={50}
               y={80}
-              text="Label_2"
+              text="Label_3"
               fontSize={20}
               fontFamily="Arial"
               fill="black"

@@ -13,14 +13,14 @@ export const initialTextTemplate = [
   {
     x: 1041.0023112302706,
     y: 401.0000000000004,
-    fontSize: 20,
-    fill: "black",
+    fontSize: 16,
+    // fill: "black",
     id: Math.random().toString(16).slice(2),
     customText: "Left Renal",
     isEditing: true,
     draggable: false,
     isFromTemplate: true,
-    scaleX: 1,
+    // scaleX: 1,
   },
   {
     x: 1104.0023112302706,
@@ -92,63 +92,157 @@ const annotationArray_1 = [
   },
 ];
 
-const data = [
+export const data_type_1 = [
+  // For schematic_image_id = 1
   {
-    id: 1,
-    x: "500",
-    y: "200",
-    type: "annotation",
-    isEditable: true,
-    isDragable: false,
-    properties: [
-      {
-        label: "Label_1",
-        value: "Value_1",
-        unit: "Unit",
-      },
-    ],
+    id: 0,
+    type: "schematic-info",
+    properties: {
+      label: "Label_1",
+      value: "Value_1",
+      isEditable: true,
+    },
   },
   {
     id: 2,
-    x: "800",
-    y: "400",
-    type: "annotation",
-    isEditable: true,
-    isDragable: false,
-    properties: [
-      {
-        label: "Label_2",
-        value: "Value_2",
-        unit: "Unit",
-      },
-    ],
+    type: "schematic-info",
+    property_name: "AORTOILIAC ARTERY", // We can consider this field if we have more than one image on a single template
+    properties: {
+      label: "Date_of_death",
+      value: "Value_",
+      isEditable: true,
+    },
   },
   {
-    id: 18,
-    x: "10",
-    y: "80",
-    type: "documents",
-    isEditable: true,
+    id: 1,
+    x: "512",
+    y: "175",
+    type: "tool_1",
     isDragable: false,
-    properties: [
-      {
-        header_label: "Label",
-        description: "Texts",
-      },
-    ],
-  },
-];
-
-const templateData_1 = {
-  id: 1,
-  x: "500",
-  y: "200",
-  isDraggable: false,
-  items: [
-    {
+    properties: {
       label: "Label_1",
       value: "Value_1",
       unit: "Unit",
+      isEditable: true,
+    },
+  },
+  {
+    id: 2,
+    x: "155",
+    y: "179",
+    type: "tool_1",
+    isDragable: false,
+    properties: {
+      label: "Label_2",
+      value: "Value_2",
+      unit: "Unit",
+      isEditable: true,
+    },
+  },
+  {
+    id: 18,
+    x: "79",
+    y: "262",
+    type: "tool_2",
+    isDragable: false,
+    properties: {
+      label: "Label_3",
+      value: "Value_3",
+      unit: "Unit",
+      isEditable: true,
+    },
+  },
+];
+
+export const data_type_2 =
+  // For schematic_image_id = 1
+  {
+    general_information: [
+      {
+        id: 0,
+        type: "schematic-info",
+        properties: {
+          label: "Label_1",
+          value: "Value_1",
+          isEditable: true,
+        },
+      },
+      {
+        id: 2,
+        type: "schematic-info",
+        property_name: "AORTOILIAC ARTERY", // We can consider this field if we have more than one image on a single template
+        properties: {
+          label: "Date_of_death",
+          value: "Value_",
+          isEditable: true,
+        },
+      },
+    ],
+    schematic_drawing_informations: [
+      {
+        id: 1,
+        x: "512",
+        y: "175",
+        type: "tool_1",
+        isDragable: false,
+        properties: {
+          label: "Label_1",
+          value: "Value_1",
+          unit: "Unit",
+          isEditable: true,
+        },
+      },
+      {
+        id: 2,
+        x: "155",
+        y: "179",
+        type: "tool_1",
+        isDragable: false,
+        properties: {
+          label: "Label_2",
+          value: "Value_2",
+          unit: "Unit",
+          isEditable: true,
+        },
+      },
+      {
+        id: 18,
+        x: "79",
+        y: "262",
+        type: "tool_2",
+        isDragable: false,
+        properties: {
+          label: "Label_3",
+          value: "Value_3",
+          unit: "Unit",
+          isEditable: true,
+        },
+      },
+    ],
+    custom_schematic_drawing_informations: [{}],
+  };
+
+export const data_type_3 = {
+  type: "tool_1", // Type is to distinguish which tool is used so based on that shapes will be rendered.
+  isDragable: false,
+  properties: [
+    {
+      id: 1,
+      x: "512",
+      y: "175",
+      label: "Label_1",
+      value: "Value_1",
+      unit: "Unit",
+      isEditable: true,
+    },
+    {
+      id: 2,
+      x: "1512",
+      y: "885",
+      label: "Label_2",
+      value: "Value_2",
+      unit: "Unit",
+      isEditable: true,
     },
   ],
 };

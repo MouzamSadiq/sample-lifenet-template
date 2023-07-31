@@ -38,7 +38,7 @@ export const TextShape: React.FC<{
 
   function toggleEdit() {
     setIsEditing(!isEditing);
-    onTextClick();
+    // onTextClick();
     console.log("Toogle Edit >>>>>>");
   }
 
@@ -56,15 +56,17 @@ export const TextShape: React.FC<{
     const baseStyle = {
       width: `${width}px`,
       height: `${height}px`,
-      border: "none",
-      padding: "0px",
-      margin: "0px",
+      border: "0.1px solid #C0BEBE",
+      borderRadius: "5px",
+      padding: "5px",
+      // margin: "8px",
       background: "none",
       outline: "none",
       // resize: "none",
-      colour: "black",
-      fontSize: "20px",
+      color: "black",
+      fontSize: "16px",
       fontFamily: "sans-serif",
+      marginTop: "20px",
     };
     if (isFirefox) {
       return baseStyle;
@@ -74,7 +76,7 @@ export const TextShape: React.FC<{
       margintop: "-4px",
     };
   }
-  const style = getStyle(520, 45);
+  const style = getStyle(50, 50);
 
   return (
     <>
@@ -85,7 +87,8 @@ export const TextShape: React.FC<{
           onDblTap={toggleEdit}
           // stroke="black"
           onChange={onTextChange}
-          onClick={!isFromTemplate ? onSelect : undefined}
+          onClick={toggleEdit}
+          // onClick={!isFromTemplate ? onSelect : undefined}
           ref={shapeRef}
           // draggable
           {...shapeProps}
