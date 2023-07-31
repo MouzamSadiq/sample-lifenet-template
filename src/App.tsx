@@ -1,4 +1,5 @@
 import "./App.css";
+import { TopBar } from "./components/TopBar";
 import { DashBoard } from "./pages/DashBoard/DashBoard";
 import Home from "./pages/Home/Home";
 import KonvaGround from "./pages/Home/Konva/Konva";
@@ -9,13 +10,13 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+        <TopBar />
         <Routes>
-          <Route path="/" element={<DashBoard />} />
+          <Route path="/" element={<Home />} />
           <Route path="/tab-3" element={<TabularForm />} />
         </Routes>
         {/* <Home /> */}
       </BrowserRouter>
-
       {/* <TabularForm /> */}
     </div>
   );

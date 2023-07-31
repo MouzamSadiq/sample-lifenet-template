@@ -3,6 +3,8 @@ import KonvaGround from "./Konva/Konva";
 import { Box, Typography, Button } from "@mui/material";
 import jsPDF from "jspdf";
 import { Link } from "react-router-dom";
+import { theme } from "../../Theme/Theme";
+import { SchematicDetailes } from "./SchematicDetails/SchematicDetails";
 
 const Home = () => {
   const containerRef = useRef<any>(null);
@@ -16,22 +18,23 @@ const Home = () => {
   };
 
   return (
-    <>
+    <Box display="flex" flexDirection="row" bgcolor={theme.colors.cardBg}>
       {/* <Box onClick={createPDF}>hai</Box>
       <Box id="pdf" mb={15}>
         <p>TO: John Citizen</p>
         <p>123 Random Street</p>
         <p>Oak Creek, Colorado (CO), 80467</p>
       </Box> */}
-      <Box>
-        <Button component={Link} to="/tab-3" variant="contained">
+      <Box pt={2}>
+        {/* <Button component={Link} to="/tab-3" variant="contained">
           Show save
-        </Button>
+        </Button> */}
+        <SchematicDetailes />
       </Box>
       <div className="App" ref={containerRef}>
         <KonvaGround />
       </div>
-    </>
+    </Box>
   );
 };
 

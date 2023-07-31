@@ -503,6 +503,7 @@ const KonvaGround: React.FC = () => {
             />
 
             <Arrow points={[15, 0, 150, 0]} fill="black" stroke="black" />
+            <Arrow points={[15, 0, 150, 0]} fill="black" stroke="black" />
             <Text
               x={0}
               y={15}

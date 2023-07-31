@@ -5,7 +5,7 @@ import logo from "../assets/lnh-logo.png";
 import { SearchBar } from "./SearchBar";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-export const Header = () => {
+export const TopBar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   return (
@@ -67,7 +67,7 @@ export const Header = () => {
                 justifyContent: "center",
               }}
             >
-              {currentPath === "/" && <SearchBar />}
+              {currentPath === "/DashBoard" && <SearchBar />}
             </Box>
             <Box sx={{ display: "flex" }}>
               <Typography

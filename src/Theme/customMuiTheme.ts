@@ -48,7 +48,9 @@ export const customMuiTheme = createTheme({
       // fontWeight: "bold",
     },
     h5: {
-      fontSize: "14px",
+      fontSize: "15px",
+      fontWeight: "20px",
+      color: "#666666",
     },
     h6: {
       fontSize: "15px",
