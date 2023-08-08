@@ -1,4 +1,5 @@
 import "./App.css";
+import CreateTemplate from "./pages/Admin/CreateTemplate";
 import Home from "./pages/Home/Home";
 import KonvaGround from "./pages/Home/Konva/Konva";
 import { TabularForm } from "./pages/Home/TabularForm/TabularForm";
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tab-3" element={<TabularForm />} />
+          <Route path="/admin" element={<CreateTemplate />} />
         </Routes>
         {/* <Home /> */}
       </BrowserRouter>

@@ -27,7 +27,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [

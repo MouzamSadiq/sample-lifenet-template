@@ -26,9 +26,9 @@ export const URLImage: React.FC<{ src: string }> = ({ src }) => {
         image={image}
         x={135}
         y={116}
-        width={600}
-        height={600}
-        draggable
+        width={450}
+        height={700}
+        // draggable
       />
     </>
   );

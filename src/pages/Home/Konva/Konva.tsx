@@ -32,18 +32,18 @@ import { jsPDF } from "jspdf";
 import { CoPresentOutlined } from "@mui/icons-material";
 
 const KonvaGround: React.FC = () => {
-  useEffect(() => {
-    const handleResize = () => {
-      setStageWidth(window.innerWidth);
-      setStageHeight(window.innerHeight);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setStageWidth(window.innerWidth);
+  //     setStageHeight(window.innerHeight);
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   const params = new URLSearchParams(window.location.search);
   const annotate = params.get("annotate");
@@ -344,6 +344,409 @@ const KonvaGround: React.FC = () => {
   const head2X = 230;
   const head2Y = 150;
 
+  const TextRef = useRef<any>();
+
+  const UpwardInvertBendArrowHead = () => {
+    const arrowPoints = [35, 0, 150, 0, 170, -25];
+    return (
+      <Group draggable x={567} y={357} id={"upward_inverted_bend_arrow_head"}>
+        <Arrow points={arrowPoints} fill="black" stroke="black" scaleX={-1} />
+        <Text
+          x={-65}
+          y={-20}
+          text="Left Renal"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={-125}
+          y={10}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={-65}
+          y={10}
+          text="CM"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+      </Group>
+    );
+  };
+  const UpwardBendArrowHead = () => {
+    const arrowPoints = [35, 0, 150, 0, 170, -25];
+    return (
+      <Group draggable x={159} y={348} id={"upward_bend_arrow_head"}>
+        <Arrow points={arrowPoints} fill="black" stroke="black" />
+        <Text
+          x={35}
+          y={-20}
+          text="Right Renal"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={15}
+          y={10}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={65}
+          y={10}
+          text="CM"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+      </Group>
+    );
+  };
+  const DownwardBendArrowHead = () => {
+    const arrowPoints = [-35, 0, 150, 0, 250, 45];
+    return (
+      <Group draggable x={109} y={234} id={"downward_bend_arrow_head"}>
+        <Arrow points={arrowPoints} fill="black" stroke="black" />
+        <Text
+          x={-35}
+          y={-20}
+          text="SMA"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={68}
+          y={10}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={-35}
+          y={10}
+          text="Length (cm)"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+      </Group>
+    );
+  };
+  const DownwardInvertedBendArrowHead = () => {
+    const arrowPoints = [0, 0, 200, 0, 250, 35];
+    return (
+      <Group draggable x={627} y={196} id={"downward_bend_arrow_head"}>
+        <Arrow points={arrowPoints} fill="black" stroke="black" scaleX={-1} />
+        <Text
+          x={-99}
+          y={-20}
+          text="Celiac Trunk"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={-35}
+          y={9}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={-136}
+          y={9}
+          text="Length (cm)"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+      </Group>
+    );
+  };
+
+  const DoubleHeadArrow = () => {
+    return (
+      <Group draggable x={73} y={457} id={"double_headed_arrow"}>
+        <Arrow points={[-2, 100, 200, 100]} fill="black" stroke="black" />
+        <Line points={[140, 100, 140, 150]} stroke="black" strokeWidth={2} />
+        <RegularPolygon
+          sides={3}
+          radius={10}
+          fill="black"
+          x={140}
+          y={150}
+          rotation={60}
+        />
+        <Text
+          x={0}
+          y={80}
+          text="Right Iliac"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+        <Text
+          x={90}
+          y={110}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+        <Text
+          x={0}
+          y={110}
+          text="Length (cm)"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+      </Group>
+    );
+  };
+  const InvertedDoubleHeadArrow = () => {
+    return (
+      <Group draggable x={647} y={459} id={"inverted_double_Headed_arrow"}>
+        <Arrow
+          points={[-20, 100, 200, 100]}
+          fill="black"
+          stroke="black"
+          scaleX={-1}
+        />
+        <Line
+          points={[140, 100, 140, 150]}
+          stroke="black"
+          strokeWidth={2}
+          scaleX={-1}
+        />
+        <RegularPolygon
+          sides={3}
+          radius={10}
+          fill="black"
+          x={-140}
+          y={150}
+          rotation={60}
+        />
+        <Text
+          x={-50}
+          y={80}
+          text="Left Iliac"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+        <Text
+          x={0}
+          y={110}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+        <Text
+          x={-97}
+          y={110}
+          text="Length (cm)"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+      </Group>
+    );
+  };
+
+  const DivertedArrow = () => {
+    const arrowPoints = [35, 0, 150, 0, 200, -25];
+    return (
+      <Group draggable x={98} y={430} id={"diverted_arrow"}>
+        <Arrow points={arrowPoints} fill="black" stroke="black" />
+        <Arrow points={[150, 0, 200, 30]} fill="black" stroke="black" />
+
+        <Text
+          x={5}
+          y={-25}
+          text="Aortic Length"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+        <Text
+          x={5}
+          y={10}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+        <Text
+          x={55}
+          y={10}
+          text="CM"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+      </Group>
+    );
+  };
+  const DottedDivertedArrow = () => {
+    // const arrowPoints = [35, 0, 150, 0, 200, -25];
+    const arrowPoints = [35, 0, 150, 0, 150, 50, 200, 50];
+    const linePoints = [190, 0, 0, 0];
+    return (
+      <Group draggable x={73} y={429} id={"dotted_diverted_arrow"}>
+        <Line points={linePoints} stroke="black" strokeWidth={2} />
+        <Arrow
+          points={[190, 0, 190, 50, 250, 50]}
+          fill="black"
+          stroke="black"
+          dash={[10, 5]}
+        />
+        <Arrow
+          points={[190, 0, 190, -50, 250, -50]}
+          fill="black"
+          stroke="black"
+          dash={[10, 5]}
+        />
+
+        <Text
+          x={0}
+          y={-25}
+          text="Aortic Length"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+        <Text
+          x={97}
+          y={10}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+        <Text
+          x={0}
+          y={10}
+          text="Length (cm)"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+        />
+      </Group>
+    );
+  };
+
+  const StraightArrow = () => {
+    return (
+      <Group draggable x={164} y={318} id={"straight_arrow"}>
+        <Text
+          x={-91}
+          y={-21}
+          text="Right Renal"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          onClick={() => console.log("ahahah")}
+          ref={TextRef}
+          onMouseEnter={() => {
+            TextRef.current.getStage().container().style.cursor = "pointer";
+          }}
+          onMouseLeave={() => {
+            TextRef.current.getStage().container().style.cursor = "default";
+          }}
+        />
+
+        <Arrow points={[-90, 0, 150, 0]} fill="black" stroke="black" />
+        <Text
+          x={18}
+          y={10}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={-90}
+          y={10}
+          text="Length (cm)"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+      </Group>
+    );
+  };
+
+  const InvertedStraightArrow = () => {
+    return (
+      <Group
+        draggable
+        x={559}
+        y={318}
+        id={"inverted_straight_arrow"}
+        scaleX={-1}
+      >
+        <Text
+          x={15}
+          y={-21}
+          text="Left Renal"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          scaleX={-1}
+        />
+
+        <Arrow points={[-75, 0, 150, 0]} fill="black" stroke="black" />
+        <Text
+          x={68}
+          y={10}
+          text="Length (cm)"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+          scaleX={-1}
+        />
+        <Text
+          x={-34}
+          y={10}
+          text="Value"
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+          scaleX={-1}
+        />
+      </Group>
+    );
+  };
+
   return (
     <>
       <Stage
@@ -436,7 +839,7 @@ const KonvaGround: React.FC = () => {
           </Html>
         </Layer> */}
 
-        <Layer id="exportElement">
+        {/* <Layer id="exportElement">
           <Html
             groupProps={{
               x: 0,
@@ -445,7 +848,7 @@ const KonvaGround: React.FC = () => {
             divProps={{ style: { opacity: 1 } }}
           >
             <Text
-              x={0}
+              x={440}
               y={15}
               text="Label_1"
               fontSize={16}
@@ -454,137 +857,23 @@ const KonvaGround: React.FC = () => {
               align="center"
             />
           </Html>
+        </Layer> */}
+
+        <Layer>
+          <URLImage src="/Schematic01.svg" />
         </Layer>
-
-        <Layer draggable>
-          <URLImage src="/Aortic_Valve_Conduit_Observations.png" />
-
-          <Group draggable x={155} y={179} id={"ParentLayer"}>
-            {/* <Rect width={200} height={100} fill="lightgreen" /> */}
-            <Text
-              // x={120}
-              y={-25}
-              text="Label_1"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-            />
-
-            <Arrow points={[15, 0, 150]} fill="black" stroke="black" />
-            <Text
-              x={0}
-              y={15}
-              text="Value"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-              align="center"
-            />
-            <Text
-              x={50}
-              y={15}
-              text="Unit"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-              align="center"
-            />
-          </Group>
-          <Group draggable x={512} y={175} id={"ParentLayer2"} scaleX={-1}>
-            {/* <Rect width={200} height={100} fill="lightgreen" /> */}
-            <Text
-              x={25}
-              y={-25}
-              text="Label_2"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-              scaleX={-1}
-            />
-
-            <Arrow points={[15, 0, 150, 0]} fill="black" stroke="black" />
-            <Text
-              x={0}
-              y={15}
-              text="Unit"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-              align="center"
-              scaleX={-1}
-            />
-            <Text
-              x={50}
-              y={15}
-              text="Value"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-              align="center"
-              scaleX={-1}
-            />
-          </Group>
-          <Group draggable x={79} y={262} id={"toolbar-component-1"}>
-            {/* Arrow body (line) */}
-            <Line
-              points={[120, y, x + width, 100]}
-              stroke="black"
-              strokeWidth={2}
-            />
-
-            <Line
-              points={[x + width, y, head1X, head1Y]}
-              stroke="black"
-              strokeWidth={2}
-            />
-            <RegularPolygon
-              sides={3}
-              radius={10}
-              fill="black"
-              x={head1X}
-              y={head1Y}
-              rotation={30} // Adjust the rotation to control the arrowhead direction
-            />
-
-            {/* Arrowhead 2 */}
-            <Line
-              points={[x + width, y, head2X, head2Y]}
-              stroke="black"
-              strokeWidth={2}
-            />
-            <RegularPolygon
-              sides={3}
-              radius={10}
-              fill="black"
-              x={head2X}
-              y={head2Y}
-              rotation={30} // Adjust the rotation to control the arrowhead direction
-            />
-            <Text
-              x={50}
-              y={80}
-              text="Label_3"
-              fontSize={20}
-              fontFamily="Arial"
-              fill="black"
-            />
-            <Text
-              x={50}
-              y={110}
-              text="Value"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-            />
-            <Text
-              x={100}
-              y={110}
-              text="unit"
-              fontSize={16}
-              fontFamily="Arial"
-              fill="black"
-            />
-          </Group>
+        {/* TOOLS */}
+        <Layer>
+          {/* <UpwardBendArrowHead />
+          <UpwardInvertBendArrowHead /> */}
+          <DownwardBendArrowHead />
+          <DownwardInvertedBendArrowHead />
+          <DoubleHeadArrow />
+          <InvertedDoubleHeadArrow />
+          {/* <DivertedArrow /> */}
+          <DottedDivertedArrow />
+          <StraightArrow />
+          <InvertedStraightArrow />
 
           {arrows.map((arrow, i) => (
             <ArrowShape
