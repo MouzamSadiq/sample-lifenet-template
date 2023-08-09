@@ -19,17 +19,7 @@ export const URLImage: React.FC<{ src: string }> = ({ src }) => {
 
   return (
     <>
-      <Image
-        // onClick={() => {          // TODO: add onclick function to deSelect the shapes over image
-        //   selectShape(null);
-        // }}
-        image={image}
-        x={135}
-        y={116}
-        width={450}
-        height={700}
-        // draggable
-      />
+      <Image image={image} x={-81} y={116} width={950} height={700} draggable />
     </>
   );
 };

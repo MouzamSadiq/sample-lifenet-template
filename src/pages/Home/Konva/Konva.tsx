@@ -715,7 +715,7 @@ const KonvaGround: React.FC = () => {
         <Text
           x={15}
           y={-21}
-          text="Left Renal"
+          text="Conduit Length"
           fontSize={16}
           fontFamily="Arial"
           fill="black"
@@ -860,21 +860,21 @@ const KonvaGround: React.FC = () => {
         </Layer> */}
 
         <Layer>
-          <URLImage src="/Schematic01.svg" />
+          <URLImage src="/ASCENDING_AORTA.svg" />
         </Layer>
         {/* TOOLS */}
         <Layer>
           {/* <UpwardBendArrowHead />
           <UpwardInvertBendArrowHead /> */}
-          <DownwardBendArrowHead />
+          {/* <DownwardBendArrowHead />
           <DownwardInvertedBendArrowHead />
           <DoubleHeadArrow />
-          <InvertedDoubleHeadArrow />
+          <InvertedDoubleHeadArrow /> */}
           {/* <DivertedArrow /> */}
-          <DottedDivertedArrow />
+          {/* <DottedDivertedArrow />
           <StraightArrow />
+          <InvertedStraightArrow /> */}
           <InvertedStraightArrow />
-
           {arrows.map((arrow, i) => (
             <ArrowShape
               key={arrow.id}
