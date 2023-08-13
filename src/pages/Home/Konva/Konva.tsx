@@ -921,14 +921,14 @@ const KonvaGround: React.FC = () => {
         <Layer>
           {/* <UpwardBendArrowHead />
           <UpwardInvertBendArrowHead /> */}
-          <DownwardBendArrowHead />
+          {/* <DownwardBendArrowHead />
           <DownwardInvertedBendArrowHead />
           <DoubleHeadArrow />
-          <InvertedDoubleHeadArrow />
+          <InvertedDoubleHeadArrow /> */}
           {/* <DivertedArrow /> */}
-          <DottedDivertedArrow /> --
+          {/* <DottedDivertedArrow /> --
           <StraightArrow />
-          <InvertedStraightArrow />
+          <InvertedStraightArrow /> */}
           {arrows.map((arrow, i) => (
             <ArrowShape
               key={arrow.id}
