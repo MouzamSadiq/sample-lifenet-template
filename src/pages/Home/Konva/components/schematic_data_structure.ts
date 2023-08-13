@@ -233,3 +233,361 @@ const template_1_payload = [
     ],
   },
 ];
+
+const template_2_ASCENDING_AORTA_payload = [
+  {
+    id: "",
+    url: "",
+    general_information: [
+      {
+        type: "type1",
+        properties: [
+          {
+            x: null,
+            y: null,
+            label: "graft_identification_number",
+            value: "2211111-0001",
+            unit: null,
+            is_editable: false,
+          },
+          {
+            x: null,
+            y: null,
+            label: "recorded_by",
+            value: "C.Waygor",
+            unit: null,
+            is_editable: false,
+          },
+          {
+            x: null,
+            y: null,
+            label: "Date",
+            value: "",
+            unit: null,
+            is_editable: false,
+          },
+        ],
+      },
+      {
+        type: "type2",
+        properties: [],
+      },
+    ],
+    schematic_information: [
+      {
+        type: "straight_arrow",
+        properties: [
+          {
+            x: 178,
+            y: 242,
+            label: "Conduit",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "inverted_straight_arrow",
+        properties: [
+          {
+            x: 523,
+            y: 282,
+            label: "Internal Annulus",
+            value: "",
+            unit: "Size (mm)",
+            is_editable: true,
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const template_3_Pulmonary_Artery_Conduit_payload = [
+  {
+    id: "",
+    url: "",
+    general_information: [
+      {
+        type: "type1",
+        properties: [
+          {
+            x: null,
+            y: null,
+            label: "graft_identification_number",
+            value: "2211111-0001",
+            unit: null,
+            is_editable: false,
+          },
+          {
+            x: null,
+            y: null,
+            label: "recorded_by",
+            value: "C.Waygor",
+            unit: null,
+            is_editable: false,
+          },
+          {
+            x: null,
+            y: null,
+            label: "Date",
+            value: "",
+            unit: null,
+            is_editable: false,
+          },
+        ],
+      },
+      {
+        type: "type2",
+        properties: [],
+      },
+    ],
+    schematic_information: [
+      {
+        type: "straight_arrow",
+        properties: [
+          {
+            x: 178,
+            y: 242,
+            label: "Conduit",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "inverted_straight_arrow",
+        properties: [
+          {
+            x: 523,
+            y: 282,
+            label: "Internal Annulus",
+            value: "",
+            unit: "Size (mm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "inverted_straight_arrow",
+        properties: [
+          {
+            x: 523,
+            y: 282,
+            label: "RPA",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "inverted_straight_arrow",
+        properties: [
+          {
+            x: 523,
+            y: 282,
+            label: "LPA",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const template_4_Pulmonary_Valve_conduit_observations_payload = [
+  {
+    id: "",
+    url: "",
+    general_information: [
+      {
+        type: "type1",
+        properties: [
+          {
+            x: null,
+            y: null,
+            label: "graft_identification_number",
+            value: "2211111-0001",
+            unit: null,
+            is_editable: false,
+          },
+          {
+            x: null,
+            y: null,
+            label: "recorded_by",
+            value: "C.Waygor",
+            unit: null,
+            is_editable: false,
+          },
+          {
+            x: null,
+            y: null,
+            label: "Date",
+            value: "",
+            unit: null,
+            is_editable: false,
+          },
+        ],
+      },
+      {
+        type: "type2",
+        properties: [],
+      },
+    ],
+    schematic_information: [
+      {
+        type: "straight_arrow",
+        properties: [
+          {
+            x: 178,
+            y: 242,
+            label: "Conduit Left ",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "straight_arrow",
+        properties: [
+          {
+            x: 178,
+            y: 242,
+            label: "Conduit Right  ",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "straight_arrow",
+        properties: [
+          {
+            x: 178,
+            y: 242,
+            label: "Conduit Midline",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "inverted_straight_arrow",
+        properties: [
+          {
+            x: 523,
+            y: 282,
+            label: "Internal Annulus",
+            value: "",
+            unit: "Size (mm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "inverted_straight_arrow",
+        properties: [
+          {
+            x: 523,
+            y: 282,
+            label: "RPA",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "inverted_straight_arrow",
+        properties: [
+          {
+            x: 523,
+            y: 282,
+            label: "LPA",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const template_5_Aortic_Valve_Conduit_Observations_payload = [
+  {
+    id: "",
+    url: "",
+    general_information: [
+      {
+        type: "type1",
+        properties: [
+          {
+            x: null,
+            y: null,
+            label: "graft_identification_number",
+            value: "2211111-0001",
+            unit: null,
+            is_editable: false,
+          },
+          {
+            x: null,
+            y: null,
+            label: "recorded_by",
+            value: "C.Waygor",
+            unit: null,
+            is_editable: false,
+          },
+          {
+            x: null,
+            y: null,
+            label: "Date",
+            value: "",
+            unit: null,
+            is_editable: false,
+          },
+        ],
+      },
+      {
+        type: "type2",
+        properties: [],
+      },
+    ],
+    schematic_information: [
+      {
+        type: "straight_arrow",
+        properties: [
+          {
+            x: 178,
+            y: 242,
+            label: "Conduit",
+            value: "",
+            unit: "Length (cm)",
+            is_editable: true,
+          },
+        ],
+      },
+      {
+        type: "inverted_straight_arrow",
+        properties: [
+          {
+            x: 523,
+            y: 282,
+            label: "Internal Annulus",
+            value: "",
+            unit: "Size (mm)",
+            is_editable: true,
+          },
+        ],
+      },
+    ],
+  },
+];

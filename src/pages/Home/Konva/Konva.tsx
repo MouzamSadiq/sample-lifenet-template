@@ -803,12 +803,12 @@ const KonvaGround: React.FC = () => {
   };
 
   return (
-    <>
+    <Box p={2}>
       <Stage
         // width={2000}
         // height={1000}
-        width={800}
-        height={842}
+        width={1240}
+        height={632}
         onMouseDown={checkDeselect}
         onTouchStart={checkDeselect}
         ref={stageRef}
@@ -915,7 +915,7 @@ const KonvaGround: React.FC = () => {
         </Layer> */}
 
         <Layer>
-          <URLImage src="/ASCENDING_AORTA.svg" />
+          <URLImage src="/PULMONARY_ARTERY_CONDUIT .svg" />
         </Layer>
         {/* TOOLS */}
         <Layer>
@@ -929,6 +929,13 @@ const KonvaGround: React.FC = () => {
           {/* <DottedDivertedArrow /> --
           <StraightArrow />
           <InvertedStraightArrow /> */}
+          <InvertedStraightArrow
+            x={10}
+            y={55}
+            label="fjjfjj"
+            unit={"unit"}
+            value={"value"}
+          />
           {arrows.map((arrow, i) => (
             <ArrowShape
               key={arrow.id}
@@ -1006,7 +1013,7 @@ const KonvaGround: React.FC = () => {
           ))}
         </Layer>
       </Stage>
-    </>
+    </Box>
   );
 };
 
