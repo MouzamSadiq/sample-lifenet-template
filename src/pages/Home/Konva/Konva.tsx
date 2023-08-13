@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button } from "@mui/material";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import {
@@ -346,7 +347,13 @@ const KonvaGround: React.FC = () => {
 
   const TextRef = useRef<any>();
 
-  const UpwardInvertBendArrowHead = () => {
+  const UpwardInvertBendArrowHead: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     const arrowPoints = [35, 0, 150, 0, 170, -25];
     return (
       <Group draggable x={567} y={357} id={"upward_inverted_bend_arrow_head"}>
@@ -381,7 +388,13 @@ const KonvaGround: React.FC = () => {
       </Group>
     );
   };
-  const UpwardBendArrowHead = () => {
+  const UpwardBendArrowHead: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     const arrowPoints = [35, 0, 150, 0, 170, -25];
     return (
       <Group draggable x={159} y={348} id={"upward_bend_arrow_head"}>
@@ -416,7 +429,13 @@ const KonvaGround: React.FC = () => {
       </Group>
     );
   };
-  const DownwardBendArrowHead = () => {
+  const DownwardBendArrowHead: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     const arrowPoints = [-35, 0, 150, 0, 250, 45];
     return (
       <Group draggable x={109} y={234} id={"downward_bend_arrow_head"}>
@@ -451,10 +470,16 @@ const KonvaGround: React.FC = () => {
       </Group>
     );
   };
-  const DownwardInvertedBendArrowHead = () => {
+  const DownwardInvertedBendArrowHead: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     const arrowPoints = [0, 0, 200, 0, 250, 35];
     return (
-      <Group draggable x={627} y={196} id={"downward_bend_arrow_head"}>
+      <Group draggable x={627} y={196} id={"downward_inverted_bend_arrow_head"}>
         <Arrow points={arrowPoints} fill="black" stroke="black" scaleX={-1} />
         <Text
           x={-99}
@@ -487,7 +512,13 @@ const KonvaGround: React.FC = () => {
     );
   };
 
-  const DoubleHeadArrow = () => {
+  const DoubleHeadArrow: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     return (
       <Group draggable x={73} y={457} id={"double_headed_arrow"}>
         <Arrow points={[-2, 100, 200, 100]} fill="black" stroke="black" />
@@ -527,7 +558,13 @@ const KonvaGround: React.FC = () => {
       </Group>
     );
   };
-  const InvertedDoubleHeadArrow = () => {
+  const InvertedDoubleHeadArrow: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     return (
       <Group draggable x={647} y={459} id={"inverted_double_Headed_arrow"}>
         <Arrow
@@ -612,7 +649,13 @@ const KonvaGround: React.FC = () => {
       </Group>
     );
   };
-  const DottedDivertedArrow = () => {
+  const DottedDivertedArrow: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     // const arrowPoints = [35, 0, 150, 0, 200, -25];
     const arrowPoints = [35, 0, 150, 0, 150, 50, 200, 50];
     const linePoints = [190, 0, 0, 0];
@@ -660,7 +703,13 @@ const KonvaGround: React.FC = () => {
     );
   };
 
-  const StraightArrow = () => {
+  const StraightArrow: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     return (
       <Group draggable x={164} y={318} id={"straight_arrow"}>
         <Text
@@ -703,7 +752,13 @@ const KonvaGround: React.FC = () => {
     );
   };
 
-  const InvertedStraightArrow = () => {
+  const InvertedStraightArrow: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
     return (
       <Group
         draggable
@@ -871,10 +926,9 @@ const KonvaGround: React.FC = () => {
           <DoubleHeadArrow />
           <InvertedDoubleHeadArrow /> */}
           {/* <DivertedArrow /> */}
-          {/* <DottedDivertedArrow />
+          {/* <DottedDivertedArrow /> --
           <StraightArrow />
           <InvertedStraightArrow /> */}
-          <InvertedStraightArrow />
           {arrows.map((arrow, i) => (
             <ArrowShape
               key={arrow.id}
