@@ -19,7 +19,7 @@ export const URLImage: React.FC<{ src: string }> = ({ src }) => {
 
   return (
     <>
-      <Image image={image} x={14} y={118} width={750} height={700} draggable />
+      <Image image={image} x={410} y={-16} width={450} height={700} draggable />
     </>
   );
 };

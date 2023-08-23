@@ -764,7 +764,7 @@ const KonvaGround: React.FC = () => {
         draggable
         x={559}
         y={318}
-        id={"inverted_straight_arrow"}
+        id={"inverted_straight_arrow_medium"}
         scaleX={-1}
       >
         <Text
@@ -802,6 +802,104 @@ const KonvaGround: React.FC = () => {
     );
   };
 
+  const StraightArrowMedium: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
+    return (
+      <Group draggable x={x} y={y} id={"straight_arrow_medium"}>
+        <Text
+          x={-91}
+          y={-21}
+          text={label}
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          onClick={() => console.log("ahahah")}
+          ref={TextRef}
+          onMouseEnter={() => {
+            TextRef.current.getStage().container().style.cursor = "pointer";
+          }}
+          onMouseLeave={() => {
+            TextRef.current.getStage().container().style.cursor = "default";
+          }}
+        />
+
+        <Arrow points={[-90, 0, 150, 0]} fill="black" stroke="black" />
+        <Text
+          x={18}
+          y={10}
+          text={value}
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+        <Text
+          x={-90}
+          y={10}
+          text={unit}
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+        />
+      </Group>
+    );
+  };
+  const InvertedStraightArrowMedium: React.FC<{
+    x: number;
+    y: number;
+    label: string;
+    value: string;
+    unit: string;
+  }> = ({ x, y, label, value, unit }) => {
+    return (
+      <Group
+        draggable
+        x={x}
+        y={y}
+        id={"inverted_straight_arrow_medium"}
+        scaleX={-1}
+      >
+        <Text
+          x={15}
+          y={-21}
+          text={label}
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          scaleX={-1}
+        />
+
+        <Arrow points={[-75, 0, 150, 0]} fill="black" stroke="black" />
+        <Text
+          x={68}
+          y={10}
+          text={unit}
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+          scaleX={-1}
+        />
+        <Text
+          x={-34}
+          y={10}
+          text={value}
+          fontSize={16}
+          fontFamily="Arial"
+          fill="black"
+          align="center"
+          scaleX={-1}
+        />
+      </Group>
+    );
+  };
+
   return (
     <Box p={2}>
       <Stage
@@ -826,7 +924,7 @@ const KonvaGround: React.FC = () => {
       >
         {/* <KonvaEditableText /> */}
 
-        <Layer id={"layerToHide"} x={56} y={7}>
+        {/* <Layer id={"layerToHide"} x={56} y={7}>
           <>
             <Toolbar
               toolbarArrowReference={toolbarArrowReference}
@@ -843,7 +941,7 @@ const KonvaGround: React.FC = () => {
               toolbarWidth={toolbarWidth}
             />
           </>
-        </Layer>
+        </Layer> */}
         {!!annotate && stageWidth > 1115 && (
           <Layer>
             <Html
@@ -929,13 +1027,21 @@ const KonvaGround: React.FC = () => {
           {/* <DottedDivertedArrow /> --
           <StraightArrow />
           <InvertedStraightArrow /> */}
-          <InvertedStraightArrow
-            x={10}
-            y={55}
-            label="fjjfjj"
-            unit={"unit"}
-            value={"value"}
+          <InvertedStraightArrowMedium
+            x={559}
+            y={318}
+            label="Internal Annulus"
+            unit="Length (mm)"
+            value="0"
           />
+          <StraightArrowMedium
+            x={164}
+            y={318}
+            label="Conduit Length"
+            unit="Length (cm)"
+            value="0"
+          />
+
           {arrows.map((arrow, i) => (
             <ArrowShape
               key={arrow.id}
