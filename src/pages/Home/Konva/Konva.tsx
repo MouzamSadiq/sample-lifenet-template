@@ -9,6 +9,7 @@ import {
   Text,
   RegularPolygon,
   Line,
+  Shape,
 } from "react-konva";
 import { Html } from "react-konva-utils";
 import {
@@ -30,6 +31,7 @@ import { URLImage } from "./components/URLImage";
 import Toolbar from "../../../components/Toolbar";
 import { jsPDF } from "jspdf";
 import { CoPresentOutlined } from "@mui/icons-material";
+import XShape from "./components/draggedToolShapes/x";
 
 const KonvaGround: React.FC = () => {
   useEffect(() => {
@@ -435,7 +437,7 @@ const KonvaGround: React.FC = () => {
             </Box>
           </Html>
         </Layer>
-
+        
         <Layer id="exportElement">
           <Html
             groupProps={{
@@ -662,7 +664,11 @@ const KonvaGround: React.FC = () => {
               />
             </>
           ))}
+          
         </Layer>
+        <Layer draggable>
+        <XShape x={100} y={400} size={50} strokeWidth={10} />
+      </Layer>
       </Stage>
     </>
   );

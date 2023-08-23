@@ -11,7 +11,7 @@ const Home = () => {
   //Basic PDF Export functonality
   const createPDF = async () => {
     const pdf = new jsPDF("portrait", "pt", "a4");
-    const data = await document.querySelector("#button");
+    const data : any = await document.querySelector("#button");
     pdf.html(data).then(() => {
       pdf.save("shipping_label.pdf");
     });
