@@ -14,7 +14,8 @@ function App() {
       <BrowserRouter>
         <TopBar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<PdfTemplate />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/tab-3" element={<TabularForm />} />
           <Route path="/pic" element={<UploadOrCapturePhoto />} />
           <Route path="/pdf-template" element={<PdfTemplate />} />
