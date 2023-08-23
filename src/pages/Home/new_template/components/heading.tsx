@@ -1,6 +1,6 @@
 import { Text } from "react-konva";
 
-function Heading({value}: any) {
+function Heading({ value }: any) {
   return (
     <Text
       y={30}
