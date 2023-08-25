@@ -7,7 +7,8 @@ import { TabularForm } from "./pages/Home/TabularForm/TabularForm";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UploadOrCapturePhoto from "./pages/Home/TabularForm/components/Photo-upload";
 import PdfTemplate from "./pages/Home/new_template/pdfTemplate";
-import LoadingScreen from "./pages/Loading/LoadingScreen";
+import LoadingScreen from "./pages/Loading/screen1/LoadingScreen";
+import LoadingScreen2 from "./pages/Loading/screen2/LoadingScreen2";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/pic" element={<UploadOrCapturePhoto />} />
           <Route path="/pdf-template" element={<PdfTemplate />} />
           <Route path="/skeleton-screen1" element={<LoadingScreen/>}/>
+          <Route path="/skeleton-screen2" element={<LoadingScreen2/>}/>
         </Routes>
         {/* <Home /> */}
       </BrowserRouter>
