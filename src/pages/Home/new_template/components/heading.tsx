@@ -1,9 +1,9 @@
 import { Text } from "react-konva";
 
-function Heading({value}: any) {
+function Heading({value, y}: any) {
   return (
     <Text
-      y={30}
+      y={y}
       text={value ?? "Aortic Valve/Conduit Observation"}
       fontSize={20}
       fontFamily="Arial"
