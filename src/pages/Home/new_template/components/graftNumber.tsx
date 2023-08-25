@@ -9,6 +9,7 @@ function GraftNumber({ value ,x ,y }: any) {
         fontFamily="Arial"
         fill="black"
         width={595}
+        draggable
       />
       <Text
         x={135}

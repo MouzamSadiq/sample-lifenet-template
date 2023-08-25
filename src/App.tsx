@@ -9,6 +9,7 @@ import UploadOrCapturePhoto from "./pages/Home/TabularForm/components/Photo-uplo
 import PdfTemplate from "./pages/Home/new_template/pdfTemplate";
 import PdfTemplate2 from "./pages/Home/new_template/pdfTemplate2";
 import PdfTemplate3 from "./pages/Home/new_template/pdfTemplate3";
+import LoadingScreen from "./pages/Loading/LoadingScreen";
 
 function App() {
   return (
@@ -16,13 +17,15 @@ function App() {
       <BrowserRouter>
         <TopBar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<PdfTemplate />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/tab-3" element={<TabularForm />} />
           <Route path="/pic" element={<UploadOrCapturePhoto />} />
           <Route path="/pdf-template" element={<PdfTemplate />} />
           <Route path="/pdf-template2" element={<PdfTemplate2 />} />
           <Route path="/pdf-template3" element={<PdfTemplate3 />} />
 
+          <Route path="/skeleton-screen1" element={<LoadingScreen/>}/>
         </Routes>
         {/* <Home /> */}
       </BrowserRouter>
