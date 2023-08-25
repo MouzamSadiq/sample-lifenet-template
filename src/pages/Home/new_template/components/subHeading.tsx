@@ -1,9 +1,9 @@
-import { Text } from "react-konva";
+import { Group, Line, Text } from "react-konva";
 
-function SubHeading({ value }: any) {
+function SubHeading({ value, y, underline }: any) {
   return (
-    <Text
-      y={125}
+    <Group y={y}>
+      <Text
       text={value ?? "Aortic Allograft Size"}
       fontSize={16}
       fontFamily="Arial"
@@ -12,6 +12,13 @@ function SubHeading({ value }: any) {
       align="center"
       width={595}
     />
+    {underline&&<Line
+      points={[200, 20, 400, 20]}
+      stroke="#aaa"
+      strokeWidth={1}
+      // dash={[5, 5]}
+    />}
+    </Group>
   );
 }
 

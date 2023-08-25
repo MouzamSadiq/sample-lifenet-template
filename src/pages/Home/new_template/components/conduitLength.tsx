@@ -1,37 +1,37 @@
 import { Text, Line, Group } from "react-konva";
 
-function ConduitLength({value}: any) {
+function ConduitLength({name, value, x, y, underline}: any) {
   return (
-    <Group x={30} y={170}>
+    <Group x={x} y={y}>
       <Text
-        text="Conduit Length"
-        fontSize={12}
+        text={name??"Conduit Length"}
+        fontSize={10}
         fontFamily="Arial"
         fill="black"
-        width={100}
+        width={80}
       />
       <Text
-        x={100}
+        x={90}
         text={`Length (cm) `}
-        fontSize={12}
+        fontSize={10}
         fontFamily="Arial"
         fill="black"
-        width={100}
+        width={80}
       />
       <Text
-        x={170}
+        x={150}
         text={value ?? "8.0"}
-        fontSize={12}
+        fontSize={10}
         fontFamily="Arial"
         fill="black"
-        width={100}
+        width={80}
       />
-      <Line
-        points={[0, 15, 200, 15]}
+      {underline&&<Line
+        points={[0, 15, 180, 15]}
         stroke="#aaa"
         strokeWidth={1}
         dash={[5, 5]}
-      />
+      />}
     </Group>
   );
 }

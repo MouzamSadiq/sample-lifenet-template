@@ -1,8 +1,8 @@
 import { Text, Group } from "react-konva";
 
-function GraftNumber({ value }: any) {
+function GraftNumber({ value ,x ,y }: any) {
   return (
-    <Group x={30} y={80}>
+    <Group x={x} y={y}>
       <Text
         text={`Graft Identification Number : `}
         fontSize={10}
